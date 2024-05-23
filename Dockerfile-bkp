@@ -1,0 +1,63 @@
+FROM openjdk:17-alpine
+
+RUN adduser fiap --disabled-password
+RUN su - fiap
+
+WORKDIR /usr/src/app
+
+
+
+ARG DB_PASS
+ENV DB_PASS=$DB_PASS
+
+COPY . .
+
+RUN mkdir /tmp/fiap/ && echo "Docker" > /tmp/fiap/docker.txt
+CMD cat /tmp/fiap/docker.txt
+
+
+EXPOSE 3000
+EXPOSE 8080
+
+MAINTAINER github-alancarvalho
+
+
+
+
+
+
+
+
+FROM maven:3.6.3-openjdk-11 as build-java
+WORKDIR /build
+
+ARG BRANCH=master
+
+COPY . .
+RUN apt upgrade -y mvn
+RUN mvn clean install -X
+#RUN mvn install -DskipTests -X
+RUN cd..
+
+COPY pom.xml ./
+COPY src src
+RUN mvn package -DskipTests
+
+FROM openjdk:17-alpine
+WORKDIR /app
+
+COPY --from=build-java /build/target/simple-server.jar ./
+
+EXPOSE 8080
+EXPOSE 9000
+
+ENTRYPOINT ["java", "-jar", "/app/simple-server.jar"]
+
+
+
+
+
+
+
+
+

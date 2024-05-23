@@ -1,0 +1,45 @@
+version: '3.9'
+
+networks:
+  app-network:
+    driver: bridge
+
+services:
+  api:
+    image: fiapfood:latest
+    container_name: fiapfood
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - mariadb-techchallenge
+    environment:
+      - MARIADB_DATABASE_ENDPOINT=mariadb-techchallenge:3306
+      - MARIADB_DATABASE=tech-challenge
+      - MARIADB_USER=fiap
+      - MARIADB_PASSWORD=fiap
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    networks:
+      - app-network
+  mariadb-techchallenge:
+    image: mariadb:latest
+    container_name: mariadb-techchallenge
+    volumes:
+      - mariadb_data:/var/lib/mariadb
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      - MARIADB_ROOT_PASSWORD=rootroot
+      - MARIADB_DATABASE=tech-challenge
+      - MARIADB_USER=fiap
+      - MARIADB_PASSWORD=fiap
+    ports:
+      - "3336:3306"
+    restart: unless-stopped
+    networks:
+      - app-network
+volumes:
+  mariadb_data: {}
+
+
