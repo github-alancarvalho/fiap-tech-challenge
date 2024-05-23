@@ -31,7 +31,7 @@ public class PagamentoController {
         else
             return ResponseEntity.badRequest().build();
     }
-
+//
     @PutMapping("atualizarStatusPagamento")
     public ResponseEntity atualizarStatusPagamento(@Valid @RequestBody Pagamento pagamento, @Valid @RequestParam String novoStatus) {
 
