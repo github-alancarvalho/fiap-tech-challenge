@@ -1,36 +1,35 @@
-package br.com.fiap.techchallenge.fiapfood.core.domain.entities;
+package br.com.fiap.techchallenge.fiapfood.core.domain.dto;
 
+import br.com.fiap.techchallenge.fiapfood.core.domain.entities.Categoria;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
+import lombok.Data;
 
-@Entity
-@Table(name = "produto")
-public class Produto {
+@Data
+@Builder
+public class ProdutoORM {
 
-    @NotNull
-    @Id
-    @GeneratedValue
-    @Column(name = "id", nullable = false, unique = true, updatable = false)
     private Long id;
 
-    @NotBlank
-    @Column(name = "nome", nullable = false)
     private String nome;
 
-    @NotBlank
-    @Column(name = "descricao", nullable = false)
     private String descricao;
 
-    @NotBlank
-    @ManyToOne
-    @JoinColumn(name = "categoria", nullable = false)
-    private Categoria categoria;
+    private CategoriaORM categoria;
 
-    @Column(name = "preco", nullable = false)
     private Double preco;
 
-    public Produto() {
+    public ProdutoORM() {
+    }
+
+    public ProdutoORM(Long id, String nome, String descricao, CategoriaORM categoria, Double preco) {
+        this.id = id;
+        this.nome = nome;
+        this.descricao = descricao;
+        this.categoria = categoria;
+        this.preco = preco;
     }
 
     public Long getId() {
@@ -57,11 +56,11 @@ public class Produto {
         this.descricao = descricao;
     }
 
-    public Categoria getCategoria() {
+    public CategoriaORM getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(Categoria categoria) {
+    public void setCategoria(CategoriaORM categoria) {
         this.categoria = categoria;
     }
 

@@ -5,13 +5,14 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "produto")
-public class Produto {
+@Table(name = "categoriaorm")
+@NamedQuery(name = "findAllCategorias", query = "SELECT c FROM CategoriaEntity c")
+public class CategoriaEntity {
 
     @NotNull
     @Id
-    @GeneratedValue
     @Column(name = "id", nullable = false, unique = true, updatable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank
@@ -19,18 +20,16 @@ public class Produto {
     private String nome;
 
     @NotBlank
-    @Column(name = "descricao", nullable = false)
+    @Column(name = "descricao", nullable = true)
     private String descricao;
 
-    @NotBlank
-    @ManyToOne
-    @JoinColumn(name = "categoria", nullable = false)
-    private Categoria categoria;
+    public CategoriaEntity() {
+    }
 
-    @Column(name = "preco", nullable = false)
-    private Double preco;
-
-    public Produto() {
+    public CategoriaEntity(Long id, String nome, String descricao) {
+        this.id = id;
+        this.nome = nome;
+        this.descricao = descricao;
     }
 
     public Long getId() {
@@ -55,21 +54,5 @@ public class Produto {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
-    }
-
-    public Categoria getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
-    }
-
-    public Double getPreco() {
-        return preco;
-    }
-
-    public void setPreco(Double preco) {
-        this.preco = preco;
     }
 }

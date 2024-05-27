@@ -18,7 +18,7 @@ public class Cliente {
 
     @NotNull
     @Id
-    @Column(name = "cpf", nullable = false, unique = true, updatable = false)
+    @Column(name = "cpf", nullable = false)
     private Cpf cpf;
 
     @NotBlank

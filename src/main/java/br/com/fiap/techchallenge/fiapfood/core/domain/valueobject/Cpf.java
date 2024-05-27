@@ -1,8 +1,15 @@
 package br.com.fiap.techchallenge.fiapfood.core.domain.valueobject;
 
+import jakarta.persistence.Column;
+import jakarta.validation.constraints.NotNull;
+
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Cpf {
+public class Cpf implements Serializable {
+
+    @NotNull
+    @Column(name = "cpf", nullable = false)
     private final String cpf;
 
     public Cpf(String cpf) {

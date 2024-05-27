@@ -1,6 +1,8 @@
 package br.com.fiap.techchallenge.fiapfood.core.domain.valueobject;
 
-public class Telefone {
+import java.io.Serializable;
+
+public class Telefone implements Serializable {
 
     private final String telefone;
 

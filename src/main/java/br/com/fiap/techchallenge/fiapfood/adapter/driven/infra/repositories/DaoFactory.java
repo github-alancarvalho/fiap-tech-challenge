@@ -1,13 +1,14 @@
 package br.com.fiap.techchallenge.fiapfood.adapter.driven.infra.repositories;
 
-import br.com.fiap.techchallenge.fiapfood.adapter.driven.infra.repositories.mariadb.ClienteRepositoryImpl;
-import br.com.fiap.techchallenge.fiapfood.adapter.driven.infra.repositories.mariadb.PagamentoRepositoryImpl;
-import br.com.fiap.techchallenge.fiapfood.adapter.driven.infra.repositories.mariadb.PedidoRepositoryImpl;
-import br.com.fiap.techchallenge.fiapfood.adapter.driven.infra.repositories.mariadb.ProdutoRepositoryImpl;
+import br.com.fiap.techchallenge.fiapfood.adapter.driven.infra.repositories.mariadb.*;
 import br.com.fiap.techchallenge.fiapfood.core.applications.ports.ClientePort;
 import br.com.fiap.techchallenge.fiapfood.core.applications.ports.PagamentoPort;
 import br.com.fiap.techchallenge.fiapfood.core.applications.ports.PedidoPort;
 import br.com.fiap.techchallenge.fiapfood.core.applications.ports.ProdutoPort;
+import br.com.fiap.techchallenge.fiapfood.core.domain.ports.output.ClienteRepositoryORM;
+import br.com.fiap.techchallenge.fiapfood.core.domain.ports.output.PagamentoRepositoryORM;
+import br.com.fiap.techchallenge.fiapfood.core.domain.ports.output.PedidoRepositoryORM;
+import br.com.fiap.techchallenge.fiapfood.core.domain.ports.output.ProdutoRepositoryORM;
 
 public class DaoFactory {
 
@@ -24,6 +25,24 @@ public class DaoFactory {
         } else
             return daoFactory;
     }
+
+
+    public ClienteRepositoryORM getClienteRepositoryORM() {
+        return new ClienteDaoORM();
+    }
+
+    public ProdutoRepositoryORM getProdutoRepositoryORM() {
+        return new ProdutoDaoORM();
+    }
+
+    public PedidoRepositoryORM getPedidoRepositoryORM() {
+        return new PedidoDaoORM();
+    }
+
+    public PagamentoRepositoryORM getPagamentoRepositoryORM() {
+        return new PagamentoDaoORM();
+    }
+
 
     public ClientePort getClienteRepository() {
         return new ClienteRepositoryImpl();

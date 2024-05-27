@@ -1,24 +1,21 @@
 package br.com.fiap.techchallenge.fiapfood.core.domain.entities;
 
 import br.com.fiap.techchallenge.fiapfood.core.domain.base.StatusPagamento;
-import br.com.fiap.techchallenge.fiapfood.core.domain.base.StatusPedido;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Entity
-@Table(name = "pagamento")
-public class Pagamento {
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONE)
+@Table(name = "pagamentoorm")
+@NamedQuery(name = "findAllPagamentos", query = "SELECT p FROM PagamentoEntity p")
+public class PagamentoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false, unique = true, updatable = false)
     private Long id;
 
+    //@OneToOne
     @Column(name = "pedido_id", nullable = false)
     private Long idPedido;
 
@@ -30,12 +27,31 @@ public class Pagamento {
     @Column(name = "valor", nullable = false)
     private Double valor;
 
+
+    public PagamentoEntity() {
+    }
+
+    public PagamentoEntity(Long id, Long idPedido, StatusPagamento status, Double valor) {
+        this.id = id;
+        this.idPedido = idPedido;
+        this.status = status;
+        this.valor = valor;
+    }
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getIdPedido() {
+        return idPedido;
+    }
+
+    public void setIdPedido(Long idPedido) {
+        this.idPedido = idPedido;
     }
 
     public StatusPagamento getStatus() {
@@ -52,13 +68,5 @@ public class Pagamento {
 
     public void setValor(Double valor) {
         this.valor = valor;
-    }
-
-    public Long getIdPedido() {
-        return idPedido;
-    }
-
-    public void setIdPedido(Long idPedido) {
-        this.idPedido = idPedido;
     }
 }

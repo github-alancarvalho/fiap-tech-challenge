@@ -2,7 +2,6 @@ package br.com.fiap.techchallenge.fiapfood.adapter.driver.controllers;
 
 import br.com.fiap.techchallenge.fiapfood.core.applications.services.ClienteService;
 import br.com.fiap.techchallenge.fiapfood.core.domain.entities.Cliente;
-import br.com.fiap.techchallenge.fiapfood.core.domain.entities.Produto;
 import br.com.fiap.techchallenge.fiapfood.core.domain.valueobject.Cpf;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/api/v1/Clientes")

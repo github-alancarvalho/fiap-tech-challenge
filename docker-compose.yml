@@ -5,6 +5,22 @@ networks:
     driver: bridge
 
 services:
+  mariadb-techchallenge:
+    image: mariadb:latest
+    container_name: mariadb-techchallenge
+    volumes:
+      - mariadb_data:/var/lib/mariadb
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      - MARIADB_ROOT_PASSWORD=rootroot
+      - MARIADB_DATABASE=fiaptechchallenge;
+      - MARIADB_USER=fiap
+      - MARIADB_PASSWORD=fiap
+    ports:
+      - "3336:3306"
+    restart: unless-stopped
+    networks:
+      - app-network
   api:
     image: fiapfood:latest
     container_name: fiapfood
@@ -14,8 +30,10 @@ services:
     depends_on:
       - mariadb-techchallenge
     environment:
-      - MARIADB_DATABASE_ENDPOINT=mariadb-techchallenge:3306
-      - MARIADB_DATABASE=tech-challenge
+      - MARIADB_DATABASE_ENDPOINT=localhost:3336
+      - MARIADB_DATABASE_PORT=3306
+      - MARIADB_DATABASE_URL=mariadb-techchallenge
+      - MARIADB_DATABASE=fiaptechchallenge;
       - MARIADB_USER=fiap
       - MARIADB_PASSWORD=fiap
     ports:
@@ -23,22 +41,7 @@ services:
     restart: unless-stopped
     networks:
       - app-network
-  mariadb-techchallenge:
-    image: mariadb:latest
-    container_name: mariadb-techchallenge
-    volumes:
-      - mariadb_data:/var/lib/mariadb
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
-    environment:
-      - MARIADB_ROOT_PASSWORD=rootroot
-      - MARIADB_DATABASE=tech-challenge
-      - MARIADB_USER=fiap
-      - MARIADB_PASSWORD=fiap
-    ports:
-      - "3336:3306"
-    restart: unless-stopped
-    networks:
-      - app-network
+
 volumes:
   mariadb_data: {}
 
