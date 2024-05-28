@@ -1,15 +1,13 @@
 package br.com.fiap.techchallenge.fiapfood.adapter.driver.controllers;
 
-import br.com.fiap.techchallenge.fiapfood.adapter.driver.web.ProdutoPostRequest;
 import br.com.fiap.techchallenge.fiapfood.adapter.driver.web.ClienteRequest;
 import br.com.fiap.techchallenge.fiapfood.adapter.driver.web.ClienteResponse;
 import br.com.fiap.techchallenge.fiapfood.core.applications.services.cliente.AtualizarClienteUseCase;
 import br.com.fiap.techchallenge.fiapfood.core.applications.services.cliente.BuscarClienteUseCase;
 import br.com.fiap.techchallenge.fiapfood.core.applications.services.cliente.ExcluirClienteUseCase;
 import br.com.fiap.techchallenge.fiapfood.core.applications.services.cliente.InserirClienteUseCase;
-import br.com.fiap.techchallenge.fiapfood.core.domain.dto.CategoriaORM;
 import br.com.fiap.techchallenge.fiapfood.core.domain.dto.ClienteORM;
-import br.com.fiap.techchallenge.fiapfood.core.domain.entities.Produto;
+import br.com.fiap.techchallenge.fiapfood.core.domain.dto.ProdutoORM;
 import br.com.fiap.techchallenge.fiapfood.core.domain.valueobject.Cpf;
 import br.com.fiap.techchallenge.fiapfood.core.domain.valueobject.Telefone;
 import jakarta.validation.Valid;
@@ -103,7 +101,7 @@ public class ClienteORMController {
     }
 
     @DeleteMapping("/{excluir}")
-    public ResponseEntity<Optional<Produto>> excluir(@RequestParam("cpf") String cpf) {
+    public ResponseEntity<Optional<Boolean>> excluir(@RequestParam("cpf") String cpf) {
 
         if(excluirClienteUseCase.excluir(new Cpf(cpf)))
             return ResponseEntity.noContent().build();

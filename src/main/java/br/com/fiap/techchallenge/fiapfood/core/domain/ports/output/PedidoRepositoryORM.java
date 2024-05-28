@@ -2,7 +2,6 @@ package br.com.fiap.techchallenge.fiapfood.core.domain.ports.output;
 
 import br.com.fiap.techchallenge.fiapfood.core.domain.base.StatusPedido;
 import br.com.fiap.techchallenge.fiapfood.core.domain.dto.PedidoORM;
-import br.com.fiap.techchallenge.fiapfood.core.domain.entities.Pedido;
 
 import java.util.List;
 import java.util.Optional;

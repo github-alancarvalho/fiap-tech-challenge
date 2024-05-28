@@ -2,7 +2,6 @@ package br.com.fiap.techchallenge.fiapfood.core.domain.ports.output;
 
 import br.com.fiap.techchallenge.fiapfood.core.domain.base.StatusPagamento;
 import br.com.fiap.techchallenge.fiapfood.core.domain.dto.PagamentoORM;
-import br.com.fiap.techchallenge.fiapfood.core.domain.entities.Pagamento;
 
 import java.util.List;
 import java.util.Optional;

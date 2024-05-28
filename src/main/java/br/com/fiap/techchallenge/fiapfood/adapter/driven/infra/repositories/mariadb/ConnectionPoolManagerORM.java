@@ -20,9 +20,6 @@ public class ConnectionPoolManagerORM {
 
     private static HikariDataSource dataSource;
 
-//    @Value("${spring.datasource.url}")
-//    private String databaseUrl;
-
     @Bean
     public static synchronized HikariDataSource getDataSource() {
         if (dataSource == null) {
@@ -43,9 +40,7 @@ public class ConnectionPoolManagerORM {
         Map<String, String> properties = new HashMap<>();
         properties.put("jakarta.persistence.jdbc.driver", "org.mariadb.jdbc.Driver");
         //properties.put("jakarta.persistence.jdbc.url", "jdbc:mariadb://localhost:3336/fiaptechchallenge");
-        properties.put("jakarta.persistence.jdbc.url", "jdbc:mariadb://mariadb-techchallenge:3306/fiaptechchallenge");
-        //properties.put("jakarta.persistence.jdbc.url", "jdbc:mariadb://" + System.getenv("MARIADB_DATABASE_ENDPOINT") + "/" + System.getenv("MARIADB_DATABASE"));
-        //properties.put("jakarta.persistence.jdbc.url", "jdbc:mariadb://" + databaseUrl );
+        properties.put("jakarta.persistence.jdbc.url", "jdbc:mariadb://" + System.getenv("MARIADB_DATABASE_ENDPOINT") + "/" + System.getenv("MARIADB_DATABASE"));
         properties.put("jakarta.persistence.jdbc.user", System.getenv("MARIADB_USER"));
         properties.put("jakarta.persistence.jdbc.password", System.getenv("MARIADB_PASSWORD"));
         //properties.put("hibernate.dialect", "org.hibernate.dialect.MariaDBDialect");

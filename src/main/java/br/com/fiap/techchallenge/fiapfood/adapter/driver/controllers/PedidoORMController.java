@@ -7,10 +7,8 @@ import br.com.fiap.techchallenge.fiapfood.core.applications.services.pedido.Busc
 import br.com.fiap.techchallenge.fiapfood.core.applications.services.pedido.ExcluirPedidoUseCase;
 import br.com.fiap.techchallenge.fiapfood.core.applications.services.pedido.InserirPedidoUseCase;
 import br.com.fiap.techchallenge.fiapfood.core.domain.base.StatusPedido;
-import br.com.fiap.techchallenge.fiapfood.core.domain.dto.CategoriaORM;
 import br.com.fiap.techchallenge.fiapfood.core.domain.dto.ClienteORM;
 import br.com.fiap.techchallenge.fiapfood.core.domain.dto.PedidoORM;
-import br.com.fiap.techchallenge.fiapfood.core.domain.entities.Pedido;
 import br.com.fiap.techchallenge.fiapfood.core.domain.valueobject.Cpf;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -103,7 +101,7 @@ public class PedidoORMController {
     }
 
     @DeleteMapping("/{excluir}")
-    public ResponseEntity<Optional<Pedido>> excluir(@RequestParam("id") Long id) {
+    public ResponseEntity<Optional<Boolean>> excluir(@RequestParam("id") Long id) {
         PedidoORM pedido = PedidoORM.builder()
                 .id(id).build();
 

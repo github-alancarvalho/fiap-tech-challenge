@@ -1,10 +1,6 @@
 package br.com.fiap.techchallenge.fiapfood.adapter.driven.infra.repositories;
 
 import br.com.fiap.techchallenge.fiapfood.adapter.driven.infra.repositories.mariadb.*;
-import br.com.fiap.techchallenge.fiapfood.core.applications.ports.ClientePort;
-import br.com.fiap.techchallenge.fiapfood.core.applications.ports.PagamentoPort;
-import br.com.fiap.techchallenge.fiapfood.core.applications.ports.PedidoPort;
-import br.com.fiap.techchallenge.fiapfood.core.applications.ports.ProdutoPort;
 import br.com.fiap.techchallenge.fiapfood.core.domain.ports.output.ClienteRepositoryORM;
 import br.com.fiap.techchallenge.fiapfood.core.domain.ports.output.PagamentoRepositoryORM;
 import br.com.fiap.techchallenge.fiapfood.core.domain.ports.output.PedidoRepositoryORM;
@@ -44,19 +40,19 @@ public class DaoFactory {
     }
 
 
-    public ClientePort getClienteRepository() {
-        return new ClienteRepositoryImpl();
-    }
-
-    public ProdutoPort getProdutoRepository() {
-        return new ProdutoRepositoryImpl();
-    }
-
-    public PedidoPort getPedidoRepository() {
-        return new PedidoRepositoryImpl();
-    }
-
-    public PagamentoPort getPagamentoRepository() {
-        return new PagamentoRepositoryImpl();
-    }
+//    public ClientePort getClienteRepository() {
+//        return new ClienteRepositoryImpl();
+//    }
+//
+//    public ProdutoPort getProdutoRepository() {
+//        return new ProdutoRepositoryImpl();
+//    }
+//
+//    public PedidoPort getPedidoRepository() {
+//        return new PedidoRepositoryImpl();
+//    }
+//
+//    public PagamentoPort getPagamentoRepository() {
+//        return new PagamentoRepositoryImpl();
+//    }
 }

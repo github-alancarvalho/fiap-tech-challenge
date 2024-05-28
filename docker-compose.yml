@@ -15,7 +15,7 @@ services:
       - MARIADB_USER=fiap
       - MARIADB_PASSWORD=fiap
     ports:
-      - "3306:3306"
+      - "3336:3306"
     restart: unless-stopped
     networks:
       - app-network
@@ -24,8 +24,6 @@ services:
       interval: 5s
       timeout: 3s
       retries: 5
-    expose:
-      - "3306"
   api:
     image: fiapfood:latest
     container_name: fiapfood

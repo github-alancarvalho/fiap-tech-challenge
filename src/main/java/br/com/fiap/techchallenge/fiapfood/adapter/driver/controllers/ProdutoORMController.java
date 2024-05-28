@@ -9,7 +9,6 @@ import br.com.fiap.techchallenge.fiapfood.core.applications.services.produto.Exc
 import br.com.fiap.techchallenge.fiapfood.core.applications.services.produto.InserirProdutoUseCase;
 import br.com.fiap.techchallenge.fiapfood.core.domain.dto.CategoriaORM;
 import br.com.fiap.techchallenge.fiapfood.core.domain.dto.ProdutoORM;
-import br.com.fiap.techchallenge.fiapfood.core.domain.entities.Produto;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -106,7 +105,7 @@ public class ProdutoORMController {
     }
 
     @DeleteMapping("/{excluir}")
-    public ResponseEntity<Optional<Produto>> excluir(@RequestParam("id") Long id) {
+    public ResponseEntity<Optional<Boolean>> excluir(@RequestParam("id") Long id) {
         ProdutoORM produto = ProdutoORM.builder()
                 .id(id).build();
 
