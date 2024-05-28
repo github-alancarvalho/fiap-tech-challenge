@@ -2,7 +2,7 @@ package br.com.fiap.techchallenge.fiapfood.core.applications.services.produto;
 
 
 import br.com.fiap.techchallenge.fiapfood.adapter.driven.infra.repositories.DaoFactory;
-import br.com.fiap.techchallenge.fiapfood.core.domain.dto.ProdutoORM;
+import br.com.fiap.techchallenge.fiapfood.core.domain.dto.ProdutoDto;
 import br.com.fiap.techchallenge.fiapfood.core.domain.ports.output.ProdutoRepository;
 
 import java.util.Optional;
@@ -18,7 +18,7 @@ public class InserirProdutoUseCase {
         this.produtoRepository = produtoRepository;
     }
 
-    public Optional<ProdutoORM> inserir(ProdutoORM produtoORM) {
-        return this.produtoRepository.inserir(produtoORM);
+    public Optional<ProdutoDto> inserir(ProdutoDto produtoDto) {
+        return this.produtoRepository.inserir(produtoDto);
     }
 }

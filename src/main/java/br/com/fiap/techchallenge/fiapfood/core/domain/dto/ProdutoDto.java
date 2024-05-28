@@ -1,26 +1,31 @@
 package br.com.fiap.techchallenge.fiapfood.core.domain.dto;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Data;
 
 @Data
 @Builder
-public class CategoriaORM {
+public class ProdutoDto {
 
     private Long id;
+
     private String nome;
+
     private String descricao;
 
-    public CategoriaORM(Long id, String nome, String descricao) {
+    private CategoriaDto categoria;
+
+    private Double preco;
+
+    public ProdutoDto() {
+    }
+
+    public ProdutoDto(Long id, String nome, String descricao, CategoriaDto categoria, Double preco) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
+        this.categoria = categoria;
+        this.preco = preco;
     }
 
     public Long getId() {
@@ -45,5 +50,21 @@ public class CategoriaORM {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public CategoriaDto getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(CategoriaDto categoria) {
+        this.categoria = categoria;
+    }
+
+    public Double getPreco() {
+        return preco;
+    }
+
+    public void setPreco(Double preco) {
+        this.preco = preco;
     }
 }

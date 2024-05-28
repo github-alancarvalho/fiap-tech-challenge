@@ -2,7 +2,7 @@ package br.com.fiap.techchallenge.fiapfood.adapter.driven.infra.repositories.mar
 
 import br.com.fiap.techchallenge.fiapfood.adapter.driven.infra.repositories.mariadb.mapper.ClienteMapper;
 import br.com.fiap.techchallenge.fiapfood.core.domain.entities.Cliente;
-import br.com.fiap.techchallenge.fiapfood.core.domain.dto.ClienteORM;
+import br.com.fiap.techchallenge.fiapfood.core.domain.dto.ClienteDto;
 import br.com.fiap.techchallenge.fiapfood.core.domain.ports.output.ClienteRepository;
 import br.com.fiap.techchallenge.fiapfood.core.domain.valueobject.Cpf;
 import jakarta.persistence.EntityManager;
@@ -22,7 +22,7 @@ public class ClienteDao extends ConnectionPoolManager implements ClienteReposito
     }
 
 
-    public Optional<ClienteORM> inserirClienteORM(ClienteORM cliente) {
+    public Optional<ClienteDto> inserirClienteORM(ClienteDto cliente) {
 
         entityManager.getTransaction().begin();
         Cliente entity = ClienteMapper.mapToEntity(cliente);
@@ -33,13 +33,13 @@ public class ClienteDao extends ConnectionPoolManager implements ClienteReposito
 
     }
 
-    public Optional<ClienteORM> buscarPorCpf(Cpf cpf) {
+    public Optional<ClienteDto> buscarPorCpf(Cpf cpf) {
         Cliente entity = entityManager.find(Cliente.class, cpf.getCpfSomenteNumero());
         return Optional.ofNullable(ClienteMapper.mapToEntity(entity));
     }
 
 
-    public Optional<ClienteORM> atualizar(ClienteORM cliente) {
+    public Optional<ClienteDto> atualizar(ClienteDto cliente) {
         entityManager.getTransaction().begin();
         Cliente entity = ClienteMapper.mapToEntity(cliente);
         entityManager.merge(entity);
@@ -63,7 +63,7 @@ public class ClienteDao extends ConnectionPoolManager implements ClienteReposito
     }
 
 
-    public Optional<List<ClienteORM>> listarTudo() {
+    public Optional<List<ClienteDto>> listarTudo() {
         Query query = entityManager.createNamedQuery("findAllClientes");
         List<Cliente> list = query.getResultList();
         return Optional.ofNullable(ClienteMapper.mapListToEntity(list));

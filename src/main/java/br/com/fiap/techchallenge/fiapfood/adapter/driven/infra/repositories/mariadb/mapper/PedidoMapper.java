@@ -1,6 +1,6 @@
 package br.com.fiap.techchallenge.fiapfood.adapter.driven.infra.repositories.mariadb.mapper;
 
-import br.com.fiap.techchallenge.fiapfood.core.domain.dto.PedidoORM;
+import br.com.fiap.techchallenge.fiapfood.core.domain.dto.PedidoDto;
 import br.com.fiap.techchallenge.fiapfood.core.domain.entities.Pedido;
 
 import java.util.ArrayList;
@@ -8,12 +8,12 @@ import java.util.List;
 
 public class PedidoMapper {
 
-    public static PedidoORM mapToEntity(Pedido entity) {
+    public static PedidoDto mapToEntity(Pedido entity) {
         if (entity == null) {
             return null;
         }
 
-        return new PedidoORM(
+        return new PedidoDto(
                 entity.getId(),
                 ClienteMapper.mapToEntity(entity.getCliente()),
                 entity.getStatus(),
@@ -21,7 +21,7 @@ public class PedidoMapper {
         );
     }
 
-    public static Pedido mapToEntity(PedidoORM pedido) {
+    public static Pedido mapToEntity(PedidoDto pedido) {
         if (pedido == null) {
             return null;
         }
@@ -34,10 +34,10 @@ public class PedidoMapper {
         );
     }
 
-    public static List<PedidoORM> mapListToEntity(List<Pedido> listEntity) {
-        List<PedidoORM> list = new ArrayList<>();
+    public static List<PedidoDto> mapListToEntity(List<Pedido> listEntity) {
+        List<PedidoDto> list = new ArrayList<>();
         for (Pedido pedido : listEntity) {
-            list.add(PedidoORM.builder()
+            list.add(PedidoDto.builder()
                     .id(pedido.getId())
                     .cliente(ClienteMapper.mapToEntity(pedido.getCliente()))
                     .status(pedido.getStatus())

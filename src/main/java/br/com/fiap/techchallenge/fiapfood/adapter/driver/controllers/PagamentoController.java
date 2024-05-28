@@ -6,7 +6,9 @@ import br.com.fiap.techchallenge.fiapfood.core.applications.services.pagamento.A
 import br.com.fiap.techchallenge.fiapfood.core.applications.services.pagamento.BuscarPagamentoUseCase;
 import br.com.fiap.techchallenge.fiapfood.core.applications.services.pagamento.ProcessarPagamentoUseCase;
 import br.com.fiap.techchallenge.fiapfood.core.domain.base.StatusPagamento;
-import br.com.fiap.techchallenge.fiapfood.core.domain.dto.PagamentoORM;
+import br.com.fiap.techchallenge.fiapfood.core.domain.dto.PagamentoDto;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-
+@Tag(name = "Pagamento API")
 @RestController
 @RequestMapping("/api/v1/PagamentosORM")
 public class PagamentoController {
@@ -30,15 +32,16 @@ public class PagamentoController {
         this.processarPagamentoUseCase = new ProcessarPagamentoUseCase();
     }
 
+    @Operation(summary = "Processar pagamento", description = "Processar pagamento")
     @PostMapping("/{processarPagamento}")
     public ResponseEntity<Optional<PagamentoResponse>> processarPagamento(@Valid @RequestBody PagamentoRequest pagamentoRequest) {
 
-        PagamentoORM pagamento = PagamentoORM.builder()
+        PagamentoDto pagamento = PagamentoDto.builder()
                 .idPedido(pagamentoRequest.getIdPedido())
                 .valor(pagamentoRequest.getValor())
                 .build();
 
-        Optional<PagamentoORM> savedPagamento = processarPagamentoUseCase.processarPagamento(pagamento);
+        Optional<PagamentoDto> savedPagamento = processarPagamentoUseCase.processarPagamento(pagamento);
         if (!savedPagamento.isEmpty()) {
             PagamentoResponse response = PagamentoResponse.builder()
                     .id(savedPagamento.get().getId())
@@ -53,10 +56,11 @@ public class PagamentoController {
         }
     }
 
+    @Operation(summary = "Buscar pagamento por Id", description = "Buscar pagamento por Id")
     @GetMapping("/buscarPagamentoPorId")
     public ResponseEntity<Optional<PagamentoResponse>> buscarPagamentoPorId(@RequestParam("id") Long id) {
 
-        Optional<PagamentoORM> savedPagamento = buscarPagamentoUseCase.buscarPagamentoPorId(id);
+        Optional<PagamentoDto> savedPagamento = buscarPagamentoUseCase.buscarPagamentoPorId(id);
         if (!savedPagamento.isEmpty()) {
             PagamentoResponse response = PagamentoResponse.builder()
                     .id(savedPagamento.get().getId())
@@ -71,14 +75,15 @@ public class PagamentoController {
         }
     }
 
+    @Operation(summary = "Atualizar o progresso do pagamento", description = "Atualizar o progresso do pagamento (EM_PROCESSAMENTO, CONFIRMADO)")
     @PutMapping("/{atualizarProgressoPagamento}")
     public ResponseEntity<Optional<PagamentoResponse>> atualizarProgressoPagamento(@Valid @RequestBody PagamentoRequest pagamentoRequest, @RequestParam("status") String status) {
-        PagamentoORM pagamento = PagamentoORM.builder()
+        PagamentoDto pagamento = PagamentoDto.builder()
                 .id(pagamentoRequest.getId())
                 .status(StatusPagamento.valueOf(status))
                 .build();
 
-        Optional<PagamentoORM> savedPagamento = atualizarPagamentoUseCase.atualizarProgressoPagamento(pagamento, StatusPagamento.valueOf(status));
+        Optional<PagamentoDto> savedPagamento = atualizarPagamentoUseCase.atualizarProgressoPagamento(pagamento, StatusPagamento.valueOf(status));
 
         if (!savedPagamento.isEmpty()) {
             PagamentoResponse response = PagamentoResponse.builder()
@@ -94,14 +99,14 @@ public class PagamentoController {
         }
     }
 
-
+    @Operation(summary = "Buscar todos os pagamento", description = "Buscar todos os pagamento")
     @GetMapping("/buscarTodosPagamentos")
     public ResponseEntity<Optional<List<PagamentoResponse>>> buscarTodosPagamentos() {
-        Optional<List<PagamentoORM>> pagamentos = buscarPagamentoUseCase.buscarTodosPagamentos();
+        Optional<List<PagamentoDto>> pagamentos = buscarPagamentoUseCase.buscarTodosPagamentos();
         if (!pagamentos.isEmpty()) {
 
             List<PagamentoResponse> list = new ArrayList<>();
-            for (PagamentoORM pagamento : pagamentos.get()) {
+            for (PagamentoDto pagamento : pagamentos.get()) {
                 PagamentoResponse response = PagamentoResponse.builder()
                         .id(pagamento.getId())
                         .idPedido(pagamento.getIdPedido())

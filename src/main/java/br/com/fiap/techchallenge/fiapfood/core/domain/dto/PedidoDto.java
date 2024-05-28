@@ -11,20 +11,20 @@ import java.util.List;
 @Data
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PedidoORM {
+public class PedidoDto {
 
     private Long id;
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private ClienteORM cliente;
+    private ClienteDto cliente;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private StatusPedido status;
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private List<ItemPedidoORM> listItens = new ArrayList<ItemPedidoORM>();
+    private List<ItemPedidoDto> listItens = new ArrayList<ItemPedidoDto>();
 
-    public PedidoORM() {
+    public PedidoDto() {
     }
 
-    public PedidoORM(Long id, ClienteORM cliente, StatusPedido status, List<ItemPedidoORM> listItens) {
+    public PedidoDto(Long id, ClienteDto cliente, StatusPedido status, List<ItemPedidoDto> listItens) {
         this.id = id;
         this.cliente = cliente;
         this.status = status;
@@ -39,11 +39,11 @@ public class PedidoORM {
         this.id = id;
     }
 
-    public ClienteORM getCliente() {
+    public ClienteDto getCliente() {
         return cliente;
     }
 
-    public void setCliente(ClienteORM cliente) {
+    public void setCliente(ClienteDto cliente) {
         this.cliente = cliente;
     }
 
@@ -55,11 +55,11 @@ public class PedidoORM {
         this.status = status;
     }
 
-    public List<ItemPedidoORM> getListItens() {
+    public List<ItemPedidoDto> getListItens() {
         return listItens;
     }
 
-    public void setListItens(List<ItemPedidoORM> listItens) {
+    public void setListItens(List<ItemPedidoDto> listItens) {
         this.listItens = listItens;
     }
 }

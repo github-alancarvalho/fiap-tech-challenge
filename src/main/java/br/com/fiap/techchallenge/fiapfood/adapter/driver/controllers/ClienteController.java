@@ -6,9 +6,11 @@ import br.com.fiap.techchallenge.fiapfood.core.applications.services.cliente.Atu
 import br.com.fiap.techchallenge.fiapfood.core.applications.services.cliente.BuscarClienteUseCase;
 import br.com.fiap.techchallenge.fiapfood.core.applications.services.cliente.ExcluirClienteUseCase;
 import br.com.fiap.techchallenge.fiapfood.core.applications.services.cliente.InserirClienteUseCase;
-import br.com.fiap.techchallenge.fiapfood.core.domain.dto.ClienteORM;
+import br.com.fiap.techchallenge.fiapfood.core.domain.dto.ClienteDto;
 import br.com.fiap.techchallenge.fiapfood.core.domain.valueobject.Cpf;
 import br.com.fiap.techchallenge.fiapfood.core.domain.valueobject.Telefone;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-
+@Tag(name = "Cliente API")
 @RestController
 @RequestMapping("/api/v1/ClientesORM")
 public class ClienteController {
@@ -35,16 +37,17 @@ public class ClienteController {
         this.excluirClienteUseCase = new ExcluirClienteUseCase();
     }
 
+    @Operation(summary = "Inserir Cliente", description = "Inserir novo Cliente")
     @PostMapping("/{inserir}")
     public ResponseEntity<Optional<ClienteResponse>> inserir(@Valid @RequestBody ClienteRequest clienteRequest) {
 
-        ClienteORM cliente = ClienteORM.builder()
+        ClienteDto cliente = ClienteDto.builder()
                 .cpf(new Cpf(clienteRequest.getCpf()))
                 .nome(clienteRequest.getNome())
                 .email(clienteRequest.getEmail())
                 .telefone(new Telefone(clienteRequest.getTelefone())).build();
 
-        Optional<ClienteORM> savedProduto = inserirClienteUseCase.inserirClienteORM(cliente);
+        Optional<ClienteDto> savedProduto = inserirClienteUseCase.inserirClienteORM(cliente);
 
         if (!savedProduto.isEmpty()) {
             ClienteResponse response = ClienteResponse.builder()
@@ -59,10 +62,11 @@ public class ClienteController {
         }
     }
 
+    @Operation(summary = "Buscar Cliente por Cpf", description = "Buscar Cliente por Cpf")
     @GetMapping("/buscarProdutoPorCpf")
     public ResponseEntity<Optional<ClienteResponse>> buscarProdutoPorCpf(@RequestParam("cpf") String cpf) {
 
-        Optional<ClienteORM> cliente = buscarClienteUseCase.buscarClientePorCpfORM(new Cpf(cpf));
+        Optional<ClienteDto> cliente = buscarClienteUseCase.buscarClientePorCpfORM(new Cpf(cpf));
         if (!cliente.isEmpty()) {
             ClienteResponse response = ClienteResponse.builder()
                     .cpf(cliente.get().getCpf().getCpfSomenteNumero())
@@ -76,15 +80,16 @@ public class ClienteController {
         }
     }
 
+    @Operation(summary = "Alterar cliente", description = "Alterar Cliente. Cpf é mandatório")
     @PutMapping("/{alterar}")
     public ResponseEntity<Optional<ClienteResponse>> alterar(@Valid @RequestBody ClienteRequest clienteRequest) {
-        ClienteORM cliente = ClienteORM.builder()
+        ClienteDto cliente = ClienteDto.builder()
                 .cpf(new Cpf(clienteRequest.getCpf()))
                 .nome(clienteRequest.getNome())
                 .email(clienteRequest.getEmail())
                 .telefone(new Telefone(clienteRequest.getTelefone())).build();
 
-        Optional<ClienteORM> savedProduto = atualizarClienteUseCase.atualizar(cliente);
+        Optional<ClienteDto> savedProduto = atualizarClienteUseCase.atualizar(cliente);
 
         if (!savedProduto.isEmpty()) {
             ClienteResponse response = ClienteResponse.builder()
@@ -99,6 +104,7 @@ public class ClienteController {
         }
     }
 
+    @Operation(summary = "Excluir Cliente por Cpf", description = "Excluir Cliente por Cpf, sem pontuação")
     @DeleteMapping("/{excluir}")
     public ResponseEntity<Optional<Boolean>> excluir(@RequestParam("cpf") String cpf) {
 
@@ -108,13 +114,14 @@ public class ClienteController {
             return ResponseEntity.badRequest().build();
     }
 
+    @Operation(summary = "Buscar todos os clientes", description = "Buscar todos os clientes")
     @GetMapping("/buscarTudo")
     public ResponseEntity<Optional<List<ClienteResponse>>> buscarTudo() {
-        Optional<List<ClienteORM>> clientes = buscarClienteUseCase.buscarTodosClientes();
+        Optional<List<ClienteDto>> clientes = buscarClienteUseCase.buscarTodosClientes();
         if (!clientes.isEmpty()) {
 
             List<ClienteResponse> list = new ArrayList<>();
-            for (ClienteORM cliente : clientes.get()) {
+            for (ClienteDto cliente : clientes.get()) {
                 ClienteResponse response = ClienteResponse.builder()
                         .cpf(cliente.getCpf().getCpfSomenteNumero())
                         .nome(cliente.getNome())

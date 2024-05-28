@@ -7,8 +7,8 @@ import br.com.fiap.techchallenge.fiapfood.adapter.driven.infra.repositories.mari
 import br.com.fiap.techchallenge.fiapfood.core.applications.services.cliente.BuscarClienteUseCase;
 import br.com.fiap.techchallenge.fiapfood.core.applications.services.produto.BuscarProdutoUseCase;
 import br.com.fiap.techchallenge.fiapfood.core.domain.base.StatusPedido;
-import br.com.fiap.techchallenge.fiapfood.core.domain.dto.ClienteORM;
-import br.com.fiap.techchallenge.fiapfood.core.domain.dto.PedidoORM;
+import br.com.fiap.techchallenge.fiapfood.core.domain.dto.ClienteDto;
+import br.com.fiap.techchallenge.fiapfood.core.domain.dto.PedidoDto;
 import br.com.fiap.techchallenge.fiapfood.core.domain.entities.ItemPedido;
 import br.com.fiap.techchallenge.fiapfood.core.domain.entities.Pedido;
 import br.com.fiap.techchallenge.fiapfood.core.domain.ports.output.PedidoRepository;
@@ -32,12 +32,12 @@ public class PedidoDao extends ConnectionPoolManager implements PedidoRepository
     }
 
     @Override
-    public Optional<PedidoORM> inserir(PedidoORM pedido) {
+    public Optional<PedidoDto> inserir(PedidoDto pedido) {
         entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
         Pedido entity = PedidoMapper.mapToEntity(pedido);
         BuscarClienteUseCase buscarClienteUseCase = new BuscarClienteUseCase();
-        ClienteORM cliente = buscarClienteUseCase.buscarClientePorCpfORM(new Cpf(entity.getCliente().getCpf())).get();
+        ClienteDto cliente = buscarClienteUseCase.buscarClientePorCpfORM(new Cpf(entity.getCliente().getCpf())).get();
         entity.setCliente(ClienteMapper.mapToEntity(cliente));
         entity.setListItens(null);
         entityManager.persist(entity);
@@ -60,7 +60,7 @@ public class PedidoDao extends ConnectionPoolManager implements PedidoRepository
     }
 
     @Override
-    public Optional<PedidoORM> buscarPorId(Long id) {
+    public Optional<PedidoDto> buscarPorId(Long id) {
         entityManager = entityManagerFactory.createEntityManager();
         Pedido entity = entityManager.find(Pedido.class, id);
         entityManager.close();
@@ -68,7 +68,7 @@ public class PedidoDao extends ConnectionPoolManager implements PedidoRepository
     }
 
     @Override
-    public Optional<List<PedidoORM>> listarTudo() {
+    public Optional<List<PedidoDto>> listarTudo() {
         entityManager = entityManagerFactory.createEntityManager();
         Query query = entityManager.createNamedQuery("findAllPedidos");
         List<Pedido> list = query.getResultList();
@@ -77,7 +77,7 @@ public class PedidoDao extends ConnectionPoolManager implements PedidoRepository
     }
 
     @Override
-    public Optional<List<PedidoORM>> listarPedidosPorStatus(StatusPedido status) {
+    public Optional<List<PedidoDto>> listarPedidosPorStatus(StatusPedido status) {
         entityManager = entityManagerFactory.createEntityManager();
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Pedido> criteriaQuery = criteriaBuilder.createQuery(Pedido.class);
@@ -92,7 +92,7 @@ public class PedidoDao extends ConnectionPoolManager implements PedidoRepository
     }
 
     @Override
-    public Optional<List<PedidoORM>> listarPedidosEmAberto() {
+    public Optional<List<PedidoDto>> listarPedidosEmAberto() {
         entityManager = entityManagerFactory.createEntityManager();
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Pedido> criteriaQuery = criteriaBuilder.createQuery(Pedido.class);
@@ -107,7 +107,7 @@ public class PedidoDao extends ConnectionPoolManager implements PedidoRepository
     }
 
     @Override
-    public Boolean excluir(PedidoORM pedido) {
+    public Boolean excluir(PedidoDto pedido) {
         entityManager = entityManagerFactory.createEntityManager();
         Pedido entity = entityManager.find(Pedido.class, pedido.getId());
         if (entity != null) {
@@ -123,13 +123,13 @@ public class PedidoDao extends ConnectionPoolManager implements PedidoRepository
     }
 
     @Override
-    public Optional<PedidoORM> atualizarProgresso(PedidoORM pedido, StatusPedido novoStatus) {
+    public Optional<PedidoDto> atualizarProgresso(PedidoDto pedido, StatusPedido novoStatus) {
 
-        PedidoORM pedidoORM = buscarPorId(pedido.getId()).get();
+        PedidoDto pedidoDto = buscarPorId(pedido.getId()).get();
 
         entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
-        Pedido entity = PedidoMapper.mapToEntity(pedidoORM);
+        Pedido entity = PedidoMapper.mapToEntity(pedidoDto);
         entity.setStatus(novoStatus);
         entityManager.merge(entity);
         entityManager.flush();

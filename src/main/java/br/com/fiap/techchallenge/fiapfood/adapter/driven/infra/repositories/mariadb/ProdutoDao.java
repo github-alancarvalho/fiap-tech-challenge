@@ -1,8 +1,8 @@
 package br.com.fiap.techchallenge.fiapfood.adapter.driven.infra.repositories.mariadb;
 
 import br.com.fiap.techchallenge.fiapfood.adapter.driven.infra.repositories.mariadb.mapper.ProdutoMapper;
-import br.com.fiap.techchallenge.fiapfood.core.domain.dto.CategoriaORM;
-import br.com.fiap.techchallenge.fiapfood.core.domain.dto.ProdutoORM;
+import br.com.fiap.techchallenge.fiapfood.core.domain.dto.CategoriaDto;
+import br.com.fiap.techchallenge.fiapfood.core.domain.dto.ProdutoDto;
 import br.com.fiap.techchallenge.fiapfood.core.domain.entities.Categoria;
 import br.com.fiap.techchallenge.fiapfood.core.domain.entities.Produto;
 import br.com.fiap.techchallenge.fiapfood.core.domain.ports.output.ProdutoRepository;
@@ -27,7 +27,7 @@ public class ProdutoDao extends ConnectionPoolManager implements ProdutoReposito
 
 
     @Override
-    public Optional<ProdutoORM> inserir(ProdutoORM produto) {
+    public Optional<ProdutoDto> inserir(ProdutoDto produto) {
         entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
         Produto entity = ProdutoMapper.mapToEntity(produto);
@@ -41,7 +41,7 @@ public class ProdutoDao extends ConnectionPoolManager implements ProdutoReposito
     }
 
     @Override
-    public Optional<ProdutoORM> buscarPorId(Long id) {
+    public Optional<ProdutoDto> buscarPorId(Long id) {
         entityManager = entityManagerFactory.createEntityManager();
         Produto entity = entityManager.find(Produto.class, id);
         entityManager.close();
@@ -49,7 +49,7 @@ public class ProdutoDao extends ConnectionPoolManager implements ProdutoReposito
     }
 
     @Override
-    public Optional<List<ProdutoORM>> listarPorCategoria(CategoriaORM categoria) {
+    public Optional<List<ProdutoDto>> listarPorCategoria(CategoriaDto categoria) {
         entityManager = entityManagerFactory.createEntityManager();
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Produto> criteriaQuery = criteriaBuilder.createQuery(Produto.class);
@@ -64,7 +64,7 @@ public class ProdutoDao extends ConnectionPoolManager implements ProdutoReposito
     }
 
     @Override
-    public Optional<List<ProdutoORM>> listarTudo() {
+    public Optional<List<ProdutoDto>> listarTudo() {
         entityManager = entityManagerFactory.createEntityManager();
         Query query = entityManager.createNamedQuery("findAllProdutos");
         List<Produto> list = query.getResultList();
@@ -73,7 +73,7 @@ public class ProdutoDao extends ConnectionPoolManager implements ProdutoReposito
     }
 
     @Override
-    public Boolean excluir(ProdutoORM produto) {
+    public Boolean excluir(ProdutoDto produto) {
         entityManager = entityManagerFactory.createEntityManager();
         Produto entity = entityManager.find(Produto.class, produto.getId());
         if (entity != null){
@@ -89,7 +89,7 @@ public class ProdutoDao extends ConnectionPoolManager implements ProdutoReposito
     }
 
     @Override
-    public Optional<ProdutoORM> atualizar(ProdutoORM produto) {
+    public Optional<ProdutoDto> atualizar(ProdutoDto produto) {
         entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
         Produto entity = ProdutoMapper.mapToEntity(produto);

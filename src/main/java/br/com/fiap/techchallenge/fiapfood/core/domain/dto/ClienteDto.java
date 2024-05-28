@@ -8,14 +8,14 @@ import lombok.Data;
 import java.util.Objects;
 @Data
 @Builder
-public class ClienteORM {
+public class ClienteDto {
 
     private Cpf cpf;
     private String nome;
     private String email;
     private Telefone telefone;
 
-    public ClienteORM(Cpf cpf, String nome, String email, Telefone telefone) {
+    public ClienteDto(Cpf cpf, String nome, String email, Telefone telefone) {
         this.cpf = cpf;
         this.nome = nome;
         this.email = email;
@@ -58,7 +58,7 @@ public class ClienteORM {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ClienteORM cliente = (ClienteORM) o;
+        ClienteDto cliente = (ClienteDto) o;
         return Objects.equals(cpf, cliente.cpf);
     }
 

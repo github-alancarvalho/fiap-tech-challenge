@@ -1,6 +1,6 @@
 package br.com.fiap.techchallenge.fiapfood.adapter.driven.infra.repositories.mariadb.mapper;
 
-import br.com.fiap.techchallenge.fiapfood.core.domain.dto.PagamentoORM;
+import br.com.fiap.techchallenge.fiapfood.core.domain.dto.PagamentoDto;
 import br.com.fiap.techchallenge.fiapfood.core.domain.entities.Pagamento;
 
 import java.util.ArrayList;
@@ -8,11 +8,11 @@ import java.util.List;
 
 public class PagamentoMapper {
 
-    public static PagamentoORM mapToEntity(Pagamento entity) {
+    public static PagamentoDto mapToEntity(Pagamento entity) {
         if (entity == null) {
             return null;
         }
-        return new PagamentoORM(
+        return new PagamentoDto(
                 entity.getId(),
                 entity.getIdPedido(),
                 entity.getStatus(),
@@ -20,7 +20,7 @@ public class PagamentoMapper {
         );
     }
 
-    public static Pagamento mapToEntity(PagamentoORM pagamento) {
+    public static Pagamento mapToEntity(PagamentoDto pagamento) {
         if (pagamento == null) {
             return null;
         }
@@ -32,10 +32,10 @@ public class PagamentoMapper {
         );
     }
 
-    public static List<PagamentoORM> mapListToEntity(List<Pagamento> listEntity) {
-        List<PagamentoORM> list = new ArrayList<>();
+    public static List<PagamentoDto> mapListToEntity(List<Pagamento> listEntity) {
+        List<PagamentoDto> list = new ArrayList<>();
         for (Pagamento pagamento : listEntity) {
-            list.add(PagamentoORM.builder()
+            list.add(PagamentoDto.builder()
                     .id(pagamento.getId())
                     .idPedido(pagamento.getIdPedido())
                     .status(pagamento.getStatus())

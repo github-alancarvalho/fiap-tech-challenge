@@ -1,6 +1,6 @@
 package br.com.fiap.techchallenge.fiapfood.core.domain.ports.output;
 
-import br.com.fiap.techchallenge.fiapfood.core.domain.dto.ClienteORM;
+import br.com.fiap.techchallenge.fiapfood.core.domain.dto.ClienteDto;
 import br.com.fiap.techchallenge.fiapfood.core.domain.valueobject.Cpf;
 
 import java.util.List;
@@ -8,13 +8,13 @@ import java.util.Optional;
 
 public interface ClienteRepository {
 
-    Optional<ClienteORM> inserirClienteORM(ClienteORM cliente);
+    Optional<ClienteDto> inserirClienteORM(ClienteDto cliente);
 
-    Optional<ClienteORM> buscarPorCpf(Cpf cpf);
+    Optional<ClienteDto> buscarPorCpf(Cpf cpf);
 
-    Optional<ClienteORM> atualizar(ClienteORM cliente);
+    Optional<ClienteDto> atualizar(ClienteDto cliente);
 
     Boolean excluir(Cpf cpf);
 
-    Optional<List<ClienteORM>> listarTudo();
+    Optional<List<ClienteDto>> listarTudo();
 }

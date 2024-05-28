@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PagamentoORM {
+public class PagamentoDto {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Long id;
@@ -22,11 +22,11 @@ public class PagamentoORM {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Double valor;
 
-    public PagamentoORM() {
+    public PagamentoDto() {
 
     }
 
-    public PagamentoORM(Long id, Long idPedido, StatusPagamento status, Double valor) {
+    public PagamentoDto(Long id, Long idPedido, StatusPagamento status, Double valor) {
         this.id = id;
         this.idPedido = idPedido;
         this.status = status;

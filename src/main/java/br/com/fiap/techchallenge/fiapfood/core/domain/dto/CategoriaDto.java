@@ -5,27 +5,16 @@ import lombok.Data;
 
 @Data
 @Builder
-public class ProdutoORM {
+public class CategoriaDto {
 
     private Long id;
-
     private String nome;
-
     private String descricao;
 
-    private CategoriaORM categoria;
-
-    private Double preco;
-
-    public ProdutoORM() {
-    }
-
-    public ProdutoORM(Long id, String nome, String descricao, CategoriaORM categoria, Double preco) {
+    public CategoriaDto(Long id, String nome, String descricao) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
-        this.categoria = categoria;
-        this.preco = preco;
     }
 
     public Long getId() {
@@ -50,21 +39,5 @@ public class ProdutoORM {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
-    }
-
-    public CategoriaORM getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(CategoriaORM categoria) {
-        this.categoria = categoria;
-    }
-
-    public Double getPreco() {
-        return preco;
-    }
-
-    public void setPreco(Double preco) {
-        this.preco = preco;
     }
 }

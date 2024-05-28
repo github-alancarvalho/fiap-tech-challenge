@@ -3,7 +3,7 @@ package br.com.fiap.techchallenge.fiapfood.core.applications.services.pedido;
 
 import br.com.fiap.techchallenge.fiapfood.adapter.driven.infra.repositories.DaoFactory;
 import br.com.fiap.techchallenge.fiapfood.core.domain.base.StatusPedido;
-import br.com.fiap.techchallenge.fiapfood.core.domain.dto.PedidoORM;
+import br.com.fiap.techchallenge.fiapfood.core.domain.dto.PedidoDto;
 import br.com.fiap.techchallenge.fiapfood.core.domain.ports.output.PedidoRepository;
 
 import java.util.List;
@@ -20,19 +20,19 @@ public class BuscarPedidoUseCase {
         this.pedidoRepository = pedidoRepository;
     }
 
-    public Optional<PedidoORM> buscarPedidoPorId(Long id) {        ;
+    public Optional<PedidoDto> buscarPedidoPorId(Long id) {        ;
         return this.pedidoRepository.buscarPorId(id);
     }
 
-    public Optional<List<PedidoORM>> buscarTodosPedidos() {        ;
+    public Optional<List<PedidoDto>> buscarTodosPedidos() {        ;
         return this.pedidoRepository.listarTudo();
     }
 
-    public Optional<List<PedidoORM>> buscarPedidosPorStatus(StatusPedido statusPedido) {        ;
+    public Optional<List<PedidoDto>> buscarPedidosPorStatus(StatusPedido statusPedido) {        ;
         return this.pedidoRepository.listarPedidosPorStatus(statusPedido);
     }
 
-    public Optional<List<PedidoORM>> buscarPedidosEmAberto() {        ;
+    public Optional<List<PedidoDto>> buscarPedidosEmAberto() {        ;
         return this.pedidoRepository.listarPedidosEmAberto();
     }
 }
