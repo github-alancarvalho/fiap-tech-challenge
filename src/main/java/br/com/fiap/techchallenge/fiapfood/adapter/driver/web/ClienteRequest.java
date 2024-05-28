@@ -13,7 +13,7 @@ public class ClienteRequest {
 
     @NotEmpty(message = "Cpf não pode ser vazio")
     @NotNull(message = "Cpf não pode ser nulo")
-    @Schema(description = "Cpf do cliente,", example = "12345678900")
+    @Schema(description = "Cpf do cliente,", example = "77248715077")
     private String cpf;
 
     @NotEmpty(message = "Nome não pode ser vazio")
@@ -29,7 +29,7 @@ public class ClienteRequest {
 
     @NotEmpty(message = "Telefone não pode ser vazio")
     @NotNull(message = "Telefone não pode ser nulo")
-    @Schema(description = "Telefone do cliente,", example = "joao@teste.com.br")
+    @Schema(description = "Telefone do cliente,", example = "11123456789")
     private String telefone;
 
     public ClienteRequest() {

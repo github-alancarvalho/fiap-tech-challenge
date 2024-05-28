@@ -6,7 +6,7 @@ import br.com.fiap.techchallenge.fiapfood.core.domain.dto.PagamentoORM;
 import java.util.List;
 import java.util.Optional;
 
-public interface PagamentoRepositoryORM {
+public interface PagamentoRepository {
 
 
     Optional<PagamentoORM> processarPagamento(PagamentoORM pagamento);

@@ -7,7 +7,6 @@ import br.com.fiap.techchallenge.fiapfood.core.applications.services.cliente.Bus
 import br.com.fiap.techchallenge.fiapfood.core.applications.services.cliente.ExcluirClienteUseCase;
 import br.com.fiap.techchallenge.fiapfood.core.applications.services.cliente.InserirClienteUseCase;
 import br.com.fiap.techchallenge.fiapfood.core.domain.dto.ClienteORM;
-import br.com.fiap.techchallenge.fiapfood.core.domain.dto.ProdutoORM;
 import br.com.fiap.techchallenge.fiapfood.core.domain.valueobject.Cpf;
 import br.com.fiap.techchallenge.fiapfood.core.domain.valueobject.Telefone;
 import jakarta.validation.Valid;
@@ -21,14 +20,14 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/ClientesORM")
-public class ClienteORMController {
+public class ClienteController {
 
     private final InserirClienteUseCase inserirClienteUseCase;
     private final BuscarClienteUseCase buscarClienteUseCase;
     private final AtualizarClienteUseCase atualizarClienteUseCase;
     private final ExcluirClienteUseCase excluirClienteUseCase;
 
-    public ClienteORMController() {
+    public ClienteController() {
 
         this.inserirClienteUseCase = new InserirClienteUseCase();
         this.buscarClienteUseCase = new BuscarClienteUseCase();

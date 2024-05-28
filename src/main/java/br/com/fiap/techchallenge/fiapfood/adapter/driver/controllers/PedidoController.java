@@ -21,14 +21,14 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/PedidosORM")
-public class PedidoORMController {
+public class PedidoController {
 
     private final InserirPedidoUseCase inserirPedidoUseCase;
     private final BuscarPedidoUseCase buscarPedidoUseCase;
     private final AtualizarPedidoUseCase atualizarPedidoUseCase;
     private final ExcluirPedidoUseCase excluirPedidoUseCase;
 
-    public PedidoORMController() {
+    public PedidoController() {
 
         this.inserirPedidoUseCase = new InserirPedidoUseCase();
         this.buscarPedidoUseCase = new BuscarPedidoUseCase();

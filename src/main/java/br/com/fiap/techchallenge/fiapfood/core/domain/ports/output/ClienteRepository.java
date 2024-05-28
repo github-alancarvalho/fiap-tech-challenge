@@ -6,7 +6,7 @@ import br.com.fiap.techchallenge.fiapfood.core.domain.valueobject.Cpf;
 import java.util.List;
 import java.util.Optional;
 
-public interface ClienteRepositoryORM {
+public interface ClienteRepository {
 
     Optional<ClienteORM> inserirClienteORM(ClienteORM cliente);
 

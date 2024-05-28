@@ -1,4 +1,4 @@
-package br.com.fiap.techchallenge.fiapfood.adapter.driven.infra.repositories.mariadb;
+package br.com.fiap.techchallenge.fiapfood.adapter.driven.infra.repositories.mariadb.mapper;
 
 import br.com.fiap.techchallenge.fiapfood.core.domain.dto.ProdutoORM;
 import br.com.fiap.techchallenge.fiapfood.core.domain.entities.Produto;
@@ -6,7 +6,7 @@ import br.com.fiap.techchallenge.fiapfood.core.domain.entities.Produto;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProdutoMapperORM {
+public class ProdutoMapper {
 
     public static ProdutoORM mapToEntity(Produto entity) {
         if (entity == null) {
@@ -17,7 +17,7 @@ public class ProdutoMapperORM {
                 entity.getId(),
                 entity.getNome(),
                 entity.getDescricao(),
-                CategoriaMapperORM.mapToEntity(entity.getCategoria()),
+                CategoriaMapper.mapToEntity(entity.getCategoria()),
                 entity.getPreco()
         );
     }
@@ -31,7 +31,7 @@ public class ProdutoMapperORM {
                 produto.getId(),
                 produto.getNome(),
                 produto.getDescricao(),
-                CategoriaMapperORM.mapToEntity(produto.getCategoria()),
+                CategoriaMapper.mapToEntity(produto.getCategoria()),
                 produto.getPreco()
         );
     }
@@ -43,7 +43,7 @@ public class ProdutoMapperORM {
                     .id(produto.getId())
                     .nome(produto.getNome())
                     .descricao(produto.getDescricao())
-                    .categoria(CategoriaMapperORM.mapToEntity(produto.getCategoria()))
+                    .categoria(CategoriaMapper.mapToEntity(produto.getCategoria()))
                             .preco(produto.getPreco()).build()
             );
         }

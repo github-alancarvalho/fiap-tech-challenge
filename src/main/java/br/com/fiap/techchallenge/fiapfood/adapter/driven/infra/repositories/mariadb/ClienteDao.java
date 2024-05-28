@@ -1,8 +1,9 @@
 package br.com.fiap.techchallenge.fiapfood.adapter.driven.infra.repositories.mariadb;
 
+import br.com.fiap.techchallenge.fiapfood.adapter.driven.infra.repositories.mariadb.mapper.ClienteMapper;
 import br.com.fiap.techchallenge.fiapfood.core.domain.entities.Cliente;
 import br.com.fiap.techchallenge.fiapfood.core.domain.dto.ClienteORM;
-import br.com.fiap.techchallenge.fiapfood.core.domain.ports.output.ClienteRepositoryORM;
+import br.com.fiap.techchallenge.fiapfood.core.domain.ports.output.ClienteRepository;
 import br.com.fiap.techchallenge.fiapfood.core.domain.valueobject.Cpf;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
@@ -11,12 +12,12 @@ import java.util.List;
 import java.util.Optional;
 
 
-public class ClienteDaoORM extends ConnectionPoolManagerORM implements ClienteRepositoryORM{
+public class ClienteDao extends ConnectionPoolManager implements ClienteRepository {
 
 
     private EntityManager entityManager;
 
-    public ClienteDaoORM(){
+    public ClienteDao(){
         this.entityManager = entityManagerFactory.createEntityManager();
     }
 
@@ -24,27 +25,27 @@ public class ClienteDaoORM extends ConnectionPoolManagerORM implements ClienteRe
     public Optional<ClienteORM> inserirClienteORM(ClienteORM cliente) {
 
         entityManager.getTransaction().begin();
-        Cliente entity = ClienteMapperORM.mapToEntity(cliente);
+        Cliente entity = ClienteMapper.mapToEntity(cliente);
         entityManager.persist(entity);
         entityManager.flush();
         entityManager.getTransaction().commit();
-        return Optional.ofNullable(ClienteMapperORM.mapToEntity(entity));
+        return Optional.ofNullable(ClienteMapper.mapToEntity(entity));
 
     }
 
     public Optional<ClienteORM> buscarPorCpf(Cpf cpf) {
         Cliente entity = entityManager.find(Cliente.class, cpf.getCpfSomenteNumero());
-        return Optional.ofNullable(ClienteMapperORM.mapToEntity(entity));
+        return Optional.ofNullable(ClienteMapper.mapToEntity(entity));
     }
 
 
     public Optional<ClienteORM> atualizar(ClienteORM cliente) {
         entityManager.getTransaction().begin();
-        Cliente entity = ClienteMapperORM.mapToEntity(cliente);
+        Cliente entity = ClienteMapper.mapToEntity(cliente);
         entityManager.merge(entity);
         entityManager.flush();
         entityManager.getTransaction().commit();
-        return Optional.ofNullable(ClienteMapperORM.mapToEntity(entity));
+        return Optional.ofNullable(ClienteMapper.mapToEntity(entity));
 
     }
 
@@ -65,7 +66,7 @@ public class ClienteDaoORM extends ConnectionPoolManagerORM implements ClienteRe
     public Optional<List<ClienteORM>> listarTudo() {
         Query query = entityManager.createNamedQuery("findAllClientes");
         List<Cliente> list = query.getResultList();
-        return Optional.ofNullable(ClienteMapperORM.mapListToEntity(list));
+        return Optional.ofNullable(ClienteMapper.mapListToEntity(list));
     }
 }
 

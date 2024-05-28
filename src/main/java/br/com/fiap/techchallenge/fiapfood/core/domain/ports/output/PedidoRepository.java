@@ -6,7 +6,7 @@ import br.com.fiap.techchallenge.fiapfood.core.domain.dto.PedidoORM;
 import java.util.List;
 import java.util.Optional;
 
-public interface PedidoRepositoryORM {
+public interface PedidoRepository {
 
     Optional<PedidoORM> inserir(PedidoORM pedido);
 

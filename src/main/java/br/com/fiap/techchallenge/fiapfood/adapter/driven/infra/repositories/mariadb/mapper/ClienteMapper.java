@@ -1,4 +1,4 @@
-package br.com.fiap.techchallenge.fiapfood.adapter.driven.infra.repositories.mariadb;
+package br.com.fiap.techchallenge.fiapfood.adapter.driven.infra.repositories.mariadb.mapper;
 
 import br.com.fiap.techchallenge.fiapfood.core.domain.entities.Cliente;
 import br.com.fiap.techchallenge.fiapfood.core.domain.dto.ClienteORM;
@@ -8,7 +8,7 @@ import br.com.fiap.techchallenge.fiapfood.core.domain.valueobject.Telefone;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClienteMapperORM {
+public class ClienteMapper {
 
     public static ClienteORM mapToEntity(Cliente entity) {
         if (entity == null) {

@@ -1,4 +1,4 @@
-package br.com.fiap.techchallenge.fiapfood.adapter.driven.infra.repositories.mariadb;
+package br.com.fiap.techchallenge.fiapfood.adapter.driven.infra.repositories.mariadb.mapper;
 
 import br.com.fiap.techchallenge.fiapfood.core.domain.dto.CategoriaORM;
 import br.com.fiap.techchallenge.fiapfood.core.domain.entities.Categoria;
@@ -6,7 +6,7 @@ import br.com.fiap.techchallenge.fiapfood.core.domain.entities.Categoria;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoriaMapperORM {
+public class CategoriaMapper {
 
     public static CategoriaORM mapToEntity(Categoria entity) {
         if (entity == null) {

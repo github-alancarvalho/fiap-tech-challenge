@@ -18,13 +18,13 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/PagamentosORM")
-public class PagamentoORMController {
+public class PagamentoController {
 
     private final ProcessarPagamentoUseCase processarPagamentoUseCase;
     private final BuscarPagamentoUseCase buscarPagamentoUseCase;
     private final AtualizarPagamentoUseCase atualizarPagamentoUseCase;
 
-    public PagamentoORMController() {
+    public PagamentoController() {
         this.buscarPagamentoUseCase = new BuscarPagamentoUseCase();
         this.atualizarPagamentoUseCase = new AtualizarPagamentoUseCase();
         this.processarPagamentoUseCase = new ProcessarPagamentoUseCase();

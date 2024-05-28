@@ -1,4 +1,4 @@
-package br.com.fiap.techchallenge.fiapfood.adapter.driven.infra.repositories.mariadb;
+package br.com.fiap.techchallenge.fiapfood.adapter.driven.infra.repositories.mariadb.mapper;
 
 import br.com.fiap.techchallenge.fiapfood.core.domain.dto.ItemPedidoORM;
 import br.com.fiap.techchallenge.fiapfood.core.domain.dto.PedidoORM;
@@ -8,7 +8,7 @@ import br.com.fiap.techchallenge.fiapfood.core.domain.entities.Pedido;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemPedidoMapperORM {
+public class ItemPedidoMapper {
 
     public static ItemPedidoORM mapToEntity(ItemPedido entity) {
         if (entity == null) {
@@ -16,8 +16,8 @@ public class ItemPedidoMapperORM {
         }
 
         return new ItemPedidoORM(
-                PedidoMapperORM.mapToEntity(entity.getPedido()),
-                ProdutoMapperORM.mapToEntity(entity.getProduto()),
+                PedidoMapper.mapToEntity(entity.getPedido()),
+                ProdutoMapper.mapToEntity(entity.getProduto()),
                 entity.getQuantidade()
         );
     }
@@ -28,8 +28,8 @@ public class ItemPedidoMapperORM {
         }
 
         return new ItemPedido(
-                PedidoMapperORM.mapToEntity(itemPedido.getPedido()),
-                ProdutoMapperORM.mapToEntity(itemPedido.getProduto()),
+                PedidoMapper.mapToEntity(itemPedido.getPedido()),
+                ProdutoMapper.mapToEntity(itemPedido.getProduto()),
                 itemPedido.getQuantidade()
         );
     }
@@ -39,7 +39,7 @@ public class ItemPedidoMapperORM {
         for (ItemPedido itemPedido : listEntity) {
             list.add(ItemPedidoORM.builder()
                     .pedido(PedidoORM.builder().id(itemPedido.getPedido().getId()).build())
-                    .produto(ProdutoMapperORM.mapToEntity(itemPedido.getProduto()))
+                    .produto(ProdutoMapper.mapToEntity(itemPedido.getProduto()))
                     .quantidade(itemPedido.getQuantidade())
                     .build()
             );
@@ -51,8 +51,8 @@ public class ItemPedidoMapperORM {
         List<ItemPedido> list = new ArrayList<>();
         for (ItemPedidoORM itemPedido : listItemPedidoORM) {
             ItemPedido itemPedidoEntity = new ItemPedido(
-                    PedidoMapperORM.mapToEntity(itemPedido.getPedido()),
-                    ProdutoMapperORM.mapToEntity(itemPedido.getProduto()),
+                    PedidoMapper.mapToEntity(itemPedido.getPedido()),
+                    ProdutoMapper.mapToEntity(itemPedido.getProduto()),
                     itemPedido.getQuantidade()
             );
             list.add(itemPedidoEntity);
@@ -69,7 +69,7 @@ public class ItemPedidoMapperORM {
 
             ItemPedido itemPedidoEntity = new ItemPedido(
                     pedidoEntity,
-                    ProdutoMapperORM.mapToEntity(itemPedido.getProduto()),
+                    ProdutoMapper.mapToEntity(itemPedido.getProduto()),
                     itemPedido.getQuantidade()
             );
             list.add(itemPedidoEntity);

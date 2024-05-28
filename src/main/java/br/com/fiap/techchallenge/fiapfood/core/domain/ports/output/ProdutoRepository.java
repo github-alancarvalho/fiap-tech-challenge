@@ -6,7 +6,7 @@ import br.com.fiap.techchallenge.fiapfood.core.domain.dto.ProdutoORM;
 import java.util.List;
 import java.util.Optional;
 
-public interface ProdutoRepositoryORM {
+public interface ProdutoRepository {
 
     Optional<ProdutoORM> inserir(ProdutoORM produto);
 

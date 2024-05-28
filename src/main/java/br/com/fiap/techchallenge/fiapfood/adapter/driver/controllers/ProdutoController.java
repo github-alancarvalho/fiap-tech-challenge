@@ -20,14 +20,14 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/ProdutosORM")
-public class ProdutoORMController {
+public class ProdutoController {
 
     private final InserirProdutoUseCase inserirProdutoUseCase;
     private final BuscarProdutoUseCase buscarProdutoUseCase;
     private final AtualizarProdutoUseCase atualizarProdutoUseCase;
     private final ExcluirProdutoUseCase excluirProdutoUseCase;
 
-    public ProdutoORMController() {
+    public ProdutoController() {
 
         this.inserirProdutoUseCase = new InserirProdutoUseCase();
         this.buscarProdutoUseCase = new BuscarProdutoUseCase();

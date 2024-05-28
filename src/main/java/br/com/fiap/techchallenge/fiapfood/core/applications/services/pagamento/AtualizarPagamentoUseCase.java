@@ -4,18 +4,18 @@ package br.com.fiap.techchallenge.fiapfood.core.applications.services.pagamento;
 import br.com.fiap.techchallenge.fiapfood.adapter.driven.infra.repositories.DaoFactory;
 import br.com.fiap.techchallenge.fiapfood.core.domain.base.StatusPagamento;
 import br.com.fiap.techchallenge.fiapfood.core.domain.dto.PagamentoORM;
-import br.com.fiap.techchallenge.fiapfood.core.domain.ports.output.PagamentoRepositoryORM;
+import br.com.fiap.techchallenge.fiapfood.core.domain.ports.output.PagamentoRepository;
 
 import java.util.Optional;
 
 
 public class AtualizarPagamentoUseCase {
 
-    private PagamentoRepositoryORM pagamentoRepository;
+    private PagamentoRepository pagamentoRepository;
 
 
     public AtualizarPagamentoUseCase() {
-        PagamentoRepositoryORM pagamentoRepository = DaoFactory.getInstance().getPagamentoRepositoryORM();
+        PagamentoRepository pagamentoRepository = DaoFactory.getInstance().getPagamentoRepositoryORM();
         this.pagamentoRepository = pagamentoRepository;
     }
 

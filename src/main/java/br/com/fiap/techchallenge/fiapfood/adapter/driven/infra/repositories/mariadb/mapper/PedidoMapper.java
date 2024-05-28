@@ -1,4 +1,4 @@
-package br.com.fiap.techchallenge.fiapfood.adapter.driven.infra.repositories.mariadb;
+package br.com.fiap.techchallenge.fiapfood.adapter.driven.infra.repositories.mariadb.mapper;
 
 import br.com.fiap.techchallenge.fiapfood.core.domain.dto.PedidoORM;
 import br.com.fiap.techchallenge.fiapfood.core.domain.entities.Pedido;
@@ -6,7 +6,7 @@ import br.com.fiap.techchallenge.fiapfood.core.domain.entities.Pedido;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PedidoMapperORM {
+public class PedidoMapper {
 
     public static PedidoORM mapToEntity(Pedido entity) {
         if (entity == null) {
@@ -15,9 +15,9 @@ public class PedidoMapperORM {
 
         return new PedidoORM(
                 entity.getId(),
-                ClienteMapperORM.mapToEntity(entity.getCliente()),
+                ClienteMapper.mapToEntity(entity.getCliente()),
                 entity.getStatus(),
-                ItemPedidoMapperORM.mapListToORM(entity.getListItens())
+                ItemPedidoMapper.mapListToORM(entity.getListItens())
         );
     }
 
@@ -28,9 +28,9 @@ public class PedidoMapperORM {
 
         return new Pedido(
                 pedido.getId(),
-                ClienteMapperORM.mapToEntity(pedido.getCliente()),
+                ClienteMapper.mapToEntity(pedido.getCliente()),
                 pedido.getStatus(),
-                ItemPedidoMapperORM.mapListaSimplesToEntity(pedido.getListItens())
+                ItemPedidoMapper.mapListaSimplesToEntity(pedido.getListItens())
         );
     }
 
@@ -39,9 +39,9 @@ public class PedidoMapperORM {
         for (Pedido pedido : listEntity) {
             list.add(PedidoORM.builder()
                     .id(pedido.getId())
-                    .cliente(ClienteMapperORM.mapToEntity(pedido.getCliente()))
+                    .cliente(ClienteMapper.mapToEntity(pedido.getCliente()))
                     .status(pedido.getStatus())
-                    .listItens(ItemPedidoMapperORM.mapListToORM(pedido.getListItens())).build()
+                    .listItens(ItemPedidoMapper.mapListToORM(pedido.getListItens())).build()
             );
         }
         return list;

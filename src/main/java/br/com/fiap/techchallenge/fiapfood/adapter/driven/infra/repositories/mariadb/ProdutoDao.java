@@ -1,10 +1,11 @@
 package br.com.fiap.techchallenge.fiapfood.adapter.driven.infra.repositories.mariadb;
 
+import br.com.fiap.techchallenge.fiapfood.adapter.driven.infra.repositories.mariadb.mapper.ProdutoMapper;
 import br.com.fiap.techchallenge.fiapfood.core.domain.dto.CategoriaORM;
 import br.com.fiap.techchallenge.fiapfood.core.domain.dto.ProdutoORM;
 import br.com.fiap.techchallenge.fiapfood.core.domain.entities.Categoria;
 import br.com.fiap.techchallenge.fiapfood.core.domain.entities.Produto;
-import br.com.fiap.techchallenge.fiapfood.core.domain.ports.output.ProdutoRepositoryORM;
+import br.com.fiap.techchallenge.fiapfood.core.domain.ports.output.ProdutoRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -15,12 +16,12 @@ import java.util.List;
 import java.util.Optional;
 
 
-public class ProdutoDaoORM extends ConnectionPoolManagerORM implements ProdutoRepositoryORM {
+public class ProdutoDao extends ConnectionPoolManager implements ProdutoRepository {
 
 
     private EntityManager entityManager;
 
-    public ProdutoDaoORM(){
+    public ProdutoDao(){
 
     }
 
@@ -29,14 +30,14 @@ public class ProdutoDaoORM extends ConnectionPoolManagerORM implements ProdutoRe
     public Optional<ProdutoORM> inserir(ProdutoORM produto) {
         entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
-        Produto entity = ProdutoMapperORM.mapToEntity(produto);
+        Produto entity = ProdutoMapper.mapToEntity(produto);
         Categoria categoria = entityManager.find(Categoria.class, entity.getCategoria().getId());
         entity.setCategoria(categoria);
         entityManager.persist(entity);
         entityManager.flush();
         entityManager.getTransaction().commit();
         entityManager.close();
-        return Optional.ofNullable(ProdutoMapperORM.mapToEntity(entity));
+        return Optional.ofNullable(ProdutoMapper.mapToEntity(entity));
     }
 
     @Override
@@ -44,7 +45,7 @@ public class ProdutoDaoORM extends ConnectionPoolManagerORM implements ProdutoRe
         entityManager = entityManagerFactory.createEntityManager();
         Produto entity = entityManager.find(Produto.class, id);
         entityManager.close();
-        return Optional.ofNullable(ProdutoMapperORM.mapToEntity(entity));
+        return Optional.ofNullable(ProdutoMapper.mapToEntity(entity));
     }
 
     @Override
@@ -59,7 +60,7 @@ public class ProdutoDaoORM extends ConnectionPoolManagerORM implements ProdutoRe
 
         List<Produto> resultList = entityManager.createQuery(criteriaQuery).getResultList();
         entityManager.close();
-        return Optional.ofNullable(ProdutoMapperORM.mapListToEntity(resultList));
+        return Optional.ofNullable(ProdutoMapper.mapListToEntity(resultList));
     }
 
     @Override
@@ -68,7 +69,7 @@ public class ProdutoDaoORM extends ConnectionPoolManagerORM implements ProdutoRe
         Query query = entityManager.createNamedQuery("findAllProdutos");
         List<Produto> list = query.getResultList();
         entityManager.close();
-        return Optional.ofNullable(ProdutoMapperORM.mapListToEntity(list));
+        return Optional.ofNullable(ProdutoMapper.mapListToEntity(list));
     }
 
     @Override
@@ -91,14 +92,14 @@ public class ProdutoDaoORM extends ConnectionPoolManagerORM implements ProdutoRe
     public Optional<ProdutoORM> atualizar(ProdutoORM produto) {
         entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
-        Produto entity = ProdutoMapperORM.mapToEntity(produto);
+        Produto entity = ProdutoMapper.mapToEntity(produto);
         Categoria categoria = entityManager.find(Categoria.class, entity.getCategoria().getId());
         entity.setCategoria(categoria);
         entityManager.merge(entity);
         entityManager.flush();
         entityManager.getTransaction().commit();
         entityManager.close();
-        return Optional.ofNullable(ProdutoMapperORM.mapToEntity(entity));
+        return Optional.ofNullable(ProdutoMapper.mapToEntity(entity));
     }
 }
 

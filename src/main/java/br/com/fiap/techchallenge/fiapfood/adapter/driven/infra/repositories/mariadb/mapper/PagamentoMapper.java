@@ -1,4 +1,4 @@
-package br.com.fiap.techchallenge.fiapfood.adapter.driven.infra.repositories.mariadb;
+package br.com.fiap.techchallenge.fiapfood.adapter.driven.infra.repositories.mariadb.mapper;
 
 import br.com.fiap.techchallenge.fiapfood.core.domain.dto.PagamentoORM;
 import br.com.fiap.techchallenge.fiapfood.core.domain.entities.Pagamento;
@@ -6,7 +6,7 @@ import br.com.fiap.techchallenge.fiapfood.core.domain.entities.Pagamento;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PagamentoMapperORM {
+public class PagamentoMapper {
 
     public static PagamentoORM mapToEntity(Pagamento entity) {
         if (entity == null) {
