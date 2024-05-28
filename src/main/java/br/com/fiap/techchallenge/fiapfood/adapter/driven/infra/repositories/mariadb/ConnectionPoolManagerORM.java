@@ -3,11 +3,12 @@ package br.com.fiap.techchallenge.fiapfood.adapter.driven.infra.repositories.mar
 import com.zaxxer.hikari.HikariDataSource;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 import java.util.HashMap;
 import java.util.Map;
-
 
 public class ConnectionPoolManagerORM {
 
@@ -18,6 +19,9 @@ public class ConnectionPoolManagerORM {
     }
 
     private static HikariDataSource dataSource;
+
+//    @Value("${spring.datasource.url}")
+//    private String databaseUrl;
 
     @Bean
     public static synchronized HikariDataSource getDataSource() {
@@ -35,14 +39,16 @@ public class ConnectionPoolManagerORM {
     }
 
 
-    @Bean
-    public synchronized EntityManagerFactory getEntityManagerProperties() {
+    public EntityManagerFactory getEntityManagerProperties() {
         Map<String, String> properties = new HashMap<>();
-        properties.put("javax.persistence.jdbc.driver", "org.mariadb.jdbc.Driver");
-        properties.put("javax.persistence.jdbc.url", "jdbc:mariadb://" + System.getenv("MARIADB_DATABASE_ENDPOINT") + "/" + System.getenv("MARIADB_DATABASE"));
-        properties.put("javax.persistence.jdbc.user", System.getenv("MARIADB_USER"));
-        properties.put("javax.persistence.jdbc.password", System.getenv("MARIADB_PASSWORD"));
-        properties.put("hibernate.dialect", "org.hibernate.dialect.MariaDBDialect");
+        properties.put("jakarta.persistence.jdbc.driver", "org.mariadb.jdbc.Driver");
+        //properties.put("jakarta.persistence.jdbc.url", "jdbc:mariadb://localhost:3336/fiaptechchallenge");
+        properties.put("jakarta.persistence.jdbc.url", "jdbc:mariadb://mariadb-techchallenge:3306/fiaptechchallenge");
+        //properties.put("jakarta.persistence.jdbc.url", "jdbc:mariadb://" + System.getenv("MARIADB_DATABASE_ENDPOINT") + "/" + System.getenv("MARIADB_DATABASE"));
+        //properties.put("jakarta.persistence.jdbc.url", "jdbc:mariadb://" + databaseUrl );
+        properties.put("jakarta.persistence.jdbc.user", System.getenv("MARIADB_USER"));
+        properties.put("jakarta.persistence.jdbc.password", System.getenv("MARIADB_PASSWORD"));
+        //properties.put("hibernate.dialect", "org.hibernate.dialect.MariaDBDialect");
         properties.put("hibernate.cache.use_second_level_cache", "false");
 
         return Persistence.createEntityManagerFactory("fiap-tech-challenge", properties);
