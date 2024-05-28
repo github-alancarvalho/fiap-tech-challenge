@@ -1,14 +1,14 @@
 package br.com.fiap.techchallenge.fiapfood.adapter.driven.infra.repositories.mariadb;
 
 import br.com.fiap.techchallenge.fiapfood.core.domain.dto.ProdutoORM;
-import br.com.fiap.techchallenge.fiapfood.core.domain.entities.ProdutoEntity;
+import br.com.fiap.techchallenge.fiapfood.core.domain.entities.Produto;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ProdutoMapperORM {
 
-    public static ProdutoORM mapToEntity(ProdutoEntity entity) {
+    public static ProdutoORM mapToEntity(Produto entity) {
         if (entity == null) {
             return null;
         }
@@ -22,12 +22,12 @@ public class ProdutoMapperORM {
         );
     }
 
-    public static ProdutoEntity mapToEntity(ProdutoORM produto) {
+    public static Produto mapToEntity(ProdutoORM produto) {
         if (produto == null) {
             return null;
         }
 
-        return new ProdutoEntity(
+        return new Produto(
                 produto.getId(),
                 produto.getNome(),
                 produto.getDescricao(),
@@ -36,9 +36,9 @@ public class ProdutoMapperORM {
         );
     }
 
-    public static List<ProdutoORM> mapListToEntity(List<ProdutoEntity> listEntity) {
+    public static List<ProdutoORM> mapListToEntity(List<Produto> listEntity) {
         List<ProdutoORM> list = new ArrayList<>();
-        for (ProdutoEntity produto : listEntity) {
+        for (Produto produto : listEntity) {
             list.add(ProdutoORM.builder()
                     .id(produto.getId())
                     .nome(produto.getNome())

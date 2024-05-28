@@ -1,17 +1,14 @@
 package br.com.fiap.techchallenge.fiapfood.adapter.driven.infra.repositories.mariadb;
 
 import br.com.fiap.techchallenge.fiapfood.core.domain.dto.CategoriaORM;
-import br.com.fiap.techchallenge.fiapfood.core.domain.dto.CategoriaORM;
-import br.com.fiap.techchallenge.fiapfood.core.domain.entities.CategoriaEntity;
-import br.com.fiap.techchallenge.fiapfood.core.domain.valueobject.Cpf;
-import br.com.fiap.techchallenge.fiapfood.core.domain.valueobject.Telefone;
+import br.com.fiap.techchallenge.fiapfood.core.domain.entities.Categoria;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CategoriaMapperORM {
 
-    public static CategoriaORM mapToEntity(CategoriaEntity entity) {
+    public static CategoriaORM mapToEntity(Categoria entity) {
         if (entity == null) {
             return null;
         }
@@ -22,20 +19,20 @@ public class CategoriaMapperORM {
         );
     }
 
-    public static CategoriaEntity mapToEntity(CategoriaORM categoriaORM) {
+    public static Categoria mapToEntity(CategoriaORM categoriaORM) {
         if (categoriaORM == null) {
             return null;
         }
-        return new CategoriaEntity(
+        return new Categoria(
                 categoriaORM.getId(),
                 categoriaORM.getNome(),
                 categoriaORM.getDescricao()
         );
     }
 
-    public static List<CategoriaORM> mapListToEntity(List<CategoriaEntity> listEntity) {
+    public static List<CategoriaORM> mapListToEntity(List<Categoria> listEntity) {
         List<CategoriaORM> list = new ArrayList<>();
-        for ( CategoriaEntity categoriaORM : listEntity ){
+        for ( Categoria categoriaORM : listEntity ){
             list.add(CategoriaORM.builder()
                             .id(categoriaORM.getId())
                     .nome(categoriaORM.getNome())

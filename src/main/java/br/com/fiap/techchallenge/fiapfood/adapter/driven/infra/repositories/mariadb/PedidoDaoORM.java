@@ -5,15 +5,14 @@ import br.com.fiap.techchallenge.fiapfood.core.applications.services.produto.Bus
 import br.com.fiap.techchallenge.fiapfood.core.domain.base.StatusPedido;
 import br.com.fiap.techchallenge.fiapfood.core.domain.dto.ClienteORM;
 import br.com.fiap.techchallenge.fiapfood.core.domain.dto.PedidoORM;
-import br.com.fiap.techchallenge.fiapfood.core.domain.entities.ItemPedidoEntity;
-import br.com.fiap.techchallenge.fiapfood.core.domain.entities.PedidoEntity;
+import br.com.fiap.techchallenge.fiapfood.core.domain.entities.ItemPedido;
+import br.com.fiap.techchallenge.fiapfood.core.domain.entities.Pedido;
 import br.com.fiap.techchallenge.fiapfood.core.domain.ports.output.PedidoRepositoryORM;
 import br.com.fiap.techchallenge.fiapfood.core.domain.valueobject.Cpf;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 
 import java.util.List;
@@ -32,7 +31,7 @@ public class PedidoDaoORM extends ConnectionPoolManagerORM implements PedidoRepo
     public Optional<PedidoORM> inserir(PedidoORM pedido) {
         entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
-        PedidoEntity entity = PedidoMapperORM.mapToEntity(pedido);
+        Pedido entity = PedidoMapperORM.mapToEntity(pedido);
         BuscarClienteUseCase buscarClienteUseCase = new BuscarClienteUseCase();
         ClienteORM cliente = buscarClienteUseCase.buscarClientePorCpfORM(new Cpf(entity.getCliente().getCpf())).get();
         entity.setCliente(ClienteMapperORM.mapToEntity(cliente));
@@ -42,8 +41,8 @@ public class PedidoDaoORM extends ConnectionPoolManagerORM implements PedidoRepo
 
         BuscarProdutoUseCase buscarProdutoUseCase = new BuscarProdutoUseCase();
 
-        List<ItemPedidoEntity> itens = ItemPedidoMapperORM.mapListToEntity(pedido.getListItens());
-        for (ItemPedidoEntity item : itens) {
+        List<ItemPedido> itens = ItemPedidoMapperORM.mapListToEntity(pedido.getListItens());
+        for (ItemPedido item : itens) {
             item.setPedido(entity);
             entityManager.persist(item);
             entityManager.flush();
@@ -59,7 +58,7 @@ public class PedidoDaoORM extends ConnectionPoolManagerORM implements PedidoRepo
     @Override
     public Optional<PedidoORM> buscarPorId(Long id) {
         entityManager = entityManagerFactory.createEntityManager();
-        PedidoEntity entity = entityManager.find(PedidoEntity.class, id);
+        Pedido entity = entityManager.find(Pedido.class, id);
         entityManager.close();
         return Optional.ofNullable(PedidoMapperORM.mapToEntity(entity));
     }
@@ -68,7 +67,7 @@ public class PedidoDaoORM extends ConnectionPoolManagerORM implements PedidoRepo
     public Optional<List<PedidoORM>> listarTudo() {
         entityManager = entityManagerFactory.createEntityManager();
         Query query = entityManager.createNamedQuery("findAllPedidos");
-        List<PedidoEntity> list = query.getResultList();
+        List<Pedido> list = query.getResultList();
         entityManager.close();
         return Optional.ofNullable(PedidoMapperORM.mapListToEntity(list));
     }
@@ -77,13 +76,13 @@ public class PedidoDaoORM extends ConnectionPoolManagerORM implements PedidoRepo
     public Optional<List<PedidoORM>> listarPedidosPorStatus(StatusPedido status) {
         entityManager = entityManagerFactory.createEntityManager();
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<PedidoEntity> criteriaQuery = criteriaBuilder.createQuery(PedidoEntity.class);
-        Root<PedidoEntity> root = criteriaQuery.from(PedidoEntity.class);
+        CriteriaQuery<Pedido> criteriaQuery = criteriaBuilder.createQuery(Pedido.class);
+        Root<Pedido> root = criteriaQuery.from(Pedido.class);
 
         criteriaQuery.select(root);
         criteriaQuery.where(criteriaBuilder.equal(root.get("status"), status.toString()));
 
-        List<PedidoEntity> resultList = entityManager.createQuery(criteriaQuery).getResultList();
+        List<Pedido> resultList = entityManager.createQuery(criteriaQuery).getResultList();
         entityManager.close();
         return Optional.ofNullable(PedidoMapperORM.mapListToEntity(resultList));
     }
@@ -92,13 +91,13 @@ public class PedidoDaoORM extends ConnectionPoolManagerORM implements PedidoRepo
     public Optional<List<PedidoORM>> listarPedidosEmAberto() {
         entityManager = entityManagerFactory.createEntityManager();
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<PedidoEntity> criteriaQuery = criteriaBuilder.createQuery(PedidoEntity.class);
-        Root<PedidoEntity> root = criteriaQuery.from(PedidoEntity.class);
+        CriteriaQuery<Pedido> criteriaQuery = criteriaBuilder.createQuery(Pedido.class);
+        Root<Pedido> root = criteriaQuery.from(Pedido.class);
 
         criteriaQuery.select(root);
         criteriaQuery.where(criteriaBuilder.notEqual(root.get("status"), StatusPedido.ENTREGUE));
 
-        List<PedidoEntity> resultList = entityManager.createQuery(criteriaQuery).getResultList();
+        List<Pedido> resultList = entityManager.createQuery(criteriaQuery).getResultList();
         entityManager.close();
         return Optional.ofNullable(PedidoMapperORM.mapListToEntity(resultList));
     }
@@ -106,7 +105,7 @@ public class PedidoDaoORM extends ConnectionPoolManagerORM implements PedidoRepo
     @Override
     public Boolean excluir(PedidoORM pedido) {
         entityManager = entityManagerFactory.createEntityManager();
-        PedidoEntity entity = entityManager.find(PedidoEntity.class, pedido.getId());
+        Pedido entity = entityManager.find(Pedido.class, pedido.getId());
         if (entity != null) {
             entityManager.getTransaction().begin();
             entityManager.remove(entity);
@@ -126,7 +125,7 @@ public class PedidoDaoORM extends ConnectionPoolManagerORM implements PedidoRepo
 
         entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
-        PedidoEntity entity = PedidoMapperORM.mapToEntity(pedidoORM);
+        Pedido entity = PedidoMapperORM.mapToEntity(pedidoORM);
         entity.setStatus(novoStatus);
         entityManager.merge(entity);
         entityManager.flush();

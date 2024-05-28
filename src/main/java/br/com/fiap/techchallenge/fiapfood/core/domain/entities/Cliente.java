@@ -6,15 +6,15 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "clienteorm")
-@NamedQuery(name = "findAllClientes", query = "SELECT c FROM ClienteEntity c")
+@Table(name = "cliente")
+@NamedQuery(name = "findAllClientes", query = "SELECT c FROM Cliente c")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ClienteEntity {
+public class Cliente {
 
-    public ClienteEntity() {
+    public Cliente() {
     }
 
-    public ClienteEntity(String cpf, String nome, String email, String telefone) {
+    public Cliente(String cpf, String nome, String email, String telefone) {
         this.cpf = cpf;
         this.nome = nome;
         this.email = email;

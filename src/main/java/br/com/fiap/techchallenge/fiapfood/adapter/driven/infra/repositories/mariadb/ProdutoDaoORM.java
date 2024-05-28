@@ -2,9 +2,8 @@ package br.com.fiap.techchallenge.fiapfood.adapter.driven.infra.repositories.mar
 
 import br.com.fiap.techchallenge.fiapfood.core.domain.dto.CategoriaORM;
 import br.com.fiap.techchallenge.fiapfood.core.domain.dto.ProdutoORM;
-import br.com.fiap.techchallenge.fiapfood.core.domain.entities.CategoriaEntity;
-import br.com.fiap.techchallenge.fiapfood.core.domain.entities.ClienteEntity;
-import br.com.fiap.techchallenge.fiapfood.core.domain.entities.ProdutoEntity;
+import br.com.fiap.techchallenge.fiapfood.core.domain.entities.Categoria;
+import br.com.fiap.techchallenge.fiapfood.core.domain.entities.Produto;
 import br.com.fiap.techchallenge.fiapfood.core.domain.ports.output.ProdutoRepositoryORM;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
@@ -30,8 +29,8 @@ public class ProdutoDaoORM extends ConnectionPoolManagerORM implements ProdutoRe
     public Optional<ProdutoORM> inserir(ProdutoORM produto) {
         entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
-        ProdutoEntity entity = ProdutoMapperORM.mapToEntity(produto);
-        CategoriaEntity categoria = entityManager.find(CategoriaEntity.class, entity.getCategoria().getId());
+        Produto entity = ProdutoMapperORM.mapToEntity(produto);
+        Categoria categoria = entityManager.find(Categoria.class, entity.getCategoria().getId());
         entity.setCategoria(categoria);
         entityManager.persist(entity);
         entityManager.flush();
@@ -43,7 +42,7 @@ public class ProdutoDaoORM extends ConnectionPoolManagerORM implements ProdutoRe
     @Override
     public Optional<ProdutoORM> buscarPorId(Long id) {
         entityManager = entityManagerFactory.createEntityManager();
-        ProdutoEntity entity = entityManager.find(ProdutoEntity.class, id);
+        Produto entity = entityManager.find(Produto.class, id);
         entityManager.close();
         return Optional.ofNullable(ProdutoMapperORM.mapToEntity(entity));
     }
@@ -52,13 +51,13 @@ public class ProdutoDaoORM extends ConnectionPoolManagerORM implements ProdutoRe
     public Optional<List<ProdutoORM>> listarPorCategoria(CategoriaORM categoria) {
         entityManager = entityManagerFactory.createEntityManager();
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<ProdutoEntity> criteriaQuery = criteriaBuilder.createQuery(ProdutoEntity.class);
-        Root<ProdutoEntity> root = criteriaQuery.from(ProdutoEntity.class);
+        CriteriaQuery<Produto> criteriaQuery = criteriaBuilder.createQuery(Produto.class);
+        Root<Produto> root = criteriaQuery.from(Produto.class);
 
         criteriaQuery.select(root);
         criteriaQuery.where(criteriaBuilder.equal(root.get("categoria").get("id"), categoria.getId()));
 
-        List<ProdutoEntity> resultList = entityManager.createQuery(criteriaQuery).getResultList();
+        List<Produto> resultList = entityManager.createQuery(criteriaQuery).getResultList();
         entityManager.close();
         return Optional.ofNullable(ProdutoMapperORM.mapListToEntity(resultList));
     }
@@ -67,7 +66,7 @@ public class ProdutoDaoORM extends ConnectionPoolManagerORM implements ProdutoRe
     public Optional<List<ProdutoORM>> listarTudo() {
         entityManager = entityManagerFactory.createEntityManager();
         Query query = entityManager.createNamedQuery("findAllProdutos");
-        List<ProdutoEntity> list = query.getResultList();
+        List<Produto> list = query.getResultList();
         entityManager.close();
         return Optional.ofNullable(ProdutoMapperORM.mapListToEntity(list));
     }
@@ -75,7 +74,7 @@ public class ProdutoDaoORM extends ConnectionPoolManagerORM implements ProdutoRe
     @Override
     public Boolean excluir(ProdutoORM produto) {
         entityManager = entityManagerFactory.createEntityManager();
-        ProdutoEntity entity = entityManager.find(ProdutoEntity.class, produto.getId());
+        Produto entity = entityManager.find(Produto.class, produto.getId());
         if (entity != null){
             entityManager.getTransaction().begin();
             entityManager.remove(entity);
@@ -92,8 +91,8 @@ public class ProdutoDaoORM extends ConnectionPoolManagerORM implements ProdutoRe
     public Optional<ProdutoORM> atualizar(ProdutoORM produto) {
         entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
-        ProdutoEntity entity = ProdutoMapperORM.mapToEntity(produto);
-        CategoriaEntity categoria = entityManager.find(CategoriaEntity.class, entity.getCategoria().getId());
+        Produto entity = ProdutoMapperORM.mapToEntity(produto);
+        Categoria categoria = entityManager.find(Categoria.class, entity.getCategoria().getId());
         entity.setCategoria(categoria);
         entityManager.merge(entity);
         entityManager.flush();

@@ -8,9 +8,9 @@ import org.hibernate.annotations.Cache;
 
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @Entity
-@Table(name = "produtoorm")
-@NamedQuery(name = "findAllProdutos", query = "SELECT p FROM ProdutoEntity p")
-public class ProdutoEntity {
+@Table(name = "produto")
+@NamedQuery(name = "findAllProdutos", query = "SELECT p FROM Produto p")
+public class Produto {
 
     @NotNull
     @Id
@@ -29,15 +29,15 @@ public class ProdutoEntity {
     @NotBlank
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "categoria", nullable = false)
-    private CategoriaEntity categoria;
+    private Categoria categoria;
 
     @Column(name = "preco", nullable = false)
     private Double preco;
 
-    public ProdutoEntity() {
+    public Produto() {
     }
 
-    public ProdutoEntity(Long id, String nome, String descricao, CategoriaEntity categoria, Double preco) {
+    public Produto(Long id, String nome, String descricao, Categoria categoria, Double preco) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
@@ -69,11 +69,11 @@ public class ProdutoEntity {
         this.descricao = descricao;
     }
 
-    public CategoriaEntity getCategoria() {
+    public Categoria getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(CategoriaEntity categoria) {
+    public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
 

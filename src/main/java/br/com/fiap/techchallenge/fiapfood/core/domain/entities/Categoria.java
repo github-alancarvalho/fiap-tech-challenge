@@ -5,9 +5,9 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "categoriaorm")
-@NamedQuery(name = "findAllCategorias", query = "SELECT c FROM CategoriaEntity c")
-public class CategoriaEntity {
+@Table(name = "categoria")
+@NamedQuery(name = "findAllCategorias", query = "SELECT c FROM Categoria c")
+public class Categoria {
 
     @NotNull
     @Id
@@ -23,10 +23,10 @@ public class CategoriaEntity {
     @Column(name = "descricao", nullable = true)
     private String descricao;
 
-    public CategoriaEntity() {
+    public Categoria() {
     }
 
-    public CategoriaEntity(Long id, String nome, String descricao) {
+    public Categoria(Long id, String nome, String descricao) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;

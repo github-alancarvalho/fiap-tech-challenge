@@ -1,6 +1,6 @@
 package br.com.fiap.techchallenge.fiapfood.adapter.driven.infra.repositories.mariadb;
 
-import br.com.fiap.techchallenge.fiapfood.core.domain.entities.ClienteEntity;
+import br.com.fiap.techchallenge.fiapfood.core.domain.entities.Cliente;
 import br.com.fiap.techchallenge.fiapfood.core.domain.dto.ClienteORM;
 import br.com.fiap.techchallenge.fiapfood.core.domain.valueobject.Cpf;
 import br.com.fiap.techchallenge.fiapfood.core.domain.valueobject.Telefone;
@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ClienteMapperORM {
 
-    public static ClienteORM mapToEntity(ClienteEntity entity) {
+    public static ClienteORM mapToEntity(Cliente entity) {
         if (entity == null) {
             return null;
         }
@@ -22,11 +22,11 @@ public class ClienteMapperORM {
         );
     }
 
-    public static ClienteEntity mapToEntity(ClienteORM cliente) {
+    public static Cliente mapToEntity(ClienteORM cliente) {
         if (cliente == null) {
             return null;
         }
-        return new ClienteEntity(
+        return new Cliente(
                 cliente.getCpf() == null ? null : cliente.getCpf().getCpfSomenteNumero(),
                 cliente.getNome(),
                 cliente.getEmail(),
@@ -34,9 +34,9 @@ public class ClienteMapperORM {
         );
     }
 
-    public static List<ClienteORM> mapListToEntity(List<ClienteEntity> listEntity) {
+    public static List<ClienteORM> mapListToEntity(List<Cliente> listEntity) {
         List<ClienteORM> list = new ArrayList<>();
-        for ( ClienteEntity cliente : listEntity ){
+        for ( Cliente cliente : listEntity ){
             list.add(ClienteORM.builder()
                     .nome(cliente.getNome())
                     .cpf(new Cpf(cliente.getCpf()))

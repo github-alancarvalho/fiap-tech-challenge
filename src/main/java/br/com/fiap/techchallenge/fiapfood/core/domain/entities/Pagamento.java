@@ -7,9 +7,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 @Entity
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONE)
-@Table(name = "pagamentoorm")
-@NamedQuery(name = "findAllPagamentos", query = "SELECT p FROM PagamentoEntity p")
-public class PagamentoEntity {
+@Table(name = "pagamento")
+@NamedQuery(name = "findAllPagamentos", query = "SELECT p FROM Pagamento p")
+public class Pagamento {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,10 +28,10 @@ public class PagamentoEntity {
     private Double valor;
 
 
-    public PagamentoEntity() {
+    public Pagamento() {
     }
 
-    public PagamentoEntity(Long id, Long idPedido, StatusPagamento status, Double valor) {
+    public Pagamento(Long id, Long idPedido, StatusPagamento status, Double valor) {
         this.id = id;
         this.idPedido = idPedido;
         this.status = status;
