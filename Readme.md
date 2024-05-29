@@ -156,9 +156,208 @@ Etapas do Progresso do Pedido:
 ---
 
 ### Api
-- Após subir a aplicação recomendo usar o Swagger para testar os endpoints
-    - http://localhost:8080/swagger-ui/index.html
+- Swagger: http://localhost:8080/swagger-ui/index.html
 
+
+#############################Cliente API#############################
+
+---------------INSERIR---------------
+
+http://localhost:8080/api/v1/ClientesORM/inserir
+
+{
+"nome": "Zezinho da Silva",
+"cpf": "86954751073",
+"telefone": "44444444444",
+"email": "zezinho@aaa.com"  
+}
+
+http://localhost:8080/api/v1/ClientesORM/inserir
+
+{
+"nome": "Nome para ser excluido",
+"cpf": "29429548093",
+"telefone": "44444444444",
+"email": "zezinho222@aaa.com"  
+}
+
+
+---------------Buscar por Cpf---------------
+
+http://localhost:8080/api/v1/ClientesORM/buscarClientePorCpf?cpf=86954751073
+
+
+
+---------------Buscar Tudo - Buscar todos os clientes---------------
+
+http://localhost:8080/api/v1/ClientesORM/buscarTudo
+
+
+---------------Alterar cliente---------------
+
+http://localhost:8080/api/v1/ClientesORM/alterar
+
+{
+"nome": "Zezinho da silva e silva",
+"cpf": "86954751073",
+"telefone": "11123456789",
+"email": "11111111@aaa.com"  
+}
+
+
+---------------Excluir cliente---------------
+
+http://localhost:8080/api/v1/ClientesORM/excluir?cpf=29429548093
+
+
+
+#############################Produto API#############################
+
+---------------Inserir produto----------------
+
+http://localhost:8080/api/v1/ProdutosORM/inserir
+
+
+{
+"nome": "Sanduba sorte 8",
+"descricao": "nem queira saber 8",
+"categoriaId": 1,
+"preco": "30.00"  
+}
+
+http://localhost:8080/api/v1/ProdutosORM/inserir
+
+
+{
+"nome": "Bebida para ser excluída",
+"descricao": "Bebida para ser excluída",
+"categoriaId": 4,
+"preco": "10.00"  
+}
+
+http://localhost:8080/api/v1/ProdutosORM/inserir
+
+
+{
+"nome": "Acompanhamento XXXX",
+"descricao": "Acompanhamento XXX",
+"categoriaId": 2,
+"preco": "10.00"  
+}
+
+
+
+---------------Buscar produto por id----------------
+
+http://localhost:8080/api/v1/ProdutosORM/buscarProdutoPorId?id=1
+
+
+---------------Buscar todos os produtos----------------
+
+http://localhost:8080/api/v1/ProdutosORM/buscarTudo
+
+---------------Buscar produtos por categoria----------------
+
+http://localhost:8080/api/v1/ProdutosORM/buscarProdutosPorCategoria?id=1
+
+//1: Lanche
+//2: Acompanhamento
+//3: Sobremesa
+//4: Bebida
+
+---------------Alterar produto----------------
+
+http://localhost:8080/api/v1/ProdutosORM/alterar
+
+{
+"id": 1,
+"nome": "Sanduba viva a vida 999",
+"descricao": "Vivaaaaaaaaa 999",
+"categoriaId": 2,
+"preco": 788.9
+}
+
+---------------Excluir produto----------------
+
+http://localhost:8080/api/v1/ProdutosORM/excluir?id=2
+
+
+
+#############################Pedido API#############################
+
+---------------Checkout pedido----------------
+
+http://localhost:8080/api/v1/PedidosORM/checkout
+
+{
+"cpfCliente":"86954751073",
+
+    "listItens":[
+        {
+            "produto":{
+                "id":1
+            },
+            "quantidade":77
+        },
+        {
+            "produto":{
+                "id":3
+            },
+            "quantidade":73
+        }
+    ]
+
+}
+
+---------------Buscar todos os pedidos----------------
+
+http://localhost:8080/api/v1/PedidosORM/buscarTudo
+
+
+---------------Buscar pedidos por status----------------
+
+http://localhost:8080/api/v1/PedidosORM/buscarPedidosPorStatus?status=RECEBIDO
+http://localhost:8080/api/v1/PedidosORM/buscarPedidosPorStatus?status=EM_PREPARACAO
+http://localhost:8080/api/v1/PedidosORM/buscarPedidosPorStatus?status=PRONTO
+http://localhost:8080/api/v1/PedidosORM/buscarPedidosPorStatus?status=ENTREGUE
+
+
+---------------Buscar pedidos em aberto----------------
+
+http://localhost:8080/api/v1/PedidosORM/buscarPedidosEmAberto
+
+
+---------------Buscar pedido por Id----------------
+
+http://localhost:8080/api/v1/PedidosORM/buscarPedidoPorId?id=1
+
+---------------Alterar progresso do pedido----------------
+
+http://localhost:8080/api/v1/PedidosORM/alterarProgresso?status=EM_PREPARACAO
+
+{
+"id": 1
+}
+
+---------------Excluir pedido----------------
+
+http://localhost:8080/api/v1/PedidosORM/excluir?id=1
+
+
+
+#############################Pagamento API#############################
+
+---------------Buscar todos os pagamentos----------------
+
+http://localhost:8080/api/v1/PagamentosORM/buscarTodosPagamentos
+
+---------------Atualizar status do pagamento----------------
+
+http://localhost:8080/api/v1/PagamentosORM/atualizarProgressoPagamento?status=CONFIRMADO
+
+{
+"id": 1
+}
 
 ## Autor
 - [Alan Carvalho](https://github.com/github-alancarvalho)

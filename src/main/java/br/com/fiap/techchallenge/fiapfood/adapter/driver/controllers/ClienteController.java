@@ -47,14 +47,14 @@ public class ClienteController {
                 .email(clienteRequest.getEmail())
                 .telefone(new Telefone(clienteRequest.getTelefone())).build();
 
-        Optional<ClienteDto> savedProduto = inserirClienteUseCase.inserirClienteORM(cliente);
+        Optional<ClienteDto> savedCliente = inserirClienteUseCase.inserirClienteORM(cliente);
 
-        if (!savedProduto.isEmpty()) {
+        if (!savedCliente.isEmpty()) {
             ClienteResponse response = ClienteResponse.builder()
-                    .cpf(savedProduto.get().getCpf().getCpfSomenteNumero())
-                    .nome(savedProduto.get().getNome())
-                    .email(savedProduto.get().getEmail())
-                    .telefone(savedProduto.get().getTelefone().getTelefone()).build();
+                    .cpf(savedCliente.get().getCpf().getCpfSomenteNumero())
+                    .nome(savedCliente.get().getNome())
+                    .email(savedCliente.get().getEmail())
+                    .telefone(savedCliente.get().getTelefone().getTelefone()).build();
 
             return ResponseEntity.ok(Optional.ofNullable(response));
         } else {
@@ -63,8 +63,8 @@ public class ClienteController {
     }
 
     @Operation(summary = "Buscar Cliente por Cpf", description = "Buscar Cliente por Cpf")
-    @GetMapping("/buscarProdutoPorCpf")
-    public ResponseEntity<Optional<ClienteResponse>> buscarProdutoPorCpf(@RequestParam("cpf") String cpf) {
+    @GetMapping("/buscarClientePorCpf")
+    public ResponseEntity<Optional<ClienteResponse>> buscarClientePorCpf(@RequestParam("cpf") String cpf) {
 
         Optional<ClienteDto> cliente = buscarClienteUseCase.buscarClientePorCpfORM(new Cpf(cpf));
         if (!cliente.isEmpty()) {
@@ -89,14 +89,14 @@ public class ClienteController {
                 .email(clienteRequest.getEmail())
                 .telefone(new Telefone(clienteRequest.getTelefone())).build();
 
-        Optional<ClienteDto> savedProduto = atualizarClienteUseCase.atualizar(cliente);
+        Optional<ClienteDto> savedCliente = atualizarClienteUseCase.atualizar(cliente);
 
-        if (!savedProduto.isEmpty()) {
+        if (!savedCliente.isEmpty()) {
             ClienteResponse response = ClienteResponse.builder()
-                    .cpf(savedProduto.get().getCpf().getCpfSomenteNumero())
-                    .nome(savedProduto.get().getNome())
-                    .email(savedProduto.get().getEmail())
-                    .telefone(savedProduto.get().getTelefone().getTelefone()).build();
+                    .cpf(savedCliente.get().getCpf().getCpfSomenteNumero())
+                    .nome(savedCliente.get().getNome())
+                    .email(savedCliente.get().getEmail())
+                    .telefone(savedCliente.get().getTelefone().getTelefone()).build();
 
             return ResponseEntity.ok(Optional.ofNullable(response));
         } else {

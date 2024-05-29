@@ -99,7 +99,7 @@ public class PagamentoController {
         }
     }
 
-    @Operation(summary = "Buscar todos os pagamento", description = "Buscar todos os pagamento")
+    @Operation(summary = "Buscar todos os pagamentos", description = "Buscar todos os pagamento")
     @GetMapping("/buscarTodosPagamentos")
     public ResponseEntity<Optional<List<PagamentoResponse>>> buscarTodosPagamentos() {
         Optional<List<PagamentoDto>> pagamentos = buscarPagamentoUseCase.buscarTodosPagamentos();
