@@ -64,7 +64,8 @@ public class ItemPedidoMapper {
         List<ItemPedido> list = new ArrayList<>();
         for (ItemPedidoDto itemPedido : listItemPedidoDto) {
             Pedido pedidoEntity = new Pedido();
-            pedidoEntity.setId(itemPedido.getPedido().getId());
+            if(itemPedido.getPedido()!=null && itemPedido.getPedido().getId() != null)
+                pedidoEntity.setId(itemPedido.getPedido().getId());
 
 
             ItemPedido itemPedidoEntity = new ItemPedido(

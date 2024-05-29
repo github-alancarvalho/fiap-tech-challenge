@@ -17,6 +17,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 
 import java.util.List;
@@ -98,8 +99,15 @@ public class PedidoDao extends ConnectionPoolManager implements PedidoRepository
         CriteriaQuery<Pedido> criteriaQuery = criteriaBuilder.createQuery(Pedido.class);
         Root<Pedido> root = criteriaQuery.from(Pedido.class);
 
+//        criteriaQuery.select(root);
+//        criteriaQuery.where(criteriaBuilder.notEqual(root.get("status"), StatusPedido.ENTREGUE));
+
+        Predicate statusNull = criteriaBuilder.isNull(root.get("status"));
+        Predicate statusEntregue = criteriaBuilder.notEqual(root.get("status"), StatusPedido.ENTREGUE);
+
         criteriaQuery.select(root);
-        criteriaQuery.where(criteriaBuilder.notEqual(root.get("status"), StatusPedido.ENTREGUE));
+        criteriaQuery.where(criteriaBuilder.or(statusNull, statusEntregue));
+
 
         List<Pedido> resultList = entityManager.createQuery(criteriaQuery).getResultList();
         entityManager.close();

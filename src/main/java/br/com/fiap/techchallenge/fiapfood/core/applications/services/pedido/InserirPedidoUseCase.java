@@ -20,7 +20,7 @@ public class InserirPedidoUseCase {
     }
 
     public Optional<PedidoDto> inserir(PedidoDto pedidoDto) {
-        pedidoDto.setStatus(StatusPedido.RECEBIDO);
+//        pedidoDto.setStatus(StatusPedido.RECEBIDO);
         return this.pedidoRepository.inserir(pedidoDto);
     }
 }
