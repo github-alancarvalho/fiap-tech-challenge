@@ -35,10 +35,10 @@ $ git clone https://github.com/github-alancarvalho/fiap-tech-challenge.git
 
 - Quando os containers estiverem rodando com sucesso, executar os comandos abaixo para efetuar a carga inicial das categorias.
   - docker exec -it mariadb-techchallenge bash
-    apt-get update
-    apt-get install mysql-client
-    mysql -u root -prootroot tech-challenge < /docker-entrypoint-initdb.d/init.sql
-    exit
+  - apt-get update
+  - apt-get install mysql-client
+  - mysql -u root -prootroot tech-challenge < /docker-entrypoint-initdb.d/init.sql
+  - exit
 
 
 ## Problema
