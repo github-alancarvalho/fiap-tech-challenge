@@ -7,7 +7,7 @@ Desafio desenvolvido com DDD, Docker e Arquitetura Hexagonal para o curso de Sof
 
 ## Índice
 <a href="#tecnologias">Tecnologias</a> •
-<a href="#requisitos-minimos">Requisitos minimos</a> •
+<a href="#requisitos-mínimos">Requisitos minimos</a> •
 <a href="#como-rodar">Como rodar</a> •
 <a href="criterios-de-aceite">Criterios de aceite</a> •
 <a href="#autores">Autores</a>
@@ -19,9 +19,8 @@ Desafio desenvolvido com DDD, Docker e Arquitetura Hexagonal para o curso de Sof
     <img align="center" alt="mariaDB" height="50" width="80" src="https://github.com/devicons/devicon/blob/v2.16.0/icons/mariadb/mariadb-original.svg">       
 </div>
 
-## Requisitos minimos
-- JDK 17
-- maven 3.6.3 ou superior
+## Requisitos mínimos
+- git
 - docker e docker-compose
 
 ## Como rodar
@@ -34,6 +33,12 @@ $ git clone https://github.com/github-alancarvalho/fiap-tech-challenge.git
 - No terminal
   docker compose up
 
+- Quando os containers estiverem rodando com sucesso, executar os comandos abaixo para efetuar a carga inicial das categorias.
+  - docker exec -it mariadb-techchallenge bash
+    apt-get update
+    apt-get install mysql-client
+    mysql -u root -prootroot tech-challenge < /docker-entrypoint-initdb.d/init.sql
+    exit
 
 
 ## Problema
