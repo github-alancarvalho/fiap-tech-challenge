@@ -27,7 +27,7 @@ public class ProdutoPutRequest {
 
     @NotEmpty(message = "Categoria não pode ser vazia")
     @NotNull(message = "Categoria não pode ser nula")
-    @Schema(description = "Categoria do produto,", example = "Sobremesa")
+    @Schema(description = "Categoria do produto.(1 - Lanche, 2 - Acompanhamento, 3 - Sobremesa, 4 - Bebida)", example = "1")
     private Long categoriaId;
 
     @NotEmpty(message = "Preço não pode ser vazio")

@@ -28,7 +28,7 @@ public class ProdutoResponse {
 
     @NotEmpty(message = "Categoria não pode ser vazia")
     @NotNull(message = "Categoria não pode ser nula")
-    @Schema(description = "Categoria do produto,", example = "Sobremesa")
+    @Schema(description = "Categoria do produto,")
     private CategoriaDto categoria;
 
     @NotEmpty(message = "Preço não pode ser vazio")

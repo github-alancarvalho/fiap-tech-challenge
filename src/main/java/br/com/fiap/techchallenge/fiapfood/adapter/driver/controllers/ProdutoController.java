@@ -143,7 +143,7 @@ public class ProdutoController {
         }
     }
 
-    @Operation(summary = "Buscar produtos por categoria", description = "Buscar produtos por categoria")
+    @Operation(summary = "Buscar produtos por categoria", description = "Buscar produtos por categoria. (1 - Lanche, 2 - Acompanhamento, 3 - Sobremesa, 4 - Bebida)")
     @GetMapping("/buscarProdutosPorCategoria")
     public ResponseEntity<Optional<List<ProdutoResponse>>> buscarProdutosPorCategoria(@RequestParam("id") Long id) {
         Optional<List<ProdutoDto>> produtos = buscarProdutoUseCase.buscarProdutosPorCategoria(
