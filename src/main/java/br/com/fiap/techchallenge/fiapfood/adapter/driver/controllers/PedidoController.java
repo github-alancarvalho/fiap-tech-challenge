@@ -2,10 +2,7 @@ package br.com.fiap.techchallenge.fiapfood.adapter.driver.controllers;
 
 import br.com.fiap.techchallenge.fiapfood.adapter.driver.web.PedidoRequest;
 import br.com.fiap.techchallenge.fiapfood.adapter.driver.web.PedidoResponse;
-import br.com.fiap.techchallenge.fiapfood.core.applications.services.pedido.AtualizarPedidoUseCase;
-import br.com.fiap.techchallenge.fiapfood.core.applications.services.pedido.BuscarPedidoUseCase;
-import br.com.fiap.techchallenge.fiapfood.core.applications.services.pedido.ExcluirPedidoUseCase;
-import br.com.fiap.techchallenge.fiapfood.core.applications.services.pedido.InserirPedidoUseCase;
+import br.com.fiap.techchallenge.fiapfood.core.applications.services.pedido.*;
 import br.com.fiap.techchallenge.fiapfood.core.domain.base.StatusPedido;
 import br.com.fiap.techchallenge.fiapfood.core.domain.dto.ClienteDto;
 import br.com.fiap.techchallenge.fiapfood.core.domain.dto.PedidoDto;
@@ -30,6 +27,7 @@ public class PedidoController {
     private final BuscarPedidoUseCase buscarPedidoUseCase;
     private final AtualizarPedidoUseCase atualizarPedidoUseCase;
     private final ExcluirPedidoUseCase excluirPedidoUseCase;
+    private final CheckoutUseCase checkoutUseCase;
 
     public PedidoController() {
 
@@ -37,18 +35,20 @@ public class PedidoController {
         this.buscarPedidoUseCase = new BuscarPedidoUseCase();
         this.atualizarPedidoUseCase = new AtualizarPedidoUseCase();
         this.excluirPedidoUseCase = new ExcluirPedidoUseCase();
+        this.checkoutUseCase = new CheckoutUseCase();
     }
 
-    @Operation(summary = "Inserir Pedido", description = "Inserir novo Pedido")
-    @PostMapping("/{inserir}")
-    public ResponseEntity<Optional<PedidoResponse>> inserir(@Valid @RequestBody PedidoRequest pedidoRequest) {
+    @Operation(summary = "Checkout do Pedido", description = "Checkout do Pedido. Pedido é inserido e aguardando pagamento")
+    @PostMapping("/{checkout}")
+    public ResponseEntity<Optional<PedidoResponse>> checkout(@Valid @RequestBody PedidoRequest pedidoRequest) {
 
         PedidoDto pedido = PedidoDto.builder()
                 .cliente(new ClienteDto(new Cpf(pedidoRequest.getCpfCliente()), null, null, null))
                 .listItens(pedidoRequest.getListItens())
                 .build();
 
-        Optional<PedidoDto> savedPedido = inserirPedidoUseCase.inserir(pedido);
+        //Optional<PedidoDto> savedPedido = inserirPedidoUseCase.inserir(pedido);
+        Optional<PedidoDto> savedPedido = checkoutUseCase.checkout(pedido);
         if (!savedPedido.isEmpty()) {
             PedidoResponse response = PedidoResponse.builder()
                     .id(savedPedido.get().getId())
