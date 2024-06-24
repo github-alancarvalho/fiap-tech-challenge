@@ -13,13 +13,11 @@ public class AtualizarPagamentoUseCase {
 
     private PagamentoRepository pagamentoRepository;
 
-
     public AtualizarPagamentoUseCase() {
-        PagamentoRepository pagamentoRepository = DaoFactory.getInstance().getPagamentoRepositoryORM();
-        this.pagamentoRepository = pagamentoRepository;
+        this.pagamentoRepository =  DaoFactory.getInstance().getPagamentoRepositoryORM();
     }
 
-    public Optional<PagamentoDto> atualizarProgressoPagamento(PagamentoDto pagamentoDto, StatusPagamento status) {        ;
+    public Optional<PagamentoDto> atualizarProgressoPagamento(PagamentoDto pagamentoDto, StatusPagamento status) {
         return this.pagamentoRepository.atualizarStatusPagamento(pagamentoDto, status);
     }
 

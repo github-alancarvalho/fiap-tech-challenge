@@ -8,6 +8,10 @@ import java.util.List;
 
 public class ProdutoMapper {
 
+    private ProdutoMapper() {
+        throw new IllegalStateException("Utility class");
+    }
+
     public static ProdutoDto mapToEntity(Produto entity) {
         if (entity == null) {
             return null;

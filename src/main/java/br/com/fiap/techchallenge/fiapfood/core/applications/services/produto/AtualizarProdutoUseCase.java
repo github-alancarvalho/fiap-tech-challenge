@@ -12,10 +12,8 @@ public class AtualizarProdutoUseCase {
 
     private ProdutoRepository produtoRepository;
 
-
     public AtualizarProdutoUseCase() {
-        ProdutoRepository produtoRepository = DaoFactory.getInstance().getProdutoRepositoryORM();
-        this.produtoRepository = produtoRepository;
+        this.produtoRepository = DaoFactory.getInstance().getProdutoRepositoryORM();
     }
 
     public Optional<ProdutoDto> atualizar(ProdutoDto produtoDto) {

@@ -1,5 +1,5 @@
 
-FROM openjdk:17-alpine as final
+FROM openjdk:17-alpine AS final
 
 
 RUN apk add --no-cache maven

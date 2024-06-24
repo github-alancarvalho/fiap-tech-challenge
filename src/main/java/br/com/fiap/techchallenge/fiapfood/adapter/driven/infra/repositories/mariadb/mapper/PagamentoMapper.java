@@ -8,6 +8,10 @@ import java.util.List;
 
 public class PagamentoMapper {
 
+    private PagamentoMapper() {
+        throw new IllegalStateException("Utility class");
+    }
+
     public static PagamentoDto mapToEntity(Pagamento entity) {
         if (entity == null) {
             return null;

@@ -10,13 +10,11 @@ public class ExcluirClienteUseCase {
 
     private ClienteRepository clienteRepository;
 
-
     public ExcluirClienteUseCase() {
-        ClienteRepository clienteRepository = DaoFactory.getInstance().getClienteRepositoryORM();
-        this.clienteRepository = clienteRepository;
+        this.clienteRepository = DaoFactory.getInstance().getClienteRepositoryORM();
     }
 
-    public Boolean excluir(Cpf cpf) {        ;
+    public Boolean excluir(Cpf cpf) {
         return this.clienteRepository.excluir(cpf);
     }
 

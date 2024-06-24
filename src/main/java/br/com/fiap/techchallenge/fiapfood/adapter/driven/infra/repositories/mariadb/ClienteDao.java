@@ -18,7 +18,7 @@ public class ClienteDao extends ConnectionPoolManager implements ClienteReposito
     private EntityManager entityManager;
 
     public ClienteDao(){
-        this.entityManager = entityManagerFactory.createEntityManager();
+        this.entityManager = getEntityManagerFactory().createEntityManager();
     }
 
 

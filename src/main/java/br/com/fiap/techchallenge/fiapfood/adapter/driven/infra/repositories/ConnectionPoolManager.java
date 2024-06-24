@@ -4,6 +4,10 @@ import com.zaxxer.hikari.HikariDataSource;
 
 public class ConnectionPoolManager {
 
+    private ConnectionPoolManager() {
+        throw new IllegalStateException("Utility class");
+    }
+
     private static HikariDataSource dataSource;
 
     public static synchronized HikariDataSource getDataSource() {

@@ -16,13 +16,9 @@ public class PagamentoDao extends ConnectionPoolManager implements PagamentoRepo
 
     private EntityManager entityManager;
 
-    public PagamentoDao(){
-
-    }
-
     @Override
     public Optional<PagamentoDto> processarPagamento(PagamentoDto pagamento) {
-        entityManager = entityManagerFactory.createEntityManager();
+        entityManager = getEntityManagerFactory().createEntityManager();
         entityManager.getTransaction().begin();
         Pagamento entity = PagamentoMapper.mapToEntity(pagamento);
         entityManager.persist(entity);
@@ -36,7 +32,7 @@ public class PagamentoDao extends ConnectionPoolManager implements PagamentoRepo
     public Optional<PagamentoDto> atualizarStatusPagamento(PagamentoDto pagamento, StatusPagamento status) {
         Pagamento entity = PagamentoMapper.mapToEntity(buscarPagamentoPorId(pagamento.getId()).get());
         entity.setStatus(status);
-        entityManager = entityManagerFactory.createEntityManager();
+        entityManager = getEntityManagerFactory().createEntityManager();
         entityManager.getTransaction().begin();
         entityManager.merge(entity);
         entityManager.flush();
@@ -47,7 +43,7 @@ public class PagamentoDao extends ConnectionPoolManager implements PagamentoRepo
 
     @Override
     public Optional<PagamentoDto> buscarPagamentoPorId(Long id) {
-        entityManager = entityManagerFactory.createEntityManager();
+        entityManager = getEntityManagerFactory().createEntityManager();
         Pagamento entity = entityManager.find(Pagamento.class, id);
         entityManager.close();
         return Optional.ofNullable(PagamentoMapper.mapToEntity(entity));
@@ -55,7 +51,7 @@ public class PagamentoDao extends ConnectionPoolManager implements PagamentoRepo
 
     @Override
     public Optional<List<PagamentoDto>> listarPagamentos() {
-        entityManager = entityManagerFactory.createEntityManager();
+        entityManager = getEntityManagerFactory().createEntityManager();
         Query query = entityManager.createNamedQuery("findAllPagamentos");
         List<Pagamento> list = query.getResultList();
         entityManager.close();

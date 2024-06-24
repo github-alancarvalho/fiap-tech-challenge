@@ -19,7 +19,7 @@ public class PedidoResponse {
     private ClienteDto cliente;
     private StatusPedido status;
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private List<ItemPedidoDto> listItens = new ArrayList<ItemPedidoDto>();
+    private List<ItemPedidoDto> listItens = new ArrayList<>();
 
     public PedidoResponse() {
     }

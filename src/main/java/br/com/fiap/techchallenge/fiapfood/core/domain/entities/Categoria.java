@@ -3,8 +3,7 @@ package br.com.fiap.techchallenge.fiapfood.core.domain.entities;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import org.hibernate.annotations.SQLInsert;
-import org.hibernate.annotations.processing.SQL;
+
 
 @Entity
 @Table(name = "categoria")

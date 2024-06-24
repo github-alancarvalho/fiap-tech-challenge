@@ -27,14 +27,11 @@ import java.util.Optional;
 public class PedidoDao extends ConnectionPoolManager implements PedidoRepository {
 
     private EntityManager entityManager;
-
-    public PedidoDao() {
-
-    }
+    private String statusField = "status";
 
     @Override
     public Optional<PedidoDto> inserir(PedidoDto pedido) {
-        entityManager = entityManagerFactory.createEntityManager();
+        entityManager = getEntityManagerFactory().createEntityManager();
         entityManager.getTransaction().begin();
         Pedido entity = PedidoMapper.mapToEntity(pedido);
         BuscarClienteUseCase buscarClienteUseCase = new BuscarClienteUseCase();
@@ -62,7 +59,7 @@ public class PedidoDao extends ConnectionPoolManager implements PedidoRepository
 
     @Override
     public Optional<PedidoDto> buscarPorId(Long id) {
-        entityManager = entityManagerFactory.createEntityManager();
+        entityManager = getEntityManagerFactory().createEntityManager();
         Pedido entity = entityManager.find(Pedido.class, id);
         entityManager.close();
         return Optional.ofNullable(PedidoMapper.mapToEntity(entity));
@@ -70,7 +67,7 @@ public class PedidoDao extends ConnectionPoolManager implements PedidoRepository
 
     @Override
     public Optional<List<PedidoDto>> listarTudo() {
-        entityManager = entityManagerFactory.createEntityManager();
+        entityManager = getEntityManagerFactory().createEntityManager();
         Query query = entityManager.createNamedQuery("findAllPedidos");
         List<Pedido> list = query.getResultList();
         entityManager.close();
@@ -79,13 +76,13 @@ public class PedidoDao extends ConnectionPoolManager implements PedidoRepository
 
     @Override
     public Optional<List<PedidoDto>> listarPedidosPorStatus(StatusPedido status) {
-        entityManager = entityManagerFactory.createEntityManager();
+        entityManager = getEntityManagerFactory().createEntityManager();
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Pedido> criteriaQuery = criteriaBuilder.createQuery(Pedido.class);
         Root<Pedido> root = criteriaQuery.from(Pedido.class);
 
         criteriaQuery.select(root);
-        criteriaQuery.where(criteriaBuilder.equal(root.get("status"), status.toString()));
+        criteriaQuery.where(criteriaBuilder.equal(root.get(statusField), status.toString()));
 
         List<Pedido> resultList = entityManager.createQuery(criteriaQuery).getResultList();
         entityManager.close();
@@ -94,16 +91,13 @@ public class PedidoDao extends ConnectionPoolManager implements PedidoRepository
 
     @Override
     public Optional<List<PedidoDto>> listarPedidosEmAberto() {
-        entityManager = entityManagerFactory.createEntityManager();
+        entityManager = getEntityManagerFactory().createEntityManager();
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Pedido> criteriaQuery = criteriaBuilder.createQuery(Pedido.class);
         Root<Pedido> root = criteriaQuery.from(Pedido.class);
 
-//        criteriaQuery.select(root);
-//        criteriaQuery.where(criteriaBuilder.notEqual(root.get("status"), StatusPedido.ENTREGUE));
-
-        Predicate statusNull = criteriaBuilder.isNull(root.get("status"));
-        Predicate statusEntregue = criteriaBuilder.notEqual(root.get("status"), StatusPedido.ENTREGUE);
+        Predicate statusNull = criteriaBuilder.isNull(root.get(statusField));
+        Predicate statusEntregue = criteriaBuilder.notEqual(root.get(statusField), StatusPedido.ENTREGUE);
 
         criteriaQuery.select(root);
         criteriaQuery.where(criteriaBuilder.or(statusNull, statusEntregue));
@@ -116,7 +110,7 @@ public class PedidoDao extends ConnectionPoolManager implements PedidoRepository
 
     @Override
     public Boolean excluir(PedidoDto pedido) {
-        entityManager = entityManagerFactory.createEntityManager();
+        entityManager = getEntityManagerFactory().createEntityManager();
         Pedido entity = entityManager.find(Pedido.class, pedido.getId());
         if (entity != null) {
             entityManager.getTransaction().begin();
@@ -135,7 +129,7 @@ public class PedidoDao extends ConnectionPoolManager implements PedidoRepository
 
         PedidoDto pedidoDto = buscarPorId(pedido.getId()).get();
 
-        entityManager = entityManagerFactory.createEntityManager();
+        entityManager = getEntityManagerFactory().createEntityManager();
         entityManager.getTransaction().begin();
         Pedido entity = PedidoMapper.mapToEntity(pedidoDto);
         entity.setStatus(novoStatus);

@@ -38,9 +38,6 @@ public class Cliente {
     @Column(name = "telefone", nullable = false, length = 11)
     private String telefone;
 
-//    @OneToMany(mappedBy = "cliente")
-//    private List<Pedido> pedidos = new ArrayList<>();
-
     public String getCpf() {
         return cpf;
     }
@@ -72,14 +69,5 @@ public class Cliente {
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
-
-//    public List<Pedido> getPedidos() {
-//        return pedidos;
-//    }
-//
-//    public void setPedidos(List<Pedido> pedidos) {
-//        this.pedidos = pedidos;
-//    }
-
 
 }

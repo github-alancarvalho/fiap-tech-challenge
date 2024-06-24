@@ -18,17 +18,11 @@ import java.util.Optional;
 
 public class ProdutoDao extends ConnectionPoolManager implements ProdutoRepository {
 
-
     private EntityManager entityManager;
-
-    public ProdutoDao(){
-
-    }
-
 
     @Override
     public Optional<ProdutoDto> inserir(ProdutoDto produto) {
-        entityManager = entityManagerFactory.createEntityManager();
+        entityManager = getEntityManagerFactory().createEntityManager();
         entityManager.getTransaction().begin();
         Produto entity = ProdutoMapper.mapToEntity(produto);
         Categoria categoria = entityManager.find(Categoria.class, entity.getCategoria().getId());
@@ -42,7 +36,7 @@ public class ProdutoDao extends ConnectionPoolManager implements ProdutoReposito
 
     @Override
     public Optional<ProdutoDto> buscarPorId(Long id) {
-        entityManager = entityManagerFactory.createEntityManager();
+        entityManager = getEntityManagerFactory().createEntityManager();
         Produto entity = entityManager.find(Produto.class, id);
         entityManager.close();
         return Optional.ofNullable(ProdutoMapper.mapToEntity(entity));
@@ -50,7 +44,7 @@ public class ProdutoDao extends ConnectionPoolManager implements ProdutoReposito
 
     @Override
     public Optional<List<ProdutoDto>> listarPorCategoria(CategoriaDto categoria) {
-        entityManager = entityManagerFactory.createEntityManager();
+        entityManager = getEntityManagerFactory().createEntityManager();
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Produto> criteriaQuery = criteriaBuilder.createQuery(Produto.class);
         Root<Produto> root = criteriaQuery.from(Produto.class);
@@ -65,7 +59,7 @@ public class ProdutoDao extends ConnectionPoolManager implements ProdutoReposito
 
     @Override
     public Optional<List<ProdutoDto>> listarTudo() {
-        entityManager = entityManagerFactory.createEntityManager();
+        entityManager = getEntityManagerFactory().createEntityManager();
         Query query = entityManager.createNamedQuery("findAllProdutos");
         List<Produto> list = query.getResultList();
         entityManager.close();
@@ -74,7 +68,7 @@ public class ProdutoDao extends ConnectionPoolManager implements ProdutoReposito
 
     @Override
     public Boolean excluir(ProdutoDto produto) {
-        entityManager = entityManagerFactory.createEntityManager();
+        entityManager = getEntityManagerFactory().createEntityManager();
         Produto entity = entityManager.find(Produto.class, produto.getId());
         if (entity != null){
             entityManager.getTransaction().begin();
@@ -90,7 +84,7 @@ public class ProdutoDao extends ConnectionPoolManager implements ProdutoReposito
 
     @Override
     public Optional<ProdutoDto> atualizar(ProdutoDto produto) {
-        entityManager = entityManagerFactory.createEntityManager();
+        entityManager = getEntityManagerFactory().createEntityManager();
         entityManager.getTransaction().begin();
         Produto entity = ProdutoMapper.mapToEntity(produto);
         Categoria categoria = entityManager.find(Categoria.class, entity.getCategoria().getId());

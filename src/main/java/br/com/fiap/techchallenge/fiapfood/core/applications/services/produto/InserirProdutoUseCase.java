@@ -14,8 +14,7 @@ public class InserirProdutoUseCase {
 
 
     public InserirProdutoUseCase() {
-        ProdutoRepository produtoRepository = DaoFactory.getInstance().getProdutoRepositoryORM();
-        this.produtoRepository = produtoRepository;
+        this.produtoRepository = DaoFactory.getInstance().getProdutoRepositoryORM();
     }
 
     public Optional<ProdutoDto> inserir(ProdutoDto produtoDto) {

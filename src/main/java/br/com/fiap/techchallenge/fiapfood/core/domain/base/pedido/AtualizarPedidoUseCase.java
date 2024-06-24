@@ -1,4 +1,4 @@
-package br.com.fiap.techchallenge.fiapfood.core.applications.services.pedido;
+package br.com.fiap.techchallenge.fiapfood.core.domain.base.pedido;
 
 
 import br.com.fiap.techchallenge.fiapfood.adapter.driven.infra.repositories.DaoFactory;
@@ -13,10 +13,8 @@ public class AtualizarPedidoUseCase {
 
     private PedidoRepository pedidoRepository;
 
-
     public AtualizarPedidoUseCase() {
-        PedidoRepository pedidoRepository = DaoFactory.getInstance().getPedidoRepositoryORM();
-        this.pedidoRepository = pedidoRepository;
+        this.pedidoRepository = DaoFactory.getInstance().getPedidoRepositoryORM();
     }
 
     public Optional<PedidoDto> atualizarProgresso(PedidoDto pedidoDto, StatusPedido statusPedido) {

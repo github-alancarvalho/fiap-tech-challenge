@@ -13,17 +13,15 @@ public class BuscarPagamentoUseCase {
 
     private PagamentoRepository pagamentoRepository;
 
-
     public BuscarPagamentoUseCase() {
-        PagamentoRepository pagamentoRepository = DaoFactory.getInstance().getPagamentoRepositoryORM();
-        this.pagamentoRepository = pagamentoRepository;
+        this.pagamentoRepository = DaoFactory.getInstance().getPagamentoRepositoryORM();
     }
 
-    public Optional<PagamentoDto> buscarPagamentoPorId(Long id) {        ;
+    public Optional<PagamentoDto> buscarPagamentoPorId(Long id) {
         return this.pagamentoRepository.buscarPagamentoPorId(id);
     }
 
-    public Optional<List<PagamentoDto>> buscarTodosPagamentos() {        ;
+    public Optional<List<PagamentoDto>> buscarTodosPagamentos() {
         return this.pagamentoRepository.listarPagamentos();
     }
 

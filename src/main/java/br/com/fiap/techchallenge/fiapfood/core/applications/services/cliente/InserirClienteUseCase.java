@@ -12,16 +12,11 @@ public class InserirClienteUseCase {
 
     private ClienteRepository clienteRepository;
 
-
     public InserirClienteUseCase() {
-        ClienteRepository clienteRepository = DaoFactory.getInstance().getClienteRepositoryORM();
-        this.clienteRepository = clienteRepository;
+        this.clienteRepository = DaoFactory.getInstance().getClienteRepositoryORM();
     }
 
-    public Optional<ClienteDto> inserirClienteORM(ClienteDto clienteDto) {        ;
+    public Optional<ClienteDto> inserirClienteORM(ClienteDto clienteDto) {
         return this.clienteRepository.inserirClienteORM(clienteDto);
-//        return null;
     }
-
-
 }

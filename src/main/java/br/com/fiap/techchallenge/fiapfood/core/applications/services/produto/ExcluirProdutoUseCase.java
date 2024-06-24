@@ -12,11 +12,10 @@ public class ExcluirProdutoUseCase {
 
 
     public ExcluirProdutoUseCase() {
-        ProdutoRepository produtoRepository = DaoFactory.getInstance().getProdutoRepositoryORM();
-        this.produtoRepository = produtoRepository;
+        this.produtoRepository = DaoFactory.getInstance().getProdutoRepositoryORM();
     }
 
-    public Boolean excluir(ProdutoDto produto) {        ;
+    public Boolean excluir(ProdutoDto produto) {
         return this.produtoRepository.excluir(produto);
     }
 

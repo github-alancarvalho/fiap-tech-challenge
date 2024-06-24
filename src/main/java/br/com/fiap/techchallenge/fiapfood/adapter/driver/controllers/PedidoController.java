@@ -2,8 +2,11 @@ package br.com.fiap.techchallenge.fiapfood.adapter.driver.controllers;
 
 import br.com.fiap.techchallenge.fiapfood.adapter.driver.web.PedidoRequest;
 import br.com.fiap.techchallenge.fiapfood.adapter.driver.web.PedidoResponse;
-import br.com.fiap.techchallenge.fiapfood.core.applications.services.pedido.*;
 import br.com.fiap.techchallenge.fiapfood.core.domain.base.StatusPedido;
+import br.com.fiap.techchallenge.fiapfood.core.domain.base.pedido.AtualizarPedidoUseCase;
+import br.com.fiap.techchallenge.fiapfood.core.domain.base.pedido.BuscarPedidoUseCase;
+import br.com.fiap.techchallenge.fiapfood.core.domain.base.pedido.CheckoutUseCase;
+import br.com.fiap.techchallenge.fiapfood.core.domain.base.pedido.ExcluirPedidoUseCase;
 import br.com.fiap.techchallenge.fiapfood.core.domain.dto.ClienteDto;
 import br.com.fiap.techchallenge.fiapfood.core.domain.dto.PedidoDto;
 import br.com.fiap.techchallenge.fiapfood.core.domain.valueobject.Cpf;
@@ -23,7 +26,6 @@ import java.util.Optional;
 @RequestMapping("/api/v1/PedidosORM")
 public class PedidoController {
 
-    private final InserirPedidoUseCase inserirPedidoUseCase;
     private final BuscarPedidoUseCase buscarPedidoUseCase;
     private final AtualizarPedidoUseCase atualizarPedidoUseCase;
     private final ExcluirPedidoUseCase excluirPedidoUseCase;
@@ -31,7 +33,6 @@ public class PedidoController {
 
     public PedidoController() {
 
-        this.inserirPedidoUseCase = new InserirPedidoUseCase();
         this.buscarPedidoUseCase = new BuscarPedidoUseCase();
         this.atualizarPedidoUseCase = new AtualizarPedidoUseCase();
         this.excluirPedidoUseCase = new ExcluirPedidoUseCase();
@@ -47,7 +48,6 @@ public class PedidoController {
                 .listItens(pedidoRequest.getListItens())
                 .build();
 
-        //Optional<PedidoDto> savedPedido = inserirPedidoUseCase.inserir(pedido);
         Optional<PedidoDto> savedPedido = checkoutUseCase.checkout(pedido);
         if (!savedPedido.isEmpty()) {
             PedidoResponse response = PedidoResponse.builder()
@@ -112,7 +112,8 @@ public class PedidoController {
         PedidoDto pedido = PedidoDto.builder()
                 .id(id).build();
 
-        if (excluirPedidoUseCase.excluir(pedido))
+        Boolean isExcluded = excluirPedidoUseCase.excluir(pedido);
+        if (Boolean.TRUE.equals(isExcluded))
             return ResponseEntity.noContent().build();
         else
             return ResponseEntity.badRequest().build();
@@ -158,7 +159,7 @@ public class PedidoController {
                         .build();
                 list.add(response);
             }
-            if (list.size() > 0)
+            if (!list.isEmpty())
                 return ResponseEntity.ok(Optional.ofNullable(list));
             else
                 return ResponseEntity.noContent().build();
@@ -184,7 +185,7 @@ public class PedidoController {
                         .build();
                 list.add(response);
             }
-            if (list.size() > 0)
+            if (!list.isEmpty())
                 return ResponseEntity.ok(Optional.ofNullable(list));
             else
                 return ResponseEntity.noContent().build();

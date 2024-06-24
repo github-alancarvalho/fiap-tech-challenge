@@ -16,8 +16,6 @@ public interface PedidoRepository {
 
     Optional<PedidoDto> buscarPorId(Long id);
 
-//    Optional<PedidoDto> buscarPedidoCompletoPorId(Long id);
-
     Optional<List<PedidoDto>> listarTudo();
 
     Optional<List<PedidoDto>> listarPedidosPorStatus(StatusPedido status);

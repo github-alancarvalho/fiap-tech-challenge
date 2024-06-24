@@ -14,13 +14,11 @@ public class AtualizarClienteUseCase {
 
 
     public AtualizarClienteUseCase() {
-        ClienteRepository clienteRepository = DaoFactory.getInstance().getClienteRepositoryORM();
-        this.clienteRepository = clienteRepository;
+        this.clienteRepository = DaoFactory.getInstance().getClienteRepositoryORM();
     }
 
-    public Optional<ClienteDto> atualizar(ClienteDto clienteDto) {        ;
+    public Optional<ClienteDto> atualizar(ClienteDto clienteDto) {
         return this.clienteRepository.atualizar(clienteDto);
     }
-
 
 }

@@ -14,21 +14,19 @@ public class BuscarProdutoUseCase {
 
     private ProdutoRepository produtoRepository;
 
-
     public BuscarProdutoUseCase() {
-        ProdutoRepository produtoRepository = DaoFactory.getInstance().getProdutoRepositoryORM();
-        this.produtoRepository = produtoRepository;
+        this.produtoRepository = DaoFactory.getInstance().getProdutoRepositoryORM();
     }
 
-    public Optional<ProdutoDto> buscarProdutoPorId(Long id) {        ;
+    public Optional<ProdutoDto> buscarProdutoPorId(Long id) {
         return this.produtoRepository.buscarPorId(id);
     }
 
-    public Optional<List<ProdutoDto>> buscarTodosProdutos() {        ;
+    public Optional<List<ProdutoDto>> buscarTodosProdutos() {
         return this.produtoRepository.listarTudo();
     }
 
-    public Optional<List<ProdutoDto>> buscarProdutosPorCategoria(CategoriaDto categoria) {        ;
+    public Optional<List<ProdutoDto>> buscarProdutosPorCategoria(CategoriaDto categoria) {
         return this.produtoRepository.listarPorCategoria(categoria);
     }
 

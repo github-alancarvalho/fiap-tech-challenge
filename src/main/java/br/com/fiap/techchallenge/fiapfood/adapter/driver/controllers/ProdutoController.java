@@ -115,7 +115,8 @@ public class ProdutoController {
         ProdutoDto produto = ProdutoDto.builder()
                 .id(id).build();
 
-        if (excluirProdutoUseCase.excluir(produto))
+        Boolean isExcluded = excluirProdutoUseCase.excluir(produto);
+        if (Boolean.TRUE.equals(isExcluded))
             return ResponseEntity.noContent().build();
         else
             return ResponseEntity.badRequest().build();
@@ -160,7 +161,7 @@ public class ProdutoController {
                         .categoria(produto.getCategoria()).build();
                 list.add(response);
             }
-            if(list.size() > 0)
+            if(!list.isEmpty())
                 return ResponseEntity.ok(Optional.ofNullable(list));
             else
                 return ResponseEntity.noContent().build();

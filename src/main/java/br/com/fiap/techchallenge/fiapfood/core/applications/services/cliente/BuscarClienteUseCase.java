@@ -16,15 +16,14 @@ public class BuscarClienteUseCase {
 
 
     public BuscarClienteUseCase() {
-        ClienteRepository clienteRepository = DaoFactory.getInstance().getClienteRepositoryORM();
-        this.clienteRepository = clienteRepository;
+        this.clienteRepository = DaoFactory.getInstance().getClienteRepositoryORM();
     }
 
-    public Optional<ClienteDto> buscarClientePorCpfORM(Cpf cpf) {        ;
+    public Optional<ClienteDto> buscarClientePorCpfORM(Cpf cpf) {
         return this.clienteRepository.buscarPorCpf(cpf);
     }
 
-    public Optional<List<ClienteDto>> buscarTodosClientes() {        ;
+    public Optional<List<ClienteDto>> buscarTodosClientes() {
         return this.clienteRepository.listarTudo();
     }
 

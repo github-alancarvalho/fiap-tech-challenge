@@ -14,7 +14,7 @@ public class PedidoRequest {
     private Long id;
     private String cpfCliente;
     private String status;
-    private List<ItemPedidoDto> listItens = new ArrayList<ItemPedidoDto>();
+    private List<ItemPedidoDto> listItens = new ArrayList<>();
 
     public PedidoRequest() {
     }

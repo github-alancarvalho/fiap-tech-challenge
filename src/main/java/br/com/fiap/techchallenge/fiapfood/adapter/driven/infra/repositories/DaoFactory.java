@@ -9,7 +9,7 @@ import br.com.fiap.techchallenge.fiapfood.core.domain.ports.output.ProdutoReposi
 public class DaoFactory {
 
     private static DaoFactory daoFactory;
-
+    //public static final DaoFactory INSTANCE = new DaoFactory();
     private DaoFactory() {
 
     }
@@ -39,20 +39,4 @@ public class DaoFactory {
         return new PagamentoDao();
     }
 
-
-//    public ClientePort getClienteRepository() {
-//        return new ClienteRepositoryImpl();
-//    }
-//
-//    public ProdutoPort getProdutoRepository() {
-//        return new ProdutoRepositoryImpl();
-//    }
-//
-//    public PedidoPort getPedidoRepository() {
-//        return new PedidoRepositoryImpl();
-//    }
-//
-//    public PagamentoPort getPagamentoRepository() {
-//        return new PagamentoRepositoryImpl();
-//    }
 }

@@ -1,8 +1,7 @@
-package br.com.fiap.techchallenge.fiapfood.core.applications.services.pedido;
+package br.com.fiap.techchallenge.fiapfood.core.domain.base.pedido;
 
 
 import br.com.fiap.techchallenge.fiapfood.adapter.driven.infra.repositories.DaoFactory;
-import br.com.fiap.techchallenge.fiapfood.core.domain.base.StatusPedido;
 import br.com.fiap.techchallenge.fiapfood.core.domain.dto.PedidoDto;
 import br.com.fiap.techchallenge.fiapfood.core.domain.ports.output.PedidoRepository;
 
@@ -13,14 +12,11 @@ public class InserirPedidoUseCase {
 
     private PedidoRepository pedidoRepository;
 
-
     public InserirPedidoUseCase() {
-        PedidoRepository pedidoRepository = DaoFactory.getInstance().getPedidoRepositoryORM();
-        this.pedidoRepository = pedidoRepository;
+        this.pedidoRepository = DaoFactory.getInstance().getPedidoRepositoryORM();
     }
 
     public Optional<PedidoDto> inserir(PedidoDto pedidoDto) {
-//        pedidoDto.setStatus(StatusPedido.RECEBIDO);
         return this.pedidoRepository.inserir(pedidoDto);
     }
 }

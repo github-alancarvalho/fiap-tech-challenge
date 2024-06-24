@@ -8,6 +8,10 @@ import java.util.List;
 
 public class PedidoMapper {
 
+    private PedidoMapper() {
+        throw new IllegalStateException("Utility class");
+    }
+
     public static PedidoDto mapToEntity(Pedido entity) {
         if (entity == null) {
             return null;

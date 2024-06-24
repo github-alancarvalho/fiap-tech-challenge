@@ -14,10 +14,8 @@ public class ProcessarPagamentoUseCase {
 
     private PagamentoRepository pagamentoRepository;
 
-
     public ProcessarPagamentoUseCase() {
-        PagamentoRepository pagamentoRepository = DaoFactory.getInstance().getPagamentoRepositoryORM();
-        this.pagamentoRepository = pagamentoRepository;
+        this.pagamentoRepository = DaoFactory.getInstance().getPagamentoRepositoryORM();
     }
 
     public Optional<PagamentoDto> processarPagamento(PagamentoDto pagamentoDto) {
@@ -25,7 +23,7 @@ public class ProcessarPagamentoUseCase {
         return this.pagamentoRepository.processarPagamento(pagamentoDto);
     }
 
-    public Optional<List<PagamentoDto>> buscarTodosPagamentos() {        ;
+    public Optional<List<PagamentoDto>> buscarTodosPagamentos() {
         return this.pagamentoRepository.listarPagamentos();
     }
 

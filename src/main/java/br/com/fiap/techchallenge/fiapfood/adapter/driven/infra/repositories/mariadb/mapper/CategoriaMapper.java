@@ -8,6 +8,10 @@ import java.util.List;
 
 public class CategoriaMapper {
 
+    private CategoriaMapper() {
+        throw new IllegalStateException("Utility class");
+    }
+
     public static CategoriaDto mapToEntity(Categoria entity) {
         if (entity == null) {
             return null;

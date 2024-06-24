@@ -10,6 +10,10 @@ import java.util.List;
 
 public class ClienteMapper {
 
+    private ClienteMapper() {
+        throw new IllegalStateException("Utility class");
+    }
+
     public static ClienteDto mapToEntity(Cliente entity) {
         if (entity == null) {
             return null;

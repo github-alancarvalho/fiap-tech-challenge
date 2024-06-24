@@ -8,18 +8,20 @@ import java.util.Objects;
 
 public class Cpf implements Serializable {
 
+    private static final String CPF_INVALIDO = "CPF inválido.";
+
     @NotNull
     @Column(name = "cpf", nullable = false)
-    private final String cpf;
+    private final String cpfCompleto;
 
     public Cpf(String cpf) {
         // Remove caracteres especiais e espaços em branco
-        this.cpf = cpf.replaceAll("[^0-9]", "");
-        validarCPF(this.cpf);
+        this.cpfCompleto = cpf.replaceAll("[\\D]", "");
+        validarCPF(this.cpfCompleto);
     }
 
     public String getCpfSomenteNumero() {
-        return cpf;
+        return cpfCompleto;
     }
 
     private void validarCPF(String cpf) {
@@ -29,7 +31,7 @@ public class Cpf implements Serializable {
 
         // Verifica se todos os dígitos são iguais
         if (cpf.matches("(\\d)\\1{10}")) {
-            throw new IllegalArgumentException("CPF inválido.");
+            throw new IllegalArgumentException(CPF_INVALIDO);
         }
 
         // Calcula e verifica o primeiro dígito verificador
@@ -42,7 +44,7 @@ public class Cpf implements Serializable {
             digito1 = 0;
         }
         if (Character.getNumericValue(cpf.charAt(9)) != digito1) {
-            throw new IllegalArgumentException("CPF inválido.");
+            throw new IllegalArgumentException(CPF_INVALIDO);
         }
 
         // Calcula e verifica o segundo dígito verificador
@@ -55,7 +57,7 @@ public class Cpf implements Serializable {
             digito2 = 0;
         }
         if (Character.getNumericValue(cpf.charAt(10)) != digito2) {
-            throw new IllegalArgumentException("CPF inválido.");
+            throw new IllegalArgumentException(CPF_INVALIDO);
         }
     }
 
@@ -63,18 +65,18 @@ public class Cpf implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Cpf cpf = (Cpf) o;
-        return Objects.equals(cpf, cpf.cpf);
+        Cpf cpfObj = (Cpf) o;
+        return Objects.equals(cpfCompleto, cpfObj.cpfCompleto);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cpf);
+        return Objects.hash(cpfCompleto);
     }
 
     @Override
     public String toString() {
-        return cpf;
+        return cpfCompleto;
     }
 
 }

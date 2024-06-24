@@ -108,7 +108,8 @@ public class ClienteController {
     @DeleteMapping("/{excluir}")
     public ResponseEntity<Optional<Boolean>> excluir(@RequestParam("cpf") String cpf) {
 
-        if(excluirClienteUseCase.excluir(new Cpf(cpf)))
+        Boolean isExcluded = excluirClienteUseCase.excluir(new Cpf(cpf));
+        if(Boolean.TRUE.equals(isExcluded))
             return ResponseEntity.noContent().build();
         else
             return ResponseEntity.badRequest().build();

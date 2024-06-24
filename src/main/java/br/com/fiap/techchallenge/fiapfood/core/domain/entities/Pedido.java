@@ -29,7 +29,7 @@ public class Pedido {
     private StatusPedido status;
 
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<ItemPedido> listItens = new ArrayList<ItemPedido>();
+    private List<ItemPedido> listItens = new ArrayList<>();
 
     public Pedido() {
     }

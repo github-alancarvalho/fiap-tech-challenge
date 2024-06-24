@@ -4,18 +4,18 @@ import java.io.Serializable;
 
 public class Telefone implements Serializable {
 
-    private final String telefone;
+    private final String telefoneComleto;
 
     public Telefone(String numeroCompleto) {
-        this.telefone = numeroCompleto;
+        this.telefoneComleto = numeroCompleto;
     }
 
     public Telefone(Integer codigoDeArea, Integer numero) {
-        this.telefone = String.valueOf(codigoDeArea) + String.valueOf(numero);
+        this.telefoneComleto = String.valueOf(codigoDeArea) + String.valueOf(numero);
     }
 
     public String getTelefone() {
-        return this.telefone;
+        return this.telefoneComleto;
     }
 }
 

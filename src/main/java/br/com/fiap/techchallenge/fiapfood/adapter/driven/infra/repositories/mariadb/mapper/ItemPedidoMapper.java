@@ -10,6 +10,10 @@ import java.util.List;
 
 public class ItemPedidoMapper {
 
+    private ItemPedidoMapper() {
+        throw new IllegalStateException("Utility class");
+    }
+
     public static ItemPedidoDto mapToEntity(ItemPedido entity) {
         if (entity == null) {
             return null;
