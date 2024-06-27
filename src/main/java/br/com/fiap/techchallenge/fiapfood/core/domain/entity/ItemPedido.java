@@ -1,4 +1,4 @@
-package br.com.fiap.techchallenge.fiapfood.core.domain.dto;
+package br.com.fiap.techchallenge.fiapfood.core.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;
@@ -7,38 +7,38 @@ import lombok.Data;
 @Data
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ItemPedidoDto {
+public class ItemPedido {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private PedidoDto pedido;
+    private Pedido pedido;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private ProdutoDto produto;
+    private Produto produto;
 
     private int quantidade;
 
-    public ItemPedidoDto() {
+    public ItemPedido() {
     }
 
-    public ItemPedidoDto(PedidoDto pedido, ProdutoDto produto, int quantidade) {
+    public ItemPedido(Pedido pedido, Produto produto, int quantidade) {
         this.pedido = pedido;
         this.produto = produto;
         this.quantidade = quantidade;
     }
 
-    public PedidoDto getPedido() {
+    public Pedido getPedido() {
         return pedido;
     }
 
-    public void setPedido(PedidoDto pedido) {
+    public void setPedido(Pedido pedido) {
         this.pedido = pedido;
     }
 
-    public ProdutoDto getProduto() {
+    public Produto getProduto() {
         return produto;
     }
 
-    public void setProduto(ProdutoDto produto) {
+    public void setProduto(Produto produto) {
         this.produto = produto;
     }
 

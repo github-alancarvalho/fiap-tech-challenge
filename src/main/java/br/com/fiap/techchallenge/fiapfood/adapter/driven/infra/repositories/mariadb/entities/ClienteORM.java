@@ -1,4 +1,4 @@
-package br.com.fiap.techchallenge.fiapfood.core.domain.entities;
+package br.com.fiap.techchallenge.fiapfood.adapter.driven.infra.repositories.mariadb.entities;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
@@ -7,14 +7,14 @@ import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "cliente")
-@NamedQuery(name = "findAllClientes", query = "SELECT c FROM Cliente c")
+@NamedQuery(name = "findAllClientes", query = "SELECT c FROM ClienteORM c")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Cliente {
+public class ClienteORM {
 
-    public Cliente() {
+    public ClienteORM() {
     }
 
-    public Cliente(String cpf, String nome, String email, String telefone) {
+    public ClienteORM(String cpf, String nome, String email, String telefone) {
         this.cpf = cpf;
         this.nome = nome;
         this.email = email;

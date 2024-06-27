@@ -1,31 +1,15 @@
-package br.com.fiap.techchallenge.fiapfood.core.domain.entities;
+package br.com.fiap.techchallenge.fiapfood.core.domain.entity;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
+import lombok.Data;
 
-
-@Entity
-@Table(name = "categoria")
-@NamedQuery(name = "findAllCategorias", query = "SELECT c FROM Categoria c")
+@Data
+@Builder
 public class Categoria {
 
-    @NotNull
-    @Id
-    @Column(name = "id", nullable = false, unique = true, updatable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @NotBlank
-    @Column(name = "nome", nullable = false)
     private String nome;
-
-    @NotBlank
-    @Column(name = "descricao", nullable = true)
     private String descricao;
-
-    public Categoria() {
-    }
 
     public Categoria(Long id, String nome, String descricao) {
         this.id = id;

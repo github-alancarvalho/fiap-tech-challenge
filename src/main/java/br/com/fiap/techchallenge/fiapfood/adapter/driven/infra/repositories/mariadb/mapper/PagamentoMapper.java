@@ -1,7 +1,7 @@
 package br.com.fiap.techchallenge.fiapfood.adapter.driven.infra.repositories.mariadb.mapper;
 
-import br.com.fiap.techchallenge.fiapfood.core.domain.dto.PagamentoDto;
-import br.com.fiap.techchallenge.fiapfood.core.domain.entities.Pagamento;
+import br.com.fiap.techchallenge.fiapfood.adapter.driven.infra.repositories.mariadb.entities.PagamentoORM;
+import br.com.fiap.techchallenge.fiapfood.core.domain.entity.Pagamento;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,11 +12,11 @@ public class PagamentoMapper {
         throw new IllegalStateException("Utility class");
     }
 
-    public static PagamentoDto mapToEntity(Pagamento entity) {
+    public static Pagamento mapToEntity(PagamentoORM entity) {
         if (entity == null) {
             return null;
         }
-        return new PagamentoDto(
+        return new Pagamento(
                 entity.getId(),
                 entity.getIdPedido(),
                 entity.getStatus(),
@@ -24,11 +24,11 @@ public class PagamentoMapper {
         );
     }
 
-    public static Pagamento mapToEntity(PagamentoDto pagamento) {
+    public static PagamentoORM mapToEntity(Pagamento pagamento) {
         if (pagamento == null) {
             return null;
         }
-        return new Pagamento(
+        return new PagamentoORM(
                 pagamento.getId(),
                 pagamento.getIdPedido(),
                 pagamento.getStatus(),
@@ -36,14 +36,14 @@ public class PagamentoMapper {
         );
     }
 
-    public static List<PagamentoDto> mapListToEntity(List<Pagamento> listEntity) {
-        List<PagamentoDto> list = new ArrayList<>();
-        for (Pagamento pagamento : listEntity) {
-            list.add(PagamentoDto.builder()
-                    .id(pagamento.getId())
-                    .idPedido(pagamento.getIdPedido())
-                    .status(pagamento.getStatus())
-                    .valor(pagamento.getValor())
+    public static List<Pagamento> mapListToEntity(List<PagamentoORM> listEntity) {
+        List<Pagamento> list = new ArrayList<>();
+        for (PagamentoORM pagamentoORM : listEntity) {
+            list.add(Pagamento.builder()
+                    .id(pagamentoORM.getId())
+                    .idPedido(pagamentoORM.getIdPedido())
+                    .status(pagamentoORM.getStatus())
+                    .valor(pagamentoORM.getValor())
                     .build()
             );
         }

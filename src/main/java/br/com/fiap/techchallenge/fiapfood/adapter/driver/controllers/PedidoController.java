@@ -7,8 +7,8 @@ import br.com.fiap.techchallenge.fiapfood.core.domain.base.pedido.AtualizarPedid
 import br.com.fiap.techchallenge.fiapfood.core.domain.base.pedido.BuscarPedidoUseCase;
 import br.com.fiap.techchallenge.fiapfood.core.domain.base.pedido.CheckoutUseCase;
 import br.com.fiap.techchallenge.fiapfood.core.domain.base.pedido.ExcluirPedidoUseCase;
-import br.com.fiap.techchallenge.fiapfood.core.domain.dto.ClienteDto;
-import br.com.fiap.techchallenge.fiapfood.core.domain.dto.PedidoDto;
+import br.com.fiap.techchallenge.fiapfood.core.domain.entity.Cliente;
+import br.com.fiap.techchallenge.fiapfood.core.domain.entity.Pedido;
 import br.com.fiap.techchallenge.fiapfood.core.domain.valueobject.Cpf;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Optional;
 
 
-@Tag(name = "Pedido API")
+@Tag(name = "PedidoORM API")
 @RestController
 @RequestMapping("/api/v1/PedidosORM")
 public class PedidoController {
@@ -39,16 +39,16 @@ public class PedidoController {
         this.checkoutUseCase = new CheckoutUseCase();
     }
 
-    @Operation(summary = "Checkout do Pedido", description = "Checkout do Pedido. Pedido é inserido e aguardando pagamento")
+    @Operation(summary = "Checkout do PedidoORM", description = "Checkout do PedidoORM. PedidoORM é inserido e aguardando pagamento")
     @PostMapping("/{checkout}")
     public ResponseEntity<Optional<PedidoResponse>> checkout(@Valid @RequestBody PedidoRequest pedidoRequest) {
 
-        PedidoDto pedido = PedidoDto.builder()
-                .cliente(new ClienteDto(new Cpf(pedidoRequest.getCpfCliente()), null, null, null))
+        Pedido pedido = Pedido.builder()
+                .cliente(new Cliente(new Cpf(pedidoRequest.getCpfCliente()), null, null, null))
                 .listItens(pedidoRequest.getListItens())
                 .build();
 
-        Optional<PedidoDto> savedPedido = checkoutUseCase.checkout(pedido);
+        Optional<Pedido> savedPedido = checkoutUseCase.checkout(pedido);
         if (!savedPedido.isEmpty()) {
             PedidoResponse response = PedidoResponse.builder()
                     .id(savedPedido.get().getId())
@@ -63,11 +63,11 @@ public class PedidoController {
         }
     }
 
-    @Operation(summary = "Buscar Pedido por Id", description = "Buscar Pedido por Id")
+    @Operation(summary = "Buscar PedidoORM por Id", description = "Buscar PedidoORM por Id")
     @GetMapping("/buscarPedidoPorId")
     public ResponseEntity<Optional<PedidoResponse>> buscarPedidoPorId(@RequestParam("id") Long id) {
 
-        Optional<PedidoDto> savedPedido = buscarPedidoUseCase.buscarPedidoPorId(id);
+        Optional<Pedido> savedPedido = buscarPedidoUseCase.buscarPedidoPorId(id);
         if (!savedPedido.isEmpty()) {
             PedidoResponse response = PedidoResponse.builder()
                     .id(savedPedido.get().getId())
@@ -85,12 +85,12 @@ public class PedidoController {
     @Operation(summary = "Alterar pedido", description = "Alterar pedido. Id é mandatório")
     @PutMapping("/{alterarProgresso}")
     public ResponseEntity<Optional<PedidoResponse>> alterar(@Valid @RequestBody PedidoRequest pedidoRequest, @RequestParam("status") String status) {
-        PedidoDto pedido = PedidoDto.builder()
+        Pedido pedido = Pedido.builder()
                 .id(pedidoRequest.getId())
                 .status(StatusPedido.valueOf(status))
                 .build();
 
-        Optional<PedidoDto> savedPedido = atualizarPedidoUseCase.atualizarProgresso(pedido, StatusPedido.valueOf(status));
+        Optional<Pedido> savedPedido = atualizarPedidoUseCase.atualizarProgresso(pedido, StatusPedido.valueOf(status));
 
         if (!savedPedido.isEmpty()) {
             PedidoResponse response = PedidoResponse.builder()
@@ -109,7 +109,7 @@ public class PedidoController {
     @Operation(summary = "Excluir pedido por id", description = "Excluir pedido por id, sem pontuação")
     @DeleteMapping("/{excluir}")
     public ResponseEntity<Optional<Boolean>> excluir(@RequestParam("id") Long id) {
-        PedidoDto pedido = PedidoDto.builder()
+        Pedido pedido = Pedido.builder()
                 .id(id).build();
 
         Boolean isExcluded = excluirPedidoUseCase.excluir(pedido);
@@ -122,11 +122,11 @@ public class PedidoController {
     @Operation(summary = "Buscar todos os pedidos", description = "Buscar todos os pedidos")
     @GetMapping("/buscarTudo")
     public ResponseEntity<Optional<List<PedidoResponse>>> buscarTudo() {
-        Optional<List<PedidoDto>> pedidos = buscarPedidoUseCase.buscarTodosPedidos();
+        Optional<List<Pedido>> pedidos = buscarPedidoUseCase.buscarTodosPedidos();
         if (!pedidos.isEmpty()) {
 
             List<PedidoResponse> list = new ArrayList<>();
-            for (PedidoDto pedido : pedidos.get()) {
+            for (Pedido pedido : pedidos.get()) {
                 PedidoResponse response = PedidoResponse.builder()
                         .id(pedido.getId())
                         .cliente(pedido.getCliente())
@@ -144,13 +144,13 @@ public class PedidoController {
     @Operation(summary = "Buscar pedidos por status", description = "Buscar pedidos por status")
     @GetMapping("/buscarPedidosPorStatus")
     public ResponseEntity<Optional<List<PedidoResponse>>> buscarPedidosPorStatus(@RequestParam("status") String status) {
-        Optional<List<PedidoDto>> pedidos = buscarPedidoUseCase.buscarPedidosPorStatus(
+        Optional<List<Pedido>> pedidos = buscarPedidoUseCase.buscarPedidosPorStatus(
                 StatusPedido.valueOf(status));
 
         if (!pedidos.isEmpty()) {
 
             List<PedidoResponse> list = new ArrayList<>();
-            for (PedidoDto pedido : pedidos.get()) {
+            for (Pedido pedido : pedidos.get()) {
                 PedidoResponse response = PedidoResponse.builder()
                         .id(pedido.getId())
                         .cliente(pedido.getCliente())
@@ -171,12 +171,12 @@ public class PedidoController {
     @Operation(summary = "Buscar pedidos em aberto", description = "Buscar pedidos em aberto")
     @GetMapping("/buscarPedidosEmAberto")
     public ResponseEntity<Optional<List<PedidoResponse>>> buscarPedidosEmAberto() {
-        Optional<List<PedidoDto>> pedidos = buscarPedidoUseCase.buscarPedidosEmAberto();
+        Optional<List<Pedido>> pedidos = buscarPedidoUseCase.buscarPedidosEmAberto();
 
         if (!pedidos.isEmpty()) {
 
             List<PedidoResponse> list = new ArrayList<>();
-            for (PedidoDto pedido : pedidos.get()) {
+            for (Pedido pedido : pedidos.get()) {
                 PedidoResponse response = PedidoResponse.builder()
                         .id(pedido.getId())
                         .cliente(pedido.getCliente())

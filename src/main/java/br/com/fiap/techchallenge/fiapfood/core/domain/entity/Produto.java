@@ -1,11 +1,11 @@
-package br.com.fiap.techchallenge.fiapfood.core.domain.dto;
+package br.com.fiap.techchallenge.fiapfood.core.domain.entity;
 
 import lombok.Builder;
 import lombok.Data;
 
 @Data
 @Builder
-public class ProdutoDto {
+public class Produto {
 
     private Long id;
 
@@ -13,14 +13,14 @@ public class ProdutoDto {
 
     private String descricao;
 
-    private CategoriaDto categoria;
+    private Categoria categoria;
 
     private Double preco;
 
-    public ProdutoDto() {
+    public Produto() {
     }
 
-    public ProdutoDto(Long id, String nome, String descricao, CategoriaDto categoria, Double preco) {
+    public Produto(Long id, String nome, String descricao, Categoria categoria, Double preco) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
@@ -52,11 +52,11 @@ public class ProdutoDto {
         this.descricao = descricao;
     }
 
-    public CategoriaDto getCategoria() {
+    public Categoria getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(CategoriaDto categoria) {
+    public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
 

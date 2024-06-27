@@ -1,4 +1,4 @@
-package br.com.fiap.techchallenge.fiapfood.core.domain.entities;
+package br.com.fiap.techchallenge.fiapfood.adapter.driven.infra.repositories.mariadb.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -11,8 +11,8 @@ import org.hibernate.annotations.OnDeleteAction;
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @Entity
 @Table(name = "produto")
-@NamedQuery(name = "findAllProdutos", query = "SELECT p FROM Produto p")
-public class Produto {
+@NamedQuery(name = "findAllProdutos", query = "SELECT p FROM ProdutoORM p")
+public class ProdutoORM {
 
     @NotNull
     @Id
@@ -31,20 +31,20 @@ public class Produto {
     @NotBlank
     @ManyToOne(fetch = FetchType.EAGER)
     @OnDelete(action = OnDeleteAction.NO_ACTION)
-    @JoinColumn(name = "categoria", nullable = false)
-    private Categoria categoria;
+    @JoinColumn(name = "categoriaORM", nullable = false)
+    private CategoriaORM categoriaORM;
 
     @Column(name = "preco", nullable = false)
     private Double preco;
 
-    public Produto() {
+    public ProdutoORM() {
     }
 
-    public Produto(Long id, String nome, String descricao, Categoria categoria, Double preco) {
+    public ProdutoORM(Long id, String nome, String descricao, CategoriaORM categoriaORM, Double preco) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
-        this.categoria = categoria;
+        this.categoriaORM = categoriaORM;
         this.preco = preco;
     }
 
@@ -72,12 +72,12 @@ public class Produto {
         this.descricao = descricao;
     }
 
-    public Categoria getCategoria() {
-        return categoria;
+    public CategoriaORM getCategoria() {
+        return categoriaORM;
     }
 
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
+    public void setCategoria(CategoriaORM categoriaORM) {
+        this.categoriaORM = categoriaORM;
     }
 
     public Double getPreco() {

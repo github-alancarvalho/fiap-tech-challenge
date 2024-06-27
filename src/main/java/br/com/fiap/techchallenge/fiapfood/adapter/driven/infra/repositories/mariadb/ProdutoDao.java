@@ -1,10 +1,10 @@
 package br.com.fiap.techchallenge.fiapfood.adapter.driven.infra.repositories.mariadb;
 
+import br.com.fiap.techchallenge.fiapfood.adapter.driven.infra.repositories.mariadb.entities.CategoriaORM;
+import br.com.fiap.techchallenge.fiapfood.adapter.driven.infra.repositories.mariadb.entities.ProdutoORM;
 import br.com.fiap.techchallenge.fiapfood.adapter.driven.infra.repositories.mariadb.mapper.ProdutoMapper;
-import br.com.fiap.techchallenge.fiapfood.core.domain.dto.CategoriaDto;
-import br.com.fiap.techchallenge.fiapfood.core.domain.dto.ProdutoDto;
-import br.com.fiap.techchallenge.fiapfood.core.domain.entities.Categoria;
-import br.com.fiap.techchallenge.fiapfood.core.domain.entities.Produto;
+import br.com.fiap.techchallenge.fiapfood.core.domain.entity.Categoria;
+import br.com.fiap.techchallenge.fiapfood.core.domain.entity.Produto;
 import br.com.fiap.techchallenge.fiapfood.core.domain.ports.output.ProdutoRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
@@ -21,12 +21,12 @@ public class ProdutoDao extends ConnectionPoolManager implements ProdutoReposito
     private EntityManager entityManager;
 
     @Override
-    public Optional<ProdutoDto> inserir(ProdutoDto produto) {
+    public Optional<Produto> inserir(Produto produto) {
         entityManager = getEntityManagerFactory().createEntityManager();
         entityManager.getTransaction().begin();
-        Produto entity = ProdutoMapper.mapToEntity(produto);
-        Categoria categoria = entityManager.find(Categoria.class, entity.getCategoria().getId());
-        entity.setCategoria(categoria);
+        ProdutoORM entity = ProdutoMapper.mapToEntity(produto);
+        CategoriaORM categoriaORM = entityManager.find(CategoriaORM.class, entity.getCategoria().getId());
+        entity.setCategoria(categoriaORM);
         entityManager.persist(entity);
         entityManager.flush();
         entityManager.getTransaction().commit();
@@ -35,41 +35,41 @@ public class ProdutoDao extends ConnectionPoolManager implements ProdutoReposito
     }
 
     @Override
-    public Optional<ProdutoDto> buscarPorId(Long id) {
+    public Optional<Produto> buscarPorId(Long id) {
         entityManager = getEntityManagerFactory().createEntityManager();
-        Produto entity = entityManager.find(Produto.class, id);
+        ProdutoORM entity = entityManager.find(ProdutoORM.class, id);
         entityManager.close();
         return Optional.ofNullable(ProdutoMapper.mapToEntity(entity));
     }
 
     @Override
-    public Optional<List<ProdutoDto>> listarPorCategoria(CategoriaDto categoria) {
+    public Optional<List<Produto>> listarPorCategoria(Categoria categoria) {
         entityManager = getEntityManagerFactory().createEntityManager();
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Produto> criteriaQuery = criteriaBuilder.createQuery(Produto.class);
-        Root<Produto> root = criteriaQuery.from(Produto.class);
+        CriteriaQuery<ProdutoORM> criteriaQuery = criteriaBuilder.createQuery(ProdutoORM.class);
+        Root<ProdutoORM> root = criteriaQuery.from(ProdutoORM.class);
 
         criteriaQuery.select(root);
         criteriaQuery.where(criteriaBuilder.equal(root.get("categoria").get("id"), categoria.getId()));
 
-        List<Produto> resultList = entityManager.createQuery(criteriaQuery).getResultList();
+        List<ProdutoORM> resultList = entityManager.createQuery(criteriaQuery).getResultList();
         entityManager.close();
         return Optional.ofNullable(ProdutoMapper.mapListToEntity(resultList));
     }
 
     @Override
-    public Optional<List<ProdutoDto>> listarTudo() {
+    public Optional<List<Produto>> listarTudo() {
         entityManager = getEntityManagerFactory().createEntityManager();
         Query query = entityManager.createNamedQuery("findAllProdutos");
-        List<Produto> list = query.getResultList();
+        List<ProdutoORM> list = query.getResultList();
         entityManager.close();
         return Optional.ofNullable(ProdutoMapper.mapListToEntity(list));
     }
 
     @Override
-    public Boolean excluir(ProdutoDto produto) {
+    public Boolean excluir(Produto produto) {
         entityManager = getEntityManagerFactory().createEntityManager();
-        Produto entity = entityManager.find(Produto.class, produto.getId());
+        ProdutoORM entity = entityManager.find(ProdutoORM.class, produto.getId());
         if (entity != null){
             entityManager.getTransaction().begin();
             entityManager.remove(entity);
@@ -83,12 +83,12 @@ public class ProdutoDao extends ConnectionPoolManager implements ProdutoReposito
     }
 
     @Override
-    public Optional<ProdutoDto> atualizar(ProdutoDto produto) {
+    public Optional<Produto> atualizar(Produto produto) {
         entityManager = getEntityManagerFactory().createEntityManager();
         entityManager.getTransaction().begin();
-        Produto entity = ProdutoMapper.mapToEntity(produto);
-        Categoria categoria = entityManager.find(Categoria.class, entity.getCategoria().getId());
-        entity.setCategoria(categoria);
+        ProdutoORM entity = ProdutoMapper.mapToEntity(produto);
+        CategoriaORM categoriaORM = entityManager.find(CategoriaORM.class, entity.getCategoria().getId());
+        entity.setCategoria(categoriaORM);
         entityManager.merge(entity);
         entityManager.flush();
         entityManager.getTransaction().commit();

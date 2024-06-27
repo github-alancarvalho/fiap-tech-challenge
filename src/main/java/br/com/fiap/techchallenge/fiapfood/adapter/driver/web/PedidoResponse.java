@@ -1,8 +1,8 @@
 package br.com.fiap.techchallenge.fiapfood.adapter.driver.web;
 
 import br.com.fiap.techchallenge.fiapfood.core.domain.base.StatusPedido;
-import br.com.fiap.techchallenge.fiapfood.core.domain.dto.ClienteDto;
-import br.com.fiap.techchallenge.fiapfood.core.domain.dto.ItemPedidoDto;
+import br.com.fiap.techchallenge.fiapfood.core.domain.entity.Cliente;
+import br.com.fiap.techchallenge.fiapfood.core.domain.entity.ItemPedido;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;
 import lombok.Data;
@@ -16,15 +16,15 @@ import java.util.List;
 public class PedidoResponse {
 
     private Long id;
-    private ClienteDto cliente;
+    private Cliente cliente;
     private StatusPedido status;
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private List<ItemPedidoDto> listItens = new ArrayList<>();
+    private List<ItemPedido> listItens = new ArrayList<>();
 
     public PedidoResponse() {
     }
 
-    public PedidoResponse(Long id, ClienteDto cliente, StatusPedido status, List<ItemPedidoDto> listItens) {
+    public PedidoResponse(Long id, Cliente cliente, StatusPedido status, List<ItemPedido> listItens) {
         this.id = id;
         this.cliente = cliente;
         this.status = status;
@@ -39,11 +39,11 @@ public class PedidoResponse {
         this.id = id;
     }
 
-    public ClienteDto getCliente() {
+    public Cliente getCliente() {
         return cliente;
     }
 
-    public void setCliente(ClienteDto cliente) {
+    public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
 
@@ -55,11 +55,11 @@ public class PedidoResponse {
         this.status = status;
     }
 
-    public List<ItemPedidoDto> getListItens() {
+    public List<ItemPedido> getListItens() {
         return listItens;
     }
 
-    public void setListItens(List<ItemPedidoDto> listItens) {
+    public void setListItens(List<ItemPedido> listItens) {
         this.listItens = listItens;
     }
 }

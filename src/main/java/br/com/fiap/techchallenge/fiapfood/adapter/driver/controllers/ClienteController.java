@@ -6,7 +6,7 @@ import br.com.fiap.techchallenge.fiapfood.core.applications.services.cliente.Atu
 import br.com.fiap.techchallenge.fiapfood.core.applications.services.cliente.BuscarClienteUseCase;
 import br.com.fiap.techchallenge.fiapfood.core.applications.services.cliente.ExcluirClienteUseCase;
 import br.com.fiap.techchallenge.fiapfood.core.applications.services.cliente.InserirClienteUseCase;
-import br.com.fiap.techchallenge.fiapfood.core.domain.dto.ClienteDto;
+import br.com.fiap.techchallenge.fiapfood.core.domain.entity.Cliente;
 import br.com.fiap.techchallenge.fiapfood.core.domain.valueobject.Cpf;
 import br.com.fiap.techchallenge.fiapfood.core.domain.valueobject.Telefone;
 import io.swagger.v3.oas.annotations.Operation;
@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Tag(name = "Cliente API")
+@Tag(name = "ClienteORM API")
 @RestController
 @RequestMapping("/api/v1/ClientesORM")
 public class ClienteController {
@@ -37,17 +37,17 @@ public class ClienteController {
         this.excluirClienteUseCase = new ExcluirClienteUseCase();
     }
 
-    @Operation(summary = "Inserir Cliente", description = "Inserir novo Cliente")
+    @Operation(summary = "Inserir ClienteORM", description = "Inserir novo ClienteORM")
     @PostMapping("/{inserir}")
     public ResponseEntity<Optional<ClienteResponse>> inserir(@Valid @RequestBody ClienteRequest clienteRequest) {
 
-        ClienteDto cliente = ClienteDto.builder()
+        Cliente cliente = Cliente.builder()
                 .cpf(new Cpf(clienteRequest.getCpf()))
                 .nome(clienteRequest.getNome())
                 .email(clienteRequest.getEmail())
                 .telefone(new Telefone(clienteRequest.getTelefone())).build();
 
-        Optional<ClienteDto> savedCliente = inserirClienteUseCase.inserirClienteORM(cliente);
+        Optional<Cliente> savedCliente = inserirClienteUseCase.inserirClienteORM(cliente);
 
         if (!savedCliente.isEmpty()) {
             ClienteResponse response = ClienteResponse.builder()
@@ -62,11 +62,11 @@ public class ClienteController {
         }
     }
 
-    @Operation(summary = "Buscar Cliente por Cpf", description = "Buscar Cliente por Cpf")
+    @Operation(summary = "Buscar ClienteORM por Cpf", description = "Buscar ClienteORM por Cpf")
     @GetMapping("/buscarClientePorCpf")
     public ResponseEntity<Optional<ClienteResponse>> buscarClientePorCpf(@RequestParam("cpf") String cpf) {
 
-        Optional<ClienteDto> cliente = buscarClienteUseCase.buscarClientePorCpfORM(new Cpf(cpf));
+        Optional<Cliente> cliente = buscarClienteUseCase.buscarClientePorCpfORM(new Cpf(cpf));
         if (!cliente.isEmpty()) {
             ClienteResponse response = ClienteResponse.builder()
                     .cpf(cliente.get().getCpf().getCpfSomenteNumero())
@@ -80,16 +80,16 @@ public class ClienteController {
         }
     }
 
-    @Operation(summary = "Alterar cliente", description = "Alterar Cliente. Cpf é mandatório")
+    @Operation(summary = "Alterar cliente", description = "Alterar ClienteORM. Cpf é mandatório")
     @PutMapping("/{alterar}")
     public ResponseEntity<Optional<ClienteResponse>> alterar(@Valid @RequestBody ClienteRequest clienteRequest) {
-        ClienteDto cliente = ClienteDto.builder()
+        Cliente cliente = Cliente.builder()
                 .cpf(new Cpf(clienteRequest.getCpf()))
                 .nome(clienteRequest.getNome())
                 .email(clienteRequest.getEmail())
                 .telefone(new Telefone(clienteRequest.getTelefone())).build();
 
-        Optional<ClienteDto> savedCliente = atualizarClienteUseCase.atualizar(cliente);
+        Optional<Cliente> savedCliente = atualizarClienteUseCase.atualizar(cliente);
 
         if (!savedCliente.isEmpty()) {
             ClienteResponse response = ClienteResponse.builder()
@@ -104,7 +104,7 @@ public class ClienteController {
         }
     }
 
-    @Operation(summary = "Excluir Cliente por Cpf", description = "Excluir Cliente por Cpf, sem pontuação")
+    @Operation(summary = "Excluir ClienteORM por Cpf", description = "Excluir ClienteORM por Cpf, sem pontuação")
     @DeleteMapping("/{excluir}")
     public ResponseEntity<Optional<Boolean>> excluir(@RequestParam("cpf") String cpf) {
 
@@ -118,11 +118,11 @@ public class ClienteController {
     @Operation(summary = "Buscar todos os clientes", description = "Buscar todos os clientes")
     @GetMapping("/buscarTudo")
     public ResponseEntity<Optional<List<ClienteResponse>>> buscarTudo() {
-        Optional<List<ClienteDto>> clientes = buscarClienteUseCase.buscarTodosClientes();
+        Optional<List<Cliente>> clientes = buscarClienteUseCase.buscarTodosClientes();
         if (!clientes.isEmpty()) {
 
             List<ClienteResponse> list = new ArrayList<>();
-            for (ClienteDto cliente : clientes.get()) {
+            for (Cliente cliente : clientes.get()) {
                 ClienteResponse response = ClienteResponse.builder()
                         .cpf(cliente.getCpf().getCpfSomenteNumero())
                         .nome(cliente.getNome())

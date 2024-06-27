@@ -25,9 +25,9 @@ public class ProdutoPutRequest {
     @Schema(description = "Descricao do produto,", example = "Sandubão com ovo e bacon")
     private String descricao;
 
-    @NotEmpty(message = "Categoria não pode ser vazia")
-    @NotNull(message = "Categoria não pode ser nula")
-    @Schema(description = "Categoria do produto.(1 - Lanche, 2 - Acompanhamento, 3 - Sobremesa, 4 - Bebida)", example = "1")
+    @NotEmpty(message = "CategoriaORM não pode ser vazia")
+    @NotNull(message = "CategoriaORM não pode ser nula")
+    @Schema(description = "CategoriaORM do produto.(1 - Lanche, 2 - Acompanhamento, 3 - Sobremesa, 4 - Bebida)", example = "1")
     private Long categoriaId;
 
     @NotEmpty(message = "Preço não pode ser vazio")

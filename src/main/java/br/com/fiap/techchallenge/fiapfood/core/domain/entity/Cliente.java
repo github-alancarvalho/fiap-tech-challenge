@@ -1,4 +1,4 @@
-package br.com.fiap.techchallenge.fiapfood.core.domain.dto;
+package br.com.fiap.techchallenge.fiapfood.core.domain.entity;
 
 import br.com.fiap.techchallenge.fiapfood.core.domain.valueobject.Cpf;
 import br.com.fiap.techchallenge.fiapfood.core.domain.valueobject.Telefone;
@@ -8,14 +8,14 @@ import lombok.Data;
 import java.util.Objects;
 @Data
 @Builder
-public class ClienteDto {
+public class Cliente {
 
     private Cpf cpf;
     private String nome;
     private String email;
     private Telefone telefone;
 
-    public ClienteDto(Cpf cpf, String nome, String email, Telefone telefone) {
+    public Cliente(Cpf cpf, String nome, String email, Telefone telefone) {
         this.cpf = cpf;
         this.nome = nome;
         this.email = email;
@@ -58,7 +58,7 @@ public class ClienteDto {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ClienteDto cliente = (ClienteDto) o;
+        Cliente cliente = (Cliente) o;
         return Objects.equals(cpf, cliente.cpf);
     }
 

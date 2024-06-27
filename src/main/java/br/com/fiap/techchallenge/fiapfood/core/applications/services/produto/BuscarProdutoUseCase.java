@@ -2,8 +2,8 @@ package br.com.fiap.techchallenge.fiapfood.core.applications.services.produto;
 
 
 import br.com.fiap.techchallenge.fiapfood.adapter.driven.infra.repositories.DaoFactory;
-import br.com.fiap.techchallenge.fiapfood.core.domain.dto.CategoriaDto;
-import br.com.fiap.techchallenge.fiapfood.core.domain.dto.ProdutoDto;
+import br.com.fiap.techchallenge.fiapfood.core.domain.entity.Categoria;
+import br.com.fiap.techchallenge.fiapfood.core.domain.entity.Produto;
 import br.com.fiap.techchallenge.fiapfood.core.domain.ports.output.ProdutoRepository;
 
 import java.util.List;
@@ -18,15 +18,15 @@ public class BuscarProdutoUseCase {
         this.produtoRepository = DaoFactory.getInstance().getProdutoRepositoryORM();
     }
 
-    public Optional<ProdutoDto> buscarProdutoPorId(Long id) {
+    public Optional<Produto> buscarProdutoPorId(Long id) {
         return this.produtoRepository.buscarPorId(id);
     }
 
-    public Optional<List<ProdutoDto>> buscarTodosProdutos() {
+    public Optional<List<Produto>> buscarTodosProdutos() {
         return this.produtoRepository.listarTudo();
     }
 
-    public Optional<List<ProdutoDto>> buscarProdutosPorCategoria(CategoriaDto categoria) {
+    public Optional<List<Produto>> buscarProdutosPorCategoria(Categoria categoria) {
         return this.produtoRepository.listarPorCategoria(categoria);
     }
 

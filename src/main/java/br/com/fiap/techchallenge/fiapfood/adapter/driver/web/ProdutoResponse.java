@@ -1,6 +1,6 @@
 package br.com.fiap.techchallenge.fiapfood.adapter.driver.web;
 
-import br.com.fiap.techchallenge.fiapfood.core.domain.dto.CategoriaDto;
+import br.com.fiap.techchallenge.fiapfood.core.domain.entity.Categoria;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -26,10 +26,10 @@ public class ProdutoResponse {
     @Schema(description = "Descricao do produto,", example = "Sandubão com ovo e bacon")
     private String descricao;
 
-    @NotEmpty(message = "Categoria não pode ser vazia")
-    @NotNull(message = "Categoria não pode ser nula")
-    @Schema(description = "Categoria do produto,")
-    private CategoriaDto categoria;
+    @NotEmpty(message = "CategoriaORM não pode ser vazia")
+    @NotNull(message = "CategoriaORM não pode ser nula")
+    @Schema(description = "CategoriaORM do produto,")
+    private Categoria categoria;
 
     @NotEmpty(message = "Preço não pode ser vazio")
     @NotNull(message = "Preço não pode ser nulo")
@@ -39,7 +39,7 @@ public class ProdutoResponse {
     public ProdutoResponse() {
     }
 
-    public ProdutoResponse(Long id, String nome, String descricao, CategoriaDto categoria, Double preco) {
+    public ProdutoResponse(Long id, String nome, String descricao, Categoria categoria, Double preco) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
@@ -71,11 +71,11 @@ public class ProdutoResponse {
         this.descricao = descricao;
     }
 
-    public CategoriaDto getCategoria() {
+    public Categoria getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(CategoriaDto categoria) {
+    public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
 

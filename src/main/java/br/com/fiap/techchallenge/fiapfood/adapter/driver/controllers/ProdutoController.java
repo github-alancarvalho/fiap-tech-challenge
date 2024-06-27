@@ -7,8 +7,8 @@ import br.com.fiap.techchallenge.fiapfood.core.applications.services.produto.Atu
 import br.com.fiap.techchallenge.fiapfood.core.applications.services.produto.BuscarProdutoUseCase;
 import br.com.fiap.techchallenge.fiapfood.core.applications.services.produto.ExcluirProdutoUseCase;
 import br.com.fiap.techchallenge.fiapfood.core.applications.services.produto.InserirProdutoUseCase;
-import br.com.fiap.techchallenge.fiapfood.core.domain.dto.CategoriaDto;
-import br.com.fiap.techchallenge.fiapfood.core.domain.dto.ProdutoDto;
+import br.com.fiap.techchallenge.fiapfood.core.domain.entity.Categoria;
+import br.com.fiap.techchallenge.fiapfood.core.domain.entity.Produto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Tag(name = "Produto API")
+@Tag(name = "ProdutoORM API")
 @RestController
 @RequestMapping("/api/v1/ProdutosORM")
 public class ProdutoController {
@@ -37,18 +37,18 @@ public class ProdutoController {
         this.excluirProdutoUseCase = new ExcluirProdutoUseCase();
     }
 
-    @Operation(summary = "Inserir Produto", description = "Inserir novo Produto")
+    @Operation(summary = "Inserir ProdutoORM", description = "Inserir novo ProdutoORM")
     @PostMapping("/{inserir}")
     public ResponseEntity<Optional<ProdutoResponse>> inserir(@Valid @RequestBody ProdutoPostRequest produtoRequest) {
 
-        ProdutoDto produto = ProdutoDto.builder()
+        Produto produto = Produto.builder()
                 .nome(produtoRequest.getNome())
                 .descricao(produtoRequest.getDescricao())
                 .preco(produtoRequest.getPreco())
-                .categoria(CategoriaDto.builder().id(produtoRequest.getCategoriaId()).build())
+                .categoria(Categoria.builder().id(produtoRequest.getCategoriaId()).build())
                 .build();
 
-        Optional<ProdutoDto> savedProduto = inserirProdutoUseCase.inserir(produto);
+        Optional<Produto> savedProduto = inserirProdutoUseCase.inserir(produto);
         if (!savedProduto.isEmpty()) {
             ProdutoResponse response = ProdutoResponse.builder()
                     .id(savedProduto.get().getId())
@@ -63,11 +63,11 @@ public class ProdutoController {
         }
     }
 
-    @Operation(summary = "Buscar Produto por Id", description = "Buscar Produto por Id")
+    @Operation(summary = "Buscar ProdutoORM por Id", description = "Buscar ProdutoORM por Id")
     @GetMapping("/buscarProdutoPorId")
     public ResponseEntity<Optional<ProdutoResponse>> buscarProdutoPorId(@RequestParam("id") Long id) {
 
-        Optional<ProdutoDto> produto = buscarProdutoUseCase.buscarProdutoPorId(id);
+        Optional<Produto> produto = buscarProdutoUseCase.buscarProdutoPorId(id);
         if (!produto.isEmpty()) {
             ProdutoResponse response = ProdutoResponse.builder()
                     .id(produto.get().getId())
@@ -85,15 +85,15 @@ public class ProdutoController {
     @Operation(summary = "Alterar produto", description = "Alterar produto. Id é mandatório")
     @PutMapping("/{alterar}")
     public ResponseEntity<Optional<ProdutoResponse>> alterar(@Valid @RequestBody ProdutoPutRequest produtoRequest) {
-        ProdutoDto produto = ProdutoDto.builder()
+        Produto produto = Produto.builder()
                 .id(produtoRequest.getId())
                 .nome(produtoRequest.getNome())
                 .descricao(produtoRequest.getDescricao())
                 .preco(produtoRequest.getPreco())
-                .categoria(CategoriaDto.builder().id(produtoRequest.getCategoriaId()).build())
+                .categoria(Categoria.builder().id(produtoRequest.getCategoriaId()).build())
                 .build();
 
-        Optional<ProdutoDto> savedProduto = atualizarProdutoUseCase.atualizar(produto);
+        Optional<Produto> savedProduto = atualizarProdutoUseCase.atualizar(produto);
 
         if (!savedProduto.isEmpty()) {
             ProdutoResponse response = ProdutoResponse.builder()
@@ -112,7 +112,7 @@ public class ProdutoController {
     @Operation(summary = "Excluir produto por id", description = "Excluir produto por id, sem pontuação")
     @DeleteMapping("/{excluir}")
     public ResponseEntity<Optional<Boolean>> excluir(@RequestParam("id") Long id) {
-        ProdutoDto produto = ProdutoDto.builder()
+        Produto produto = Produto.builder()
                 .id(id).build();
 
         Boolean isExcluded = excluirProdutoUseCase.excluir(produto);
@@ -125,11 +125,11 @@ public class ProdutoController {
     @Operation(summary = "Buscar todos os produtos", description = "Buscar todos os produtos")
     @GetMapping("/buscarTudo")
     public ResponseEntity<Optional<List<ProdutoResponse>>> buscarTudo() {
-        Optional<List<ProdutoDto>> produtos = buscarProdutoUseCase.buscarTodosProdutos();
+        Optional<List<Produto>> produtos = buscarProdutoUseCase.buscarTodosProdutos();
         if (!produtos.isEmpty()) {
 
             List<ProdutoResponse> list = new ArrayList<>();
-            for (ProdutoDto produto : produtos.get()) {
+            for (Produto produto : produtos.get()) {
                 ProdutoResponse response = ProdutoResponse.builder()
                         .id(produto.getId())
                         .nome(produto.getNome())
@@ -147,12 +147,12 @@ public class ProdutoController {
     @Operation(summary = "Buscar produtos por categoria", description = "Buscar produtos por categoria. (1 - Lanche, 2 - Acompanhamento, 3 - Sobremesa, 4 - Bebida)")
     @GetMapping("/buscarProdutosPorCategoria")
     public ResponseEntity<Optional<List<ProdutoResponse>>> buscarProdutosPorCategoria(@RequestParam("id") Long id) {
-        Optional<List<ProdutoDto>> produtos = buscarProdutoUseCase.buscarProdutosPorCategoria(
-                CategoriaDto.builder().id(id).build());
+        Optional<List<Produto>> produtos = buscarProdutoUseCase.buscarProdutosPorCategoria(
+                Categoria.builder().id(id).build());
         if (!produtos.isEmpty()) {
 
             List<ProdutoResponse> list = new ArrayList<>();
-            for (ProdutoDto produto : produtos.get()) {
+            for (Produto produto : produtos.get()) {
                 ProdutoResponse response = ProdutoResponse.builder()
                         .id(produto.getId())
                         .nome(produto.getNome())

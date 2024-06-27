@@ -1,9 +1,9 @@
 package br.com.fiap.techchallenge.fiapfood.adapter.driven.infra.repositories.mariadb.mapper;
 
-import br.com.fiap.techchallenge.fiapfood.core.domain.dto.ItemPedidoDto;
-import br.com.fiap.techchallenge.fiapfood.core.domain.dto.PedidoDto;
-import br.com.fiap.techchallenge.fiapfood.core.domain.entities.ItemPedido;
-import br.com.fiap.techchallenge.fiapfood.core.domain.entities.Pedido;
+import br.com.fiap.techchallenge.fiapfood.core.domain.entity.ItemPedido;
+import br.com.fiap.techchallenge.fiapfood.core.domain.entity.Pedido;
+import br.com.fiap.techchallenge.fiapfood.adapter.driven.infra.repositories.mariadb.entities.ItemPedidoORM;
+import br.com.fiap.techchallenge.fiapfood.adapter.driven.infra.repositories.mariadb.entities.PedidoORM;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,70 +14,70 @@ public class ItemPedidoMapper {
         throw new IllegalStateException("Utility class");
     }
 
-    public static ItemPedidoDto mapToEntity(ItemPedido entity) {
+    public static ItemPedido mapToEntity(ItemPedidoORM entity) {
         if (entity == null) {
             return null;
         }
 
-        return new ItemPedidoDto(
+        return new ItemPedido(
                 PedidoMapper.mapToEntity(entity.getPedido()),
                 ProdutoMapper.mapToEntity(entity.getProduto()),
                 entity.getQuantidade()
         );
     }
 
-    public static ItemPedido mapToEntity(ItemPedidoDto itemPedido) {
+    public static ItemPedidoORM mapToEntity(ItemPedido itemPedido) {
         if (itemPedido == null) {
             return null;
         }
 
-        return new ItemPedido(
+        return new ItemPedidoORM(
                 PedidoMapper.mapToEntity(itemPedido.getPedido()),
                 ProdutoMapper.mapToEntity(itemPedido.getProduto()),
                 itemPedido.getQuantidade()
         );
     }
 
-    public static List<ItemPedidoDto> mapListToORM(List<ItemPedido> listEntity) {
-        List<ItemPedidoDto> list = new ArrayList<>();
-        for (ItemPedido itemPedido : listEntity) {
-            list.add(ItemPedidoDto.builder()
-                    .pedido(PedidoDto.builder().id(itemPedido.getPedido().getId()).build())
-                    .produto(ProdutoMapper.mapToEntity(itemPedido.getProduto()))
-                    .quantidade(itemPedido.getQuantidade())
+    public static List<ItemPedido> mapListToORM(List<ItemPedidoORM> listEntity) {
+        List<ItemPedido> list = new ArrayList<>();
+        for (ItemPedidoORM itemPedidoORM : listEntity) {
+            list.add(ItemPedido.builder()
+                    .pedido(Pedido.builder().id(itemPedidoORM.getPedido().getId()).build())
+                    .produto(ProdutoMapper.mapToEntity(itemPedidoORM.getProduto()))
+                    .quantidade(itemPedidoORM.getQuantidade())
                     .build()
             );
         }
         return list;
     }
 
-    public static List<ItemPedido> mapListToEntity(List<ItemPedidoDto> listItemPedidoDto) {
-        List<ItemPedido> list = new ArrayList<>();
-        for (ItemPedidoDto itemPedido : listItemPedidoDto) {
-            ItemPedido itemPedidoEntity = new ItemPedido(
+    public static List<ItemPedidoORM> mapListToEntity(List<ItemPedido> listItemPedido) {
+        List<ItemPedidoORM> list = new ArrayList<>();
+        for (ItemPedido itemPedido : listItemPedido) {
+            ItemPedidoORM itemPedidoORMEntity = new ItemPedidoORM(
                     PedidoMapper.mapToEntity(itemPedido.getPedido()),
                     ProdutoMapper.mapToEntity(itemPedido.getProduto()),
                     itemPedido.getQuantidade()
             );
-            list.add(itemPedidoEntity);
+            list.add(itemPedidoORMEntity);
         }
         return list;
     }
 
-    public static List<ItemPedido> mapListaSimplesToEntity(List<ItemPedidoDto> listItemPedidoDto) {
-        List<ItemPedido> list = new ArrayList<>();
-        for (ItemPedidoDto itemPedido : listItemPedidoDto) {
-            Pedido pedidoEntity = new Pedido();
+    public static List<ItemPedidoORM> mapListaSimplesToEntity(List<ItemPedido> listItemPedido) {
+        List<ItemPedidoORM> list = new ArrayList<>();
+        for (ItemPedido itemPedido : listItemPedido) {
+            PedidoORM pedidoORMEntity = new PedidoORM();
             if(itemPedido.getPedido()!=null && itemPedido.getPedido().getId() != null)
-                pedidoEntity.setId(itemPedido.getPedido().getId());
+                pedidoORMEntity.setId(itemPedido.getPedido().getId());
 
 
-            ItemPedido itemPedidoEntity = new ItemPedido(
-                    pedidoEntity,
+            ItemPedidoORM itemPedidoORMEntity = new ItemPedidoORM(
+                    pedidoORMEntity,
                     ProdutoMapper.mapToEntity(itemPedido.getProduto()),
                     itemPedido.getQuantidade()
             );
-            list.add(itemPedidoEntity);
+            list.add(itemPedidoORMEntity);
         }
         return list;
     }

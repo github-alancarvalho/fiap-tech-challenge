@@ -1,4 +1,4 @@
-package br.com.fiap.techchallenge.fiapfood.core.domain.entities;
+package br.com.fiap.techchallenge.fiapfood.adapter.driven.infra.repositories.mariadb.entities;
 
 import br.com.fiap.techchallenge.fiapfood.core.domain.base.StatusPedido;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -12,9 +12,9 @@ import java.util.List;
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @Table(name = "pedido")
-@NamedQuery(name = "findAllPedidos", query = "SELECT p FROM Pedido p")
+@NamedQuery(name = "findAllPedidos", query = "SELECT p FROM PedidoORM p")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Pedido {
+public class PedidoORM {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,20 +23,20 @@ public class Pedido {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "cliente_cpf")
-    private Cliente cliente;
+    private ClienteORM clienteORM;
 
     @Enumerated(EnumType.STRING)
     private StatusPedido status;
 
-    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<ItemPedido> listItens = new ArrayList<>();
+    @OneToMany(mappedBy = "pedidoORM", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<ItemPedidoORM> listItens = new ArrayList<>();
 
-    public Pedido() {
+    public PedidoORM() {
     }
 
-    public Pedido(Long id, Cliente cliente, StatusPedido status, List<ItemPedido> listItens) {
+    public PedidoORM(Long id, ClienteORM clienteORM, StatusPedido status, List<ItemPedidoORM> listItens) {
         this.id = id;
-        this.cliente = cliente;
+        this.clienteORM = clienteORM;
         this.status = status;
         this.listItens = listItens;
     }
@@ -49,12 +49,12 @@ public class Pedido {
         this.id = id;
     }
 
-    public Cliente getCliente() {
-        return cliente;
+    public ClienteORM getCliente() {
+        return clienteORM;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+    public void setCliente(ClienteORM clienteORM) {
+        this.clienteORM = clienteORM;
     }
 
     public StatusPedido getStatus() {
@@ -65,11 +65,11 @@ public class Pedido {
         this.status = status;
     }
 
-    public List<ItemPedido> getListItens() {
+    public List<ItemPedidoORM> getListItens() {
         return listItens;
     }
 
-    public void setListItens(List<ItemPedido> listItens) {
+    public void setListItens(List<ItemPedidoORM> listItens) {
         this.listItens = listItens;
     }
 }

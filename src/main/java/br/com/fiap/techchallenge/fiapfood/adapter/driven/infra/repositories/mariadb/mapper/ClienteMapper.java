@@ -1,7 +1,7 @@
 package br.com.fiap.techchallenge.fiapfood.adapter.driven.infra.repositories.mariadb.mapper;
 
-import br.com.fiap.techchallenge.fiapfood.core.domain.entities.Cliente;
-import br.com.fiap.techchallenge.fiapfood.core.domain.dto.ClienteDto;
+import br.com.fiap.techchallenge.fiapfood.adapter.driven.infra.repositories.mariadb.entities.ClienteORM;
+import br.com.fiap.techchallenge.fiapfood.core.domain.entity.Cliente;
 import br.com.fiap.techchallenge.fiapfood.core.domain.valueobject.Cpf;
 import br.com.fiap.techchallenge.fiapfood.core.domain.valueobject.Telefone;
 
@@ -14,11 +14,11 @@ public class ClienteMapper {
         throw new IllegalStateException("Utility class");
     }
 
-    public static ClienteDto mapToEntity(Cliente entity) {
+    public static Cliente mapToEntity(ClienteORM entity) {
         if (entity == null) {
             return null;
         }
-        return new ClienteDto(
+        return new Cliente(
                 new Cpf(entity.getCpf()),
                 entity.getNome(),
                 entity.getEmail(),
@@ -26,11 +26,11 @@ public class ClienteMapper {
         );
     }
 
-    public static Cliente mapToEntity(ClienteDto cliente) {
+    public static ClienteORM mapToEntity(Cliente cliente) {
         if (cliente == null) {
             return null;
         }
-        return new Cliente(
+        return new ClienteORM(
                 cliente.getCpf() == null ? null : cliente.getCpf().getCpfSomenteNumero(),
                 cliente.getNome(),
                 cliente.getEmail(),
@@ -38,14 +38,14 @@ public class ClienteMapper {
         );
     }
 
-    public static List<ClienteDto> mapListToEntity(List<Cliente> listEntity) {
-        List<ClienteDto> list = new ArrayList<>();
-        for ( Cliente cliente : listEntity ){
-            list.add(ClienteDto.builder()
-                    .nome(cliente.getNome())
-                    .cpf(new Cpf(cliente.getCpf()))
-                            .telefone(new Telefone(cliente.getTelefone()))
-                            .email(cliente.getEmail()).build()
+    public static List<Cliente> mapListToEntity(List<ClienteORM> listEntity) {
+        List<Cliente> list = new ArrayList<>();
+        for ( ClienteORM clienteORM : listEntity ){
+            list.add(Cliente.builder()
+                    .nome(clienteORM.getNome())
+                    .cpf(new Cpf(clienteORM.getCpf()))
+                            .telefone(new Telefone(clienteORM.getTelefone()))
+                            .email(clienteORM.getEmail()).build()
                     );
         }
         return list;

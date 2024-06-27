@@ -13,23 +13,23 @@ public class PagamentoRequest {
 
     @NotEmpty(message = "Id não pode ser vazio")
     @NotNull(message = "Id não pode ser nulo")
-    @Schema(description = "Id do Pagamento,", example = "123")
+    @Schema(description = "Id do PagamentoORM,", example = "123")
     private Long id;
 
-    @NotEmpty(message = "Id do Pedido não pode ser vazio")
-    @NotNull(message = "Id do Pedido não pode ser nulo")
-    @Schema(description = "Código do Pedido,", example = "788")
+    @NotEmpty(message = "Id do PedidoORM não pode ser vazio")
+    @NotNull(message = "Id do PedidoORM não pode ser nulo")
+    @Schema(description = "Código do PedidoORM,", example = "788")
     private Long idPedido;
 
-    @NotEmpty(message = "Status do Pagamento não pode ser vazio")
-    @NotNull(message = "Status do Pagamento não pode ser nulo")
-    @Schema(description = "Status do Pagamento do cliente,", example = "joao@teste.com.br")
+    @NotEmpty(message = "Status do PagamentoORM não pode ser vazio")
+    @NotNull(message = "Status do PagamentoORM não pode ser nulo")
+    @Schema(description = "Status do PagamentoORM do cliente,", example = "joao@teste.com.br")
     @Email
     private String status;
 
     @NotEmpty(message = "Valor não pode ser vazio")
     @NotNull(message = "Valor não pode ser nulo")
-    @Schema(description = "Valor total do Pagamento,", example = "181.59")
+    @Schema(description = "Valor total do PagamentoORM,", example = "181.59")
     private Double valor;
 
 

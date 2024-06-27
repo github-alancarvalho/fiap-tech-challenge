@@ -1,22 +1,22 @@
 package br.com.fiap.techchallenge.fiapfood.core.domain.ports.output;
 
-import br.com.fiap.techchallenge.fiapfood.core.domain.dto.CategoriaDto;
-import br.com.fiap.techchallenge.fiapfood.core.domain.dto.ProdutoDto;
+import br.com.fiap.techchallenge.fiapfood.core.domain.entity.Categoria;
+import br.com.fiap.techchallenge.fiapfood.core.domain.entity.Produto;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface ProdutoRepository {
 
-    Optional<ProdutoDto> inserir(ProdutoDto produto);
+    Optional<Produto> inserir(Produto produto);
 
-    Optional<ProdutoDto> buscarPorId(Long id);
+    Optional<Produto> buscarPorId(Long id);
 
-    Optional<List<ProdutoDto>> listarPorCategoria(CategoriaDto categoria);
+    Optional<List<Produto>> listarPorCategoria(Categoria categoria);
 
-    Optional<List<ProdutoDto>> listarTudo();
+    Optional<List<Produto>> listarTudo();
 
-    Boolean excluir(ProdutoDto produto);
+    Boolean excluir(Produto produto);
 
-    Optional<ProdutoDto> atualizar(ProdutoDto produto);
+    Optional<Produto> atualizar(Produto produto);
 }

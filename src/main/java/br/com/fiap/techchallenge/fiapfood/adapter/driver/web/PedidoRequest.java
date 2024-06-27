@@ -1,6 +1,6 @@
 package br.com.fiap.techchallenge.fiapfood.adapter.driver.web;
 
-import br.com.fiap.techchallenge.fiapfood.core.domain.dto.ItemPedidoDto;
+import br.com.fiap.techchallenge.fiapfood.core.domain.entity.ItemPedido;
 import lombok.Builder;
 import lombok.Data;
 
@@ -14,12 +14,12 @@ public class PedidoRequest {
     private Long id;
     private String cpfCliente;
     private String status;
-    private List<ItemPedidoDto> listItens = new ArrayList<>();
+    private List<ItemPedido> listItens = new ArrayList<>();
 
     public PedidoRequest() {
     }
 
-    public PedidoRequest(Long id, String cpfCliente, String status, List<ItemPedidoDto> listItens) {
+    public PedidoRequest(Long id, String cpfCliente, String status, List<ItemPedido> listItens) {
         this.id = id;
         this.cpfCliente = cpfCliente;
         this.status = status;
@@ -50,11 +50,11 @@ public class PedidoRequest {
         this.status = status;
     }
 
-    public List<ItemPedidoDto> getListItens() {
+    public List<ItemPedido> getListItens() {
         return listItens;
     }
 
-    public void setListItens(List<ItemPedidoDto> listItens) {
+    public void setListItens(List<ItemPedido> listItens) {
         this.listItens = listItens;
     }
 }

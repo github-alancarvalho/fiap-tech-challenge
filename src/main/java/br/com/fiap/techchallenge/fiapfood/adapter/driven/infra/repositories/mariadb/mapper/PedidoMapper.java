@@ -1,7 +1,7 @@
 package br.com.fiap.techchallenge.fiapfood.adapter.driven.infra.repositories.mariadb.mapper;
 
-import br.com.fiap.techchallenge.fiapfood.core.domain.dto.PedidoDto;
-import br.com.fiap.techchallenge.fiapfood.core.domain.entities.Pedido;
+import br.com.fiap.techchallenge.fiapfood.core.domain.entity.Pedido;
+import br.com.fiap.techchallenge.fiapfood.adapter.driven.infra.repositories.mariadb.entities.PedidoORM;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,12 +12,12 @@ public class PedidoMapper {
         throw new IllegalStateException("Utility class");
     }
 
-    public static PedidoDto mapToEntity(Pedido entity) {
+    public static Pedido mapToEntity(PedidoORM entity) {
         if (entity == null) {
             return null;
         }
 
-        return new PedidoDto(
+        return new Pedido(
                 entity.getId(),
                 ClienteMapper.mapToEntity(entity.getCliente()),
                 entity.getStatus(),
@@ -25,12 +25,12 @@ public class PedidoMapper {
         );
     }
 
-    public static Pedido mapToEntity(PedidoDto pedido) {
+    public static PedidoORM mapToEntity(Pedido pedido) {
         if (pedido == null) {
             return null;
         }
 
-        return new Pedido(
+        return new PedidoORM(
                 pedido.getId(),
                 ClienteMapper.mapToEntity(pedido.getCliente()),
                 pedido.getStatus(),
@@ -38,14 +38,14 @@ public class PedidoMapper {
         );
     }
 
-    public static List<PedidoDto> mapListToEntity(List<Pedido> listEntity) {
-        List<PedidoDto> list = new ArrayList<>();
-        for (Pedido pedido : listEntity) {
-            list.add(PedidoDto.builder()
-                    .id(pedido.getId())
-                    .cliente(ClienteMapper.mapToEntity(pedido.getCliente()))
-                    .status(pedido.getStatus())
-                    .listItens(ItemPedidoMapper.mapListToORM(pedido.getListItens())).build()
+    public static List<Pedido> mapListToEntity(List<PedidoORM> listEntity) {
+        List<Pedido> list = new ArrayList<>();
+        for (PedidoORM pedidoORM : listEntity) {
+            list.add(Pedido.builder()
+                    .id(pedidoORM.getId())
+                    .cliente(ClienteMapper.mapToEntity(pedidoORM.getCliente()))
+                    .status(pedidoORM.getStatus())
+                    .listItens(ItemPedidoMapper.mapListToORM(pedidoORM.getListItens())).build()
             );
         }
         return list;

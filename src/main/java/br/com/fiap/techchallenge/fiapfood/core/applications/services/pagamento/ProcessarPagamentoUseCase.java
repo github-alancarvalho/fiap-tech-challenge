@@ -3,7 +3,7 @@ package br.com.fiap.techchallenge.fiapfood.core.applications.services.pagamento;
 
 import br.com.fiap.techchallenge.fiapfood.adapter.driven.infra.repositories.DaoFactory;
 import br.com.fiap.techchallenge.fiapfood.core.domain.base.StatusPagamento;
-import br.com.fiap.techchallenge.fiapfood.core.domain.dto.PagamentoDto;
+import br.com.fiap.techchallenge.fiapfood.core.domain.entity.Pagamento;
 import br.com.fiap.techchallenge.fiapfood.core.domain.ports.output.PagamentoRepository;
 
 import java.util.List;
@@ -18,12 +18,12 @@ public class ProcessarPagamentoUseCase {
         this.pagamentoRepository = DaoFactory.getInstance().getPagamentoRepositoryORM();
     }
 
-    public Optional<PagamentoDto> processarPagamento(PagamentoDto pagamentoDto) {
-        pagamentoDto.setStatus(StatusPagamento.EM_PROCESSAMENTO);
-        return this.pagamentoRepository.processarPagamento(pagamentoDto);
+    public Optional<Pagamento> processarPagamento(Pagamento pagamento) {
+        pagamento.setStatus(StatusPagamento.EM_PROCESSAMENTO);
+        return this.pagamentoRepository.processarPagamento(pagamento);
     }
 
-    public Optional<List<PagamentoDto>> buscarTodosPagamentos() {
+    public Optional<List<Pagamento>> buscarTodosPagamentos() {
         return this.pagamentoRepository.listarPagamentos();
     }
 

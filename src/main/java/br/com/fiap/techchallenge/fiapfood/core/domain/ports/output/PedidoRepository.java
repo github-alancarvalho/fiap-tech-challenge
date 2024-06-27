@@ -1,24 +1,24 @@
 package br.com.fiap.techchallenge.fiapfood.core.domain.ports.output;
 
 import br.com.fiap.techchallenge.fiapfood.core.domain.base.StatusPedido;
-import br.com.fiap.techchallenge.fiapfood.core.domain.dto.PedidoDto;
+import br.com.fiap.techchallenge.fiapfood.core.domain.entity.Pedido;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface PedidoRepository {
 
-    Optional<PedidoDto> inserir(PedidoDto pedido);
+    Optional<Pedido> inserir(Pedido pedido);
 
-    Optional<PedidoDto> atualizarProgresso(PedidoDto pedido, StatusPedido novoStatus);
+    Optional<Pedido> atualizarProgresso(Pedido pedido, StatusPedido novoStatus);
 
-    Boolean excluir(PedidoDto pedido);
+    Boolean excluir(Pedido pedido);
 
-    Optional<PedidoDto> buscarPorId(Long id);
+    Optional<Pedido> buscarPorId(Long id);
 
-    Optional<List<PedidoDto>> listarTudo();
+    Optional<List<Pedido>> listarTudo();
 
-    Optional<List<PedidoDto>> listarPedidosPorStatus(StatusPedido status);
+    Optional<List<Pedido>> listarPedidosPorStatus(StatusPedido status);
 
-    Optional<List<PedidoDto>> listarPedidosEmAberto();
+    Optional<List<Pedido>> listarPedidosEmAberto();
 }

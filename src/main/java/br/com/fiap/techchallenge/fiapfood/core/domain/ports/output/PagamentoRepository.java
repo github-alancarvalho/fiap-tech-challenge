@@ -1,7 +1,7 @@
 package br.com.fiap.techchallenge.fiapfood.core.domain.ports.output;
 
 import br.com.fiap.techchallenge.fiapfood.core.domain.base.StatusPagamento;
-import br.com.fiap.techchallenge.fiapfood.core.domain.dto.PagamentoDto;
+import br.com.fiap.techchallenge.fiapfood.core.domain.entity.Pagamento;
 
 import java.util.List;
 import java.util.Optional;
@@ -9,11 +9,11 @@ import java.util.Optional;
 public interface PagamentoRepository {
 
 
-    Optional<PagamentoDto> processarPagamento(PagamentoDto pagamento);
+    Optional<Pagamento> processarPagamento(Pagamento pagamento);
 
-    Optional<PagamentoDto> atualizarStatusPagamento(PagamentoDto pagamento, StatusPagamento status);
+    Optional<Pagamento> atualizarStatusPagamento(Pagamento pagamento, StatusPagamento status);
 
-    Optional<PagamentoDto> buscarPagamentoPorId(Long id);
+    Optional<Pagamento> buscarPagamentoPorId(Long id);
 
-    Optional<List<PagamentoDto>> listarPagamentos();
+    Optional<List<Pagamento>> listarPagamentos();
 }

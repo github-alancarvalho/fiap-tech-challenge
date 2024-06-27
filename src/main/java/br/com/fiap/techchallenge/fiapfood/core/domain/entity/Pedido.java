@@ -1,4 +1,4 @@
-package br.com.fiap.techchallenge.fiapfood.core.domain.dto;
+package br.com.fiap.techchallenge.fiapfood.core.domain.entity;
 
 import br.com.fiap.techchallenge.fiapfood.core.domain.base.StatusPedido;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -11,20 +11,20 @@ import java.util.List;
 @Data
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PedidoDto {
+public class Pedido {
 
     private Long id;
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private ClienteDto cliente;
+    private Cliente cliente;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private StatusPedido status;
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private List<ItemPedidoDto> listItens = new ArrayList<>();
+    private List<ItemPedido> listItens = new ArrayList<>();
 
-    public PedidoDto() {
+    public Pedido() {
     }
 
-    public PedidoDto(Long id, ClienteDto cliente, StatusPedido status, List<ItemPedidoDto> listItens) {
+    public Pedido(Long id, Cliente cliente, StatusPedido status, List<ItemPedido> listItens) {
         this.id = id;
         this.cliente = cliente;
         this.status = status;
@@ -39,11 +39,11 @@ public class PedidoDto {
         this.id = id;
     }
 
-    public ClienteDto getCliente() {
+    public Cliente getCliente() {
         return cliente;
     }
 
-    public void setCliente(ClienteDto cliente) {
+    public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
 
@@ -55,11 +55,11 @@ public class PedidoDto {
         this.status = status;
     }
 
-    public List<ItemPedidoDto> getListItens() {
+    public List<ItemPedido> getListItens() {
         return listItens;
     }
 
-    public void setListItens(List<ItemPedidoDto> listItens) {
+    public void setListItens(List<ItemPedido> listItens) {
         this.listItens = listItens;
     }
 }
